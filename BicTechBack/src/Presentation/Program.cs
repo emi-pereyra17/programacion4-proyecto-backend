@@ -1,20 +1,17 @@
-﻿using BicTechBack.src.Core.Interfaces;
+using BicTechBack.src.Core.Interfaces;
 using BicTechBack.src.Core.Services;
-using Infrastructure.Config;   // donde estará StripeOptions (puedes cambiar el namespace)
+using Infrastructure.Config;   // donde estará StripeOptions
 using BicTechBack.src.Infrastructure.Data;
 using BicTechBack.src.Infrastructure.Repositories;
 using Infrastructure.Services; // donde estará StripeService
-using Infrastructure.Config;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-// 👇 agregados para Stripe
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Polly;
 using Polly.Extensions.Http;
 using System.Text;
 using Application.Interfaces;
-using Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -64,6 +61,9 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
+// ==========================================
+// Repositorios y servicios
+// ==========================================
 builder.Services.AddScoped<IProductoRepository, ProductoRepository>();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<IPedidoDetalleRepository, PedidoDetalleRepository>();
@@ -74,6 +74,7 @@ builder.Services.AddScoped<ICategoriaMarcaRepository, CategoriaMarcaRepository>(
 builder.Services.AddScoped<ICarritoRepository, CarritoRepository>();
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 builder.Services.AddScoped<IPaisRepository, PaisRepository>();
+
 builder.Services.AddScoped<IPaisService, PaisService>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<IProductoService, ProductoService>();
@@ -84,6 +85,9 @@ builder.Services.AddScoped<ICategoriaMarcaService, CategoriaMarcaService>();
 builder.Services.AddScoped<ICarritoService, CarritoService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
+// ==========================================
+// CORS
+// ==========================================
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
@@ -92,16 +96,29 @@ builder.Services.AddCors(options =>
               .AllowAnyHeader());
 });
 
+// ==========================================
+// Base de datos
+// ==========================================
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("SQLiteConnection")));
 
+// AutoMapper
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-// 🔐 Configuración JWT
-var jwtKey = Environment.GetEnvironmentVariable("JWT_KEY") ?? builder.Configuration["Jwt:Key"];
-var jwtIssuer = Environment.GetEnvironmentVariable("JWT_ISSUER") ?? builder.Configuration["Jwt:Issuer"];
-var jwtAudience = Environment.GetEnvironmentVariable("JWT_AUDIENCE") ?? builder.Configuration["Jwt:Audience"];
-var key = jwtKey;
+// ==========================================
+// 🔐 Configuración JWT desde variables de entorno
+// ==========================================
+var jwtKey = Environment.GetEnvironmentVariable("JWT_KEY") 
+             ?? builder.Configuration["Jwt:Key"];
+var jwtIssuer = Environment.GetEnvironmentVariable("JWT_ISSUER") 
+                ?? builder.Configuration["Jwt:Issuer"];
+var jwtAudience = Environment.GetEnvironmentVariable("JWT_AUDIENCE") 
+                  ?? builder.Configuration["Jwt:Audience"];
+
+if (string.IsNullOrEmpty(jwtKey))
+    throw new Exception("JWT_KEY no está definida en las variables de entorno.");
+
+var key = Encoding.UTF8.GetBytes(jwtKey);
 
 builder.Services.AddAuthentication(options =>
 {
@@ -118,23 +135,26 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuerSigningKey = true,
         ValidIssuer = jwtIssuer,
         ValidAudience = jwtAudience,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
+        IssuerSigningKey = new SymmetricSecurityKey(key),
         RoleClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
     };
 });
 
-
-// ===================================================
-// 🧩 CONFIGURACIÓN STRIPE (HttpClientFactory + Polly)
-// ===================================================
+// ==========================================
+// 🔐 Configuración Stripe desde variables de entorno
+// ==========================================
 builder.Services.Configure<StripeOptions>(opts =>
 {
-    opts.BaseUrl = builder.Configuration["Stripe:BaseUrl"];
+    opts.BaseUrl = Environment.GetEnvironmentVariable("STRIPE_BASEURL") 
+                   ?? builder.Configuration["Stripe:BaseUrl"];
     opts.SecretKey = Environment.GetEnvironmentVariable("STRIPE_SECRETKEY") 
                      ?? builder.Configuration["Stripe:SecretKey"];
+
+    if (string.IsNullOrEmpty(opts.SecretKey))
+        throw new Exception("STRIPE_SECRETKEY no está definida en las variables de entorno.");
 });
 
-
+// HttpClient Stripe
 builder.Services.AddHttpClient("Stripe", (sp, client) =>
 {
     var opts = sp.GetRequiredService<IOptions<StripeOptions>>().Value;
@@ -146,7 +166,7 @@ builder.Services.AddHttpClient("Stripe", (sp, client) =>
 .AddPolicyHandler(GetRetryPolicy())
 .AddPolicyHandler(GetCircuitBreakerPolicy());
 
-// Registro del servicio que usará ese cliente
+// Servicio Stripe
 builder.Services.AddScoped<IStripeService, StripeService>();
 
 // Métodos estáticos locales para Polly
@@ -159,18 +179,20 @@ static IAsyncPolicy<HttpResponseMessage> GetCircuitBreakerPolicy() =>
     HttpPolicyExtensions
         .HandleTransientHttpError()
         .CircuitBreakerAsync(5, TimeSpan.FromSeconds(30));
-// ===================================================
 
-
+// ==========================================
+// Construir app
+// ==========================================
 var app = builder.Build();
 
-// ✅ Mostrar Swagger en todos los entornos (incluyendo Render)
+// Swagger
 app.UseSwagger();
 app.UseSwaggerUI();
 
-
+// CORS
 app.UseCors("AllowAll");
 
+// Middleware de excepciones personalizado
 app.UseMiddleware<BicTechBack.src.API.Extensions.ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
@@ -180,14 +202,14 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-// ✅ Redirigir la raíz "/" hacia Swagger
+// Redirigir raíz a Swagger
 app.MapGet("/", context =>
 {
     context.Response.Redirect("/swagger");
     return Task.CompletedTask;
 });
 
-// ✅ Puerto dinámico para Render
+// Puerto dinámico para Render
 var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
 app.Urls.Add($"http://*:{port}");
 

@@ -13,6 +13,12 @@ namespace BicTechBack.src.Infrastructure.Repositories
         {
             _context = context;
         }
+
+        public Task<Usuario> AddAsync(Usuario entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<int> CreateAsync(Usuario usuario)
         {
             _context.Usuarios.Add(usuario);

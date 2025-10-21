@@ -14,6 +14,11 @@ namespace BicTechBack.src.Infrastructure.Repositories
             _context = context;
         }
 
+        public Task<Carrito> AddAsync(Carrito entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Carrito> AddProductoAsync(int usuarioId, int productoId, int cantidad)
         {
             var carrito = await _context.Carritos
@@ -102,12 +107,22 @@ namespace BicTechBack.src.Infrastructure.Repositories
             return carrito;
         }
 
+        public Task<bool> DeleteAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<IEnumerable<Carrito>> GetAllAsync()
         {
             return await _context.Carritos
                 .Include(c => c.CarritosDetalles)
                 .ThenInclude(cd => cd.Producto)
                 .ToListAsync();
+        }
+
+        public Task<Carrito?> GetByIdAsync(int id)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<Carrito?> GetByUsuarioIdAsync(int usuarioId)
@@ -140,6 +155,11 @@ namespace BicTechBack.src.Infrastructure.Repositories
                 await _context.Entry(carrito).Collection(c => c.CarritosDetalles).LoadAsync();
                 return carrito; 
             }
+        }
+
+        public Task<Carrito> UpdateAsync(Carrito entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

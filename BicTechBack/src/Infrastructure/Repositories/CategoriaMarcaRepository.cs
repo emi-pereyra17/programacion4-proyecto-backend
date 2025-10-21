@@ -50,6 +50,11 @@ namespace BicTechBack.src.Infrastructure.Repositories
                 .ToListAsync();
         }
 
+        public Task<CategoriaMarca?> GetByIdAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<IEnumerable<CategoriaMarca>> GetByMarcaIdAsync(int marcaId)
         {
             return await _context.CategoriasMarcas
@@ -57,6 +62,11 @@ namespace BicTechBack.src.Infrastructure.Repositories
                 .Include(cm => cm.Categoria)
                 .Include(cm => cm.Marca)
                 .ToListAsync();
+        }
+
+        public Task<CategoriaMarca> UpdateAsync(CategoriaMarca entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

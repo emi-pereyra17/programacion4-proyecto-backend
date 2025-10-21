@@ -14,6 +14,21 @@ namespace BicTechBack.src.Infrastructure.Repositories
            _context = context;
         }
 
+        public Task<Usuario> AddAsync(Usuario entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> DeleteAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Usuario>> GetAllAsync()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Usuario?> GetByEmailAsync(string email)
         {
             return await _context.Usuarios
@@ -52,6 +67,11 @@ namespace BicTechBack.src.Infrastructure.Repositories
                 _context.Usuarios.Update(usuario);
                 await _context.SaveChangesAsync();
             }
+        }
+
+        public Task<Usuario> UpdateAsync(Usuario entity)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<bool> UpdatePasswordAsync(int id, string newPassword)

@@ -1,10 +1,11 @@
 ﻿using BicTechBack.src.Core.Entities;
 
+using BicTechBack.src.Core.Entities;
+
 namespace BicTechBack.src.Core.Interfaces
 {
-    public interface ICarritoRepository
+    public interface ICarritoRepository : IRepository<Carrito>
     {
-        Task<IEnumerable<Carrito>> GetAllAsync();
         Task<Carrito?> GetByUsuarioIdAsync(int usuarioId);
         Task<Carrito> AddProductoAsync(int usuarioId, int productoId, int cantidad);
         Task<Carrito> UpdateAsync(int usuarioId, int productoId, int cantidad);

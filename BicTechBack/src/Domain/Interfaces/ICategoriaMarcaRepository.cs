@@ -2,12 +2,9 @@
 
 namespace BicTechBack.src.Core.Interfaces
 {
-    public interface ICategoriaMarcaRepository
+    public interface ICategoriaMarcaRepository : IRepository<CategoriaMarca>
     {
-        Task<IEnumerable<CategoriaMarca>> GetAllAsync();
         Task<IEnumerable<CategoriaMarca>> GetByCategoriaIdAsync(int categoriaId);
         Task<IEnumerable<CategoriaMarca>> GetByMarcaIdAsync(int marcaId);
-        Task<CategoriaMarca> AddAsync(CategoriaMarca categoriaMarca);
-        Task<bool> DeleteAsync(int id);
     }
 }

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "+Z9ihDDxB0U=",
+  "dgSpecHash": "bNd+U6RE2hM=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Emi\\Desktop\\GUARDAR\\.NET Proyectos\\repos\\BICTECH\\BicTechBack\\src\\Domain\\Domain.csproj",
+  "projectFilePath": "C:\\Users\\Emi\\Desktop\\Programacion 4 Proyecto\\BicTechBack\\src\\Domain\\Domain.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Emi\\.nuget\\packages\\microsoft.aspnetcore.http\\2.3.0\\microsoft.aspnetcore.http.2.3.0.nupkg.sha512",
     "C:\\Users\\Emi\\.nuget\\packages\\microsoft.aspnetcore.http.abstractions\\2.3.0\\microsoft.aspnetcore.http.abstractions.2.3.0.nupkg.sha512",

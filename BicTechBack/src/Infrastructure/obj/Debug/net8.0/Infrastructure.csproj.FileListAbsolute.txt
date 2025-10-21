@@ -18,3 +18,23 @@ C:\Users\Emi\Desktop\GUARDAR\.NET Proyectos\repos\BICTECH\BicTechBack\src\Infras
 C:\Users\Emi\Desktop\GUARDAR\.NET Proyectos\repos\BICTECH\BicTechBack\src\Infrastructure\obj\Debug\net8.0\Infrastructure.pdb
 C:\Users\Emi\Desktop\GUARDAR\.NET Proyectos\repos\BICTECH\BicTechBack\src\Infrastructure\obj\Debug\net8.0\Infrastructure.genruntimeconfig.cache
 C:\Users\Emi\Desktop\GUARDAR\.NET Proyectos\repos\BICTECH\BicTechBack\src\Infrastructure\obj\Debug\net8.0\ref\Infrastructure.dll
+C:\Users\Emi\Desktop\Programacion 4 Proyecto\BicTechBack\src\Infrastructure\bin\Debug\net8.0\Infrastructure.deps.json
+C:\Users\Emi\Desktop\Programacion 4 Proyecto\BicTechBack\src\Infrastructure\bin\Debug\net8.0\Infrastructure.runtimeconfig.json
+C:\Users\Emi\Desktop\Programacion 4 Proyecto\BicTechBack\src\Infrastructure\bin\Debug\net8.0\Infrastructure.dll
+C:\Users\Emi\Desktop\Programacion 4 Proyecto\BicTechBack\src\Infrastructure\bin\Debug\net8.0\Infrastructure.pdb
+C:\Users\Emi\Desktop\Programacion 4 Proyecto\BicTechBack\src\Infrastructure\bin\Debug\net8.0\Application.dll
+C:\Users\Emi\Desktop\Programacion 4 Proyecto\BicTechBack\src\Infrastructure\bin\Debug\net8.0\Domain.dll
+C:\Users\Emi\Desktop\Programacion 4 Proyecto\BicTechBack\src\Infrastructure\bin\Debug\net8.0\Application.pdb
+C:\Users\Emi\Desktop\Programacion 4 Proyecto\BicTechBack\src\Infrastructure\bin\Debug\net8.0\Domain.pdb
+C:\Users\Emi\Desktop\Programacion 4 Proyecto\BicTechBack\src\Infrastructure\obj\Debug\net8.0\Infrastructure.csproj.AssemblyReference.cache
+C:\Users\Emi\Desktop\Programacion 4 Proyecto\BicTechBack\src\Infrastructure\obj\Debug\net8.0\Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Emi\Desktop\Programacion 4 Proyecto\BicTechBack\src\Infrastructure\obj\Debug\net8.0\Infrastructure.AssemblyInfoInputs.cache
+C:\Users\Emi\Desktop\Programacion 4 Proyecto\BicTechBack\src\Infrastructure\obj\Debug\net8.0\Infrastructure.AssemblyInfo.cs
+C:\Users\Emi\Desktop\Programacion 4 Proyecto\BicTechBack\src\Infrastructure\obj\Debug\net8.0\Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\Emi\Desktop\Programacion 4 Proyecto\BicTechBack\src\Infrastructure\obj\Debug\net8.0\Infrastructure.sourcelink.json
+C:\Users\Emi\Desktop\Programacion 4 Proyecto\BicTechBack\src\Infrastructure\obj\Debug\net8.0\Infrastr.15EFFBFE.Up2Date
+C:\Users\Emi\Desktop\Programacion 4 Proyecto\BicTechBack\src\Infrastructure\obj\Debug\net8.0\Infrastructure.dll
+C:\Users\Emi\Desktop\Programacion 4 Proyecto\BicTechBack\src\Infrastructure\obj\Debug\net8.0\refint\Infrastructure.dll
+C:\Users\Emi\Desktop\Programacion 4 Proyecto\BicTechBack\src\Infrastructure\obj\Debug\net8.0\Infrastructure.pdb
+C:\Users\Emi\Desktop\Programacion 4 Proyecto\BicTechBack\src\Infrastructure\obj\Debug\net8.0\Infrastructure.genruntimeconfig.cache
+C:\Users\Emi\Desktop\Programacion 4 Proyecto\BicTechBack\src\Infrastructure\obj\Debug\net8.0\ref\Infrastructure.dll

@@ -2,12 +2,8 @@
 
 namespace BicTechBack.src.Core.Interfaces
 {
-    public interface IPedidoDetalleRepository
+    public interface IPedidoDetalleRepository : IRepository<PedidoDetalle>
     {
-        Task<IEnumerable<PedidoDetalle>> GetAllAsync();
-        Task<PedidoDetalle?> GetByIdAsync(int id);
-        Task<PedidoDetalle> AddAsync(PedidoDetalle pedidoDetalle);
-        Task<PedidoDetalle> UpdateAsync(PedidoDetalle pedidoDetalle);
-        Task<bool> DeleteAsync(int id);
+
     }
 }

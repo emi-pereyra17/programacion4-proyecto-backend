@@ -1,14 +1,22 @@
 ﻿using BicTechBack.src.Core.Interfaces;
 using BicTechBack.src.Core.Services;
+using Infrastructure.Config;   // donde estará StripeOptions (puedes cambiar el namespace)
 using BicTechBack.src.Infrastructure.Data;
 using BicTechBack.src.Infrastructure.Repositories;
+using Infrastructure.Services; // donde estará StripeService
+using Infrastructure.Config;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+// 👇 agregados para Stripe
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Polly;
+using Polly.Extensions.Http;
 using System.Text;
+using Application.Interfaces;
+using Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -26,12 +34,10 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 
-    // Incluye comentarios XML
     var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = System.IO.Path.Combine(AppContext.BaseDirectory, xmlFile);
     options.IncludeXmlComments(xmlPath, includeControllerXmlComments: true);
 
-    // 🔒 Configuración de seguridad JWT para Swagger
     options.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
     {
         Name = "Authorization",
@@ -57,7 +63,6 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 });
-
 
 builder.Services.AddScoped<IProductoRepository, ProductoRepository>();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
@@ -92,12 +97,11 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-// Leer Jwt de variables de entorno (si existen), sino usar appsettings.json
+// 🔐 Configuración JWT
 var jwtKey = Environment.GetEnvironmentVariable("JWT_KEY") ?? builder.Configuration["Jwt:Key"];
 var jwtIssuer = Environment.GetEnvironmentVariable("JWT_ISSUER") ?? builder.Configuration["Jwt:Issuer"];
 var jwtAudience = Environment.GetEnvironmentVariable("JWT_AUDIENCE") ?? builder.Configuration["Jwt:Audience"];
-
-var key = jwtKey; // la clave para firmar tokens
+var key = jwtKey;
 
 builder.Services.AddAuthentication(options =>
 {
@@ -115,19 +119,51 @@ builder.Services.AddAuthentication(options =>
         ValidIssuer = jwtIssuer,
         ValidAudience = jwtAudience,
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
-        RoleClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role" 
+        RoleClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
     };
 });
 
+
+// ===================================================
+// 🧩 CONFIGURACIÓN STRIPE (HttpClientFactory + Polly)
+// ===================================================
+builder.Services.Configure<StripeOptions>(builder.Configuration.GetSection("Stripe"));
+
+builder.Services.AddHttpClient("Stripe", (sp, client) =>
+{
+    var opts = sp.GetRequiredService<IOptions<StripeOptions>>().Value;
+    client.BaseAddress = new Uri(opts.BaseUrl);
+    client.DefaultRequestHeaders.UserAgent.ParseAdd("BicTechBack/1.0");
+    client.DefaultRequestHeaders.Authorization =
+        new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", opts.SecretKey);
+})
+.AddPolicyHandler(GetRetryPolicy())
+.AddPolicyHandler(GetCircuitBreakerPolicy());
+
+// Registro del servicio que usará ese cliente
+builder.Services.AddScoped<IStripeService, StripeService>();
+
+// Métodos estáticos locales para Polly
+static IAsyncPolicy<HttpResponseMessage> GetRetryPolicy() =>
+    HttpPolicyExtensions
+        .HandleTransientHttpError()
+        .WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)));
+
+static IAsyncPolicy<HttpResponseMessage> GetCircuitBreakerPolicy() =>
+    HttpPolicyExtensions
+        .HandleTransientHttpError()
+        .CircuitBreakerAsync(5, TimeSpan.FromSeconds(30));
+// ===================================================
+
+
 var app = builder.Build();
 
-
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 app.UseCors("AllowAll");
 
 app.UseMiddleware<BicTechBack.src.API.Extensions.ExceptionMiddleware>();
@@ -135,9 +171,9 @@ app.UseMiddleware<BicTechBack.src.API.Extensions.ExceptionMiddleware>();
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
-
 app.UseAuthorization();
 
 app.MapControllers();
 
 app.Run();
+

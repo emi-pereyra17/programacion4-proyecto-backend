@@ -1,0 +1,36 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: Build & Test (.NET 8)
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore BicTechBack.sln
+        working-directory: BicTechBack
+
+      - name: Build
+        run: dotnet build BicTechBack.sln --no-restore --configuration Release
+        working-directory: BicTechBack
+
+      - name: Run tests
+        run: dotnet test BicTechBack.sln --no-build --configuration Release --verbosity normal
+        working-directory: BicTechBack
+

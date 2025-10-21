@@ -1,5 +1,37 @@
 [
   {
+    "ContainingType": "Presentation.Controllers.PaymentsController",
+    "Method": "Get",
+    "RelativePath": "api/Payments/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Presentation.Controllers.PaymentsController",
+    "Method": "Create",
+    "RelativePath": "api/Payments/create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "req",
+        "Type": "Application.DTOs.CreatePaymentIntentDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "BicTechBack.src.API.Controllers.AuthController",
     "Method": "Login",
     "RelativePath": "auth/login",

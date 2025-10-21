@@ -1,0 +1,1910 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "BicTechBack API",
+    "description": "API para gestión de productos, categorías, marcas, carritos y pedidos.",
+    "contact": {
+      "name": "Soporte BicTech",
+      "email": "soporte@bictech.com"
+    },
+    "version": "v1"
+  },
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Registra un nuevo usuario en el sistema.",
+        "requestBody": {
+          "description": "Datos del usuario a registrar.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterUsuarioDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterUsuarioDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterUsuarioDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Inicia sesión para un usuario registrado.",
+        "requestBody": {
+          "description": "Credenciales de acceso del usuario.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginUsuarioDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginUsuarioDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginUsuarioDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Cierra la sesión del usuario autenticado.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/auth/password/{id}": {
+      "put": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Actualiza la contraseña de un usuario.\r\nSolo el usuario propietario o un administrador pueden realizar esta acción.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador del usuario.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Nueva contraseña.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/auth/refresh": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Renueva el token de autenticación usando un refresh token válido.",
+        "requestBody": {
+          "description": "Datos del token y refresh token.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefreshRequestDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefreshRequestDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefreshRequestDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/carritos": {
+      "get": {
+        "tags": [
+          "Carrito"
+        ],
+        "summary": "Obtiene la lista de todos los carritos.\r\nSolo accesible para administradores.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/carritos/paginado": {
+      "get": {
+        "tags": [
+          "Carrito"
+        ],
+        "summary": "Obtiene una lista paginada de carritos.",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Número de página (por defecto 1).",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Cantidad de carritos por página (por defecto 10).",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "filtro",
+            "in": "query",
+            "description": "Filtro opcional por usuario.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/carritos/{usuarioId}": {
+      "get": {
+        "tags": [
+          "Carrito"
+        ],
+        "summary": "Obtiene el carrito de un usuario específico.\r\nSolo el usuario propietario o un administrador puede acceder.",
+        "parameters": [
+          {
+            "name": "usuarioId",
+            "in": "path",
+            "description": "Identificador del usuario.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Carrito"
+        ],
+        "summary": "Vacía el carrito de un usuario.\r\nSolo el usuario propietario o un administrador puede vaciar el carrito.",
+        "parameters": [
+          {
+            "name": "usuarioId",
+            "in": "path",
+            "description": "Identificador del usuario.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/carritos/{usuarioId}/productos/{productoId}": {
+      "put": {
+        "tags": [
+          "Carrito"
+        ],
+        "summary": "Actualiza la cantidad de un producto en el carrito de un usuario.\r\nSolo el usuario propietario o un administrador puede modificarlo.",
+        "parameters": [
+          {
+            "name": "usuarioId",
+            "in": "path",
+            "description": "Identificador del usuario.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "productoId",
+            "in": "path",
+            "description": "Identificador del producto.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "cantidad",
+            "in": "query",
+            "description": "Nueva cantidad del producto.",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Carrito"
+        ],
+        "summary": "Elimina un producto del carrito de un usuario.\r\nSolo el usuario propietario o un administrador puede eliminar productos.",
+        "parameters": [
+          {
+            "name": "usuarioId",
+            "in": "path",
+            "description": "Identificador del usuario.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "productoId",
+            "in": "path",
+            "description": "Identificador del producto a eliminar.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/carritos/{usuarioId}/productos/{productoId}/add": {
+      "post": {
+        "tags": [
+          "Carrito"
+        ],
+        "summary": "Agrega un producto al carrito de un usuario.\r\nSolo el usuario propietario o un administrador puede agregar productos.",
+        "parameters": [
+          {
+            "name": "usuarioId",
+            "in": "path",
+            "description": "Identificador del usuario.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "productoId",
+            "in": "path",
+            "description": "Identificador del producto.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "cantidad",
+            "in": "query",
+            "description": "Cantidad del producto a agregar.",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/categorias": {
+      "get": {
+        "tags": [
+          "Categoria"
+        ],
+        "summary": "Obtiene la lista de todas las categorías.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Categoria"
+        ],
+        "summary": "Crea una nueva categoría.",
+        "requestBody": {
+          "description": "Datos de la categoría a crear.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearCategoriaDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearCategoriaDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearCategoriaDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/categorias/paginado": {
+      "get": {
+        "tags": [
+          "Categoria"
+        ],
+        "summary": "Obtiene una lista paginada de categorías.",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Número de página (por defecto 1).",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Cantidad de categorías por página (por defecto 10).",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "filtro",
+            "in": "query",
+            "description": "Filtro opcional por nombre.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/categorias/{id}": {
+      "get": {
+        "tags": [
+          "Categoria"
+        ],
+        "summary": "Obtiene una categoría por su identificador.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador de la categoría.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Categoria"
+        ],
+        "summary": "Actualiza una categoría existente.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador de la categoría a actualizar.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Datos nuevos de la categoría.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearCategoriaDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearCategoriaDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearCategoriaDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Categoria"
+        ],
+        "summary": "Elimina una categoría por su identificador.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador de la categoría a eliminar.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/categoriaMarca": {
+      "get": {
+        "tags": [
+          "CategoriaMarca"
+        ],
+        "summary": "Obtiene todas las relaciones categoría-marca.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "CategoriaMarca"
+        ],
+        "summary": "Crea una nueva relación entre una categoría y una marca.",
+        "requestBody": {
+          "description": "Datos de la relación a crear.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearCategoriaMarcaDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearCategoriaMarcaDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearCategoriaMarcaDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/categoriaMarca/paginado": {
+      "get": {
+        "tags": [
+          "CategoriaMarca"
+        ],
+        "summary": "Obtiene una lista paginada de relaciones categoría-marca.",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Número de página (por defecto 1).",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Cantidad de relaciones por página (por defecto 10).",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "filtro",
+            "in": "query",
+            "description": "Filtro opcional por categoría o marca.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/categoriaMarca/categoria/{id}": {
+      "get": {
+        "tags": [
+          "CategoriaMarca"
+        ],
+        "summary": "Obtiene todas las marcas asociadas a una categoría.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador de la categoría.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/categoriaMarca/marca/{id}": {
+      "get": {
+        "tags": [
+          "CategoriaMarca"
+        ],
+        "summary": "Obtiene todas las categorías asociadas a una marca.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador de la marca.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/categoriaMarca/{id}": {
+      "delete": {
+        "tags": [
+          "CategoriaMarca"
+        ],
+        "summary": "Elimina una relación categoría-marca por su identificador.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador de la relación a eliminar.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/marcas": {
+      "get": {
+        "tags": [
+          "Marca"
+        ],
+        "summary": "Obtiene la lista de todas las marcas.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Marca"
+        ],
+        "summary": "Crea una nueva marca.",
+        "requestBody": {
+          "description": "Datos de la marca a crear.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearMarcaDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearMarcaDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearMarcaDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/marcas/paginado": {
+      "get": {
+        "tags": [
+          "Marca"
+        ],
+        "summary": "Obtiene una lista paginada de marcas.",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Número de página (por defecto 1).",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Cantidad de marcas por página (por defecto 10).",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "filtro",
+            "in": "query",
+            "description": "Filtro opcional por nombre.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/marcas/{id}": {
+      "get": {
+        "tags": [
+          "Marca"
+        ],
+        "summary": "Obtiene una marca por su identificador.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador de la marca.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Marca"
+        ],
+        "summary": "Actualiza una marca existente.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador de la marca a actualizar.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Datos nuevos de la marca.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearMarcaDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearMarcaDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearMarcaDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Marca"
+        ],
+        "summary": "Elimina una marca por su identificador.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador de la marca a eliminar.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/paises": {
+      "get": {
+        "tags": [
+          "Pais"
+        ],
+        "summary": "Obtiene la lista de todos los países.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Pais"
+        ],
+        "summary": "Crea un nuevo país.",
+        "requestBody": {
+          "description": "Datos del país a crear.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearPaisDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearPaisDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearPaisDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/paises/paginado": {
+      "get": {
+        "tags": [
+          "Pais"
+        ],
+        "summary": "Obtiene una lista paginada de países.",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Número de página (por defecto 1).",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Cantidad de países por página (por defecto 10).",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "filtro",
+            "in": "query",
+            "description": "Filtro opcional por nombre.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/paises/{id}": {
+      "get": {
+        "tags": [
+          "Pais"
+        ],
+        "summary": "Obtiene un país por su identificador.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador del país.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Pais"
+        ],
+        "summary": "Actualiza un país existente.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador del país a actualizar.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Datos nuevos del país.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearPaisDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearPaisDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearPaisDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Pais"
+        ],
+        "summary": "Elimina un país por su identificador.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador del país a eliminar.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/pedidos": {
+      "get": {
+        "tags": [
+          "Pedido"
+        ],
+        "summary": "Obtiene la lista de pedidos.\r\nLos administradores ven todos los pedidos, los usuarios solo los suyos.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Pedido"
+        ],
+        "summary": "Crea un nuevo pedido.",
+        "requestBody": {
+          "description": "Datos del pedido a crear.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearPedidoDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearPedidoDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearPedidoDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/pedidos/paginado": {
+      "get": {
+        "tags": [
+          "Pedido"
+        ],
+        "summary": "Obtiene una lista paginada de pedidos.",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Número de página (por defecto 1).",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Cantidad de pedidos por página (por defecto 10).",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "filtro",
+            "in": "query",
+            "description": "Filtro opcional por usuario, estado, etc.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/pedidos/{id}": {
+      "get": {
+        "tags": [
+          "Pedido"
+        ],
+        "summary": "Obtiene un pedido por su identificador.\r\nSolo el usuario propietario o un administrador puede acceder.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador del pedido.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Pedido"
+        ],
+        "summary": "Actualiza un pedido existente.\r\nSolo accesible para administradores.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador del pedido a actualizar.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Datos nuevos del pedido.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearPedidoDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearPedidoDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearPedidoDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Pedido"
+        ],
+        "summary": "Elimina un pedido por su identificador.\r\nSolo accesible para administradores.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador del pedido a eliminar.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/productos": {
+      "get": {
+        "tags": [
+          "Producto"
+        ],
+        "summary": "Obtiene la lista de todos los productos.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Producto"
+        ],
+        "summary": "Crea un nuevo producto.",
+        "requestBody": {
+          "description": "Datos del producto a crear.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearProductoDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearProductoDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearProductoDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/productos/paginado": {
+      "get": {
+        "tags": [
+          "Producto"
+        ],
+        "summary": "Obtiene una lista paginada de productos.",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Número de página (por defecto 1).",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Cantidad de productos por página (por defecto 10).",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "filtro",
+            "in": "query",
+            "description": "Filtro opcional por nombre, categoría, etc.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/productos/{id}": {
+      "get": {
+        "tags": [
+          "Producto"
+        ],
+        "summary": "Obtiene un producto por su identificador.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador del producto.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Producto"
+        ],
+        "summary": "Actualiza un producto existente.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador del producto a actualizar.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Datos nuevos del producto.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearProductoDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearProductoDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearProductoDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Producto"
+        ],
+        "summary": "Elimina un producto por su identificador.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador del producto a eliminar.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/usuarios": {
+      "get": {
+        "tags": [
+          "Usuario"
+        ],
+        "summary": "Obtiene la lista de todos los usuarios.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/usuarios/paginado": {
+      "get": {
+        "tags": [
+          "Usuario"
+        ],
+        "summary": "Obtiene una lista paginada de usuarios.",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Número de página (por defecto 1).",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Cantidad de usuarios por página (por defecto 10).",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "filtro",
+            "in": "query",
+            "description": "Filtro opcional por nombre o email.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/usuarios/{id}": {
+      "get": {
+        "tags": [
+          "Usuario"
+        ],
+        "summary": "Obtiene un usuario por su identificador.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador del usuario.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Usuario"
+        ],
+        "summary": "Actualiza los datos de un usuario existente.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador del usuario a actualizar.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Datos nuevos del usuario.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearUsuarioDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearUsuarioDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearUsuarioDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Usuario"
+        ],
+        "summary": "Elimina un usuario por su identificador.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador del usuario a eliminar.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CrearCategoriaDTO": {
+        "required": [
+          "nombre"
+        ],
+        "type": "object",
+        "properties": {
+          "nombre": {
+            "maxLength": 50,
+            "minLength": 0,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CrearCategoriaMarcaDTO": {
+        "required": [
+          "categoriaId",
+          "marcaId"
+        ],
+        "type": "object",
+        "properties": {
+          "categoriaId": {
+            "maximum": 2147483647,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          },
+          "marcaId": {
+            "maximum": 2147483647,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CrearMarcaDTO": {
+        "required": [
+          "nombre",
+          "paisId"
+        ],
+        "type": "object",
+        "properties": {
+          "nombre": {
+            "maxLength": 50,
+            "minLength": 0,
+            "type": "string"
+          },
+          "paisId": {
+            "maximum": 2147483647,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CrearPaisDTO": {
+        "required": [
+          "nombre"
+        ],
+        "type": "object",
+        "properties": {
+          "nombre": {
+            "maxLength": 50,
+            "minLength": 0,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CrearPedidoDTO": {
+        "required": [
+          "direccionEnvio",
+          "productos",
+          "usuarioId"
+        ],
+        "type": "object",
+        "properties": {
+          "usuarioId": {
+            "maximum": 2147483647,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          },
+          "direccionEnvio": {
+            "maxLength": 200,
+            "minLength": 0,
+            "type": "string"
+          },
+          "productos": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CrearPedidoDetalleDTO"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "CrearPedidoDetalleDTO": {
+        "required": [
+          "cantidad",
+          "precio",
+          "productoId"
+        ],
+        "type": "object",
+        "properties": {
+          "productoId": {
+            "maximum": 2147483647,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          },
+          "cantidad": {
+            "maximum": 2147483647,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          },
+          "precio": {
+            "minimum": 0.01,
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CrearProductoDTO": {
+        "required": [
+          "categoriaId",
+          "imagenUrl",
+          "marcaId",
+          "nombre",
+          "precio",
+          "stock"
+        ],
+        "type": "object",
+        "properties": {
+          "nombre": {
+            "maxLength": 50,
+            "minLength": 0,
+            "type": "string"
+          },
+          "precio": {
+            "minimum": 0.01,
+            "type": "number",
+            "format": "double"
+          },
+          "descripcion": {
+            "maxLength": 500,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "categoriaId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "marcaId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "stock": {
+            "maximum": 2147483647,
+            "minimum": 0,
+            "type": "integer",
+            "format": "int32"
+          },
+          "imagenUrl": {
+            "minLength": 1,
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CrearUsuarioDTO": {
+        "required": [
+          "email",
+          "nombre",
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "nombre": {
+            "maxLength": 50,
+            "minLength": 0,
+            "type": "string"
+          },
+          "email": {
+            "minLength": 1,
+            "type": "string",
+            "format": "email"
+          },
+          "password": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "LoginUsuarioDTO": {
+        "required": [
+          "email",
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "minLength": 1,
+            "type": "string",
+            "format": "email"
+          },
+          "password": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RefreshRequestDTO": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "nullable": true
+          },
+          "refreshToken": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RegisterUsuarioDTO": {
+        "required": [
+          "email",
+          "nombre",
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "nombre": {
+            "maxLength": 50,
+            "minLength": 0,
+            "type": "string"
+          },
+          "email": {
+            "minLength": 1,
+            "type": "string",
+            "format": "email"
+          },
+          "password": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "apiKey",
+        "description": "Ingresa 'Bearer' seguido de tu token JWT",
+        "name": "Authorization",
+        "in": "header"
+      }
+    }
+  },
+  "security": [
+    {
+      "Bearer": [ ]
+    }
+  ],
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Controlador para la autenticación y gestión de usuarios.\r\nProporciona endpoints para registro, login, logout, actualización de contraseña y refresh de tokens."
+    },
+    {
+      "name": "Carrito",
+      "description": "Controlador para la gestión de carritos de compras de los usuarios."
+    },
+    {
+      "name": "Categoria",
+      "description": "Controlador para la gestión de categorías de productos."
+    },
+    {
+      "name": "CategoriaMarca",
+      "description": "Controlador para la gestión de relaciones entre categorías y marcas."
+    },
+    {
+      "name": "Marca",
+      "description": "Controlador para la gestión de marcas de productos."
+    },
+    {
+      "name": "Pais",
+      "description": "Controlador para la gestión de paises de marcas."
+    },
+    {
+      "name": "Pedido",
+      "description": "Controlador para la gestión de pedidos.\r\nPermite a usuarios y administradores consultar, crear, actualizar y eliminar pedidos."
+    },
+    {
+      "name": "Producto",
+      "description": "Controlador para la gestión de productos."
+    },
+    {
+      "name": "Usuario",
+      "description": "Controlador para la gestión de usuarios del sistema.\r\nSolo accesible para administradores."
+    }
+  ]
+}

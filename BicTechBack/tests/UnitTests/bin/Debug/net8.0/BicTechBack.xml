@@ -1,0 +1,1060 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BicTechBack</name>
+    </assembly>
+    <members>
+        <member name="T:BicTechBack.Migrations.InitialCreate">
+            <inheritdoc />
+        </member>
+        <member name="M:BicTechBack.Migrations.InitialCreate.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:BicTechBack.Migrations.InitialCreate.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:BicTechBack.Migrations.InitialCreate.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:BicTechBack.Migrations.ActualizaEntidades">
+            <inheritdoc />
+        </member>
+        <member name="M:BicTechBack.Migrations.ActualizaEntidades.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:BicTechBack.Migrations.ActualizaEntidades.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:BicTechBack.Migrations.ActualizaEntidades.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:BicTechBack.Migrations.AddRefreshTokenToUsuario">
+            <inheritdoc />
+        </member>
+        <member name="M:BicTechBack.Migrations.AddRefreshTokenToUsuario.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:BicTechBack.Migrations.AddRefreshTokenToUsuario.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:BicTechBack.Migrations.AddRefreshTokenToUsuario.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:BicTechBack.Migrations.AddPaisToMarca">
+            <inheritdoc />
+        </member>
+        <member name="M:BicTechBack.Migrations.AddPaisToMarca.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:BicTechBack.Migrations.AddPaisToMarca.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:BicTechBack.Migrations.AddPaisToMarca.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:BicTechBack.src.API.Controllers.AuthController">
+            <summary>
+            Controlador para la autenticación y gestión de usuarios.
+            Proporciona endpoints para registro, login, logout, actualización de contraseña y refresh de tokens.
+            </summary>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.AuthController.Register(BicTechBack.src.Core.DTOs.RegisterUsuarioDTO)">
+            <summary>
+            Registra un nuevo usuario en el sistema.
+            </summary>
+            <param name="dto">Datos del usuario a registrar.</param>
+            <returns>Id del usuario registrado.</returns>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.AuthController.Login(BicTechBack.src.Core.DTOs.LoginUsuarioDTO)">
+            <summary>
+            Inicia sesión para un usuario registrado.
+            </summary>
+            <param name="dto">Credenciales de acceso del usuario.</param>
+            <returns>Token JWT y datos del usuario autenticado.</returns>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.AuthController.Logout">
+            <summary>
+            Cierra la sesión del usuario autenticado.
+            </summary>
+            <returns>Mensaje de confirmación de cierre de sesión.</returns>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.AuthController.UpdatePassword(System.Int32,System.String)">
+            <summary>
+            Actualiza la contraseña de un usuario.
+            Solo el usuario propietario o un administrador pueden realizar esta acción.
+            </summary>
+            <param name="id">Identificador del usuario.</param>
+            <param name="password">Nueva contraseña.</param>
+            <returns>Mensaje de confirmación o error.</returns>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.AuthController.Refresh(BicTechBack.src.Core.DTOs.RefreshRequestDTO)">
+            <summary>
+            Renueva el token de autenticación usando un refresh token válido.
+            </summary>
+            <param name="dto">Datos del token y refresh token.</param>
+            <returns>Nuevo token y datos del usuario autenticado.</returns>
+        </member>
+        <member name="T:BicTechBack.src.API.Controllers.CarritoController">
+            <summary>
+            Controlador para la gestión de carritos de compras de los usuarios.
+            </summary>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.CarritoController.GetAll">
+            <summary>
+            Obtiene la lista de todos los carritos.
+            Solo accesible para administradores.
+            </summary>
+            <returns>Lista de carritos.</returns>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.CarritoController.GetPaged(System.Int32,System.Int32,System.String)">
+            <summary>
+            Obtiene una lista paginada de carritos.
+            </summary>
+            <param name="page">Número de página (por defecto 1).</param>
+            <param name="pageSize">Cantidad de carritos por página (por defecto 10).</param>
+            <param name="filtro">Filtro opcional por usuario.</param>
+            <returns>Lista paginada de carritos y el total.</returns>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.CarritoController.GetByUsuarioId(System.Int32)">
+            <summary>
+            Obtiene el carrito de un usuario específico.
+            Solo el usuario propietario o un administrador puede acceder.
+            </summary>
+            <param name="usuarioId">Identificador del usuario.</param>
+            <returns>Carrito del usuario o una lista vacía si no existe.</returns>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.CarritoController.UpdateAmountProductoInCarrito(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Actualiza la cantidad de un producto en el carrito de un usuario.
+            Solo el usuario propietario o un administrador puede modificarlo.
+            </summary>
+            <param name="usuarioId">Identificador del usuario.</param>
+            <param name="productoId">Identificador del producto.</param>
+            <param name="cantidad">Nueva cantidad del producto.</param>
+            <returns>Carrito actualizado.</returns>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.CarritoController.AddProductoToCarrito(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Agrega un producto al carrito de un usuario.
+            Solo el usuario propietario o un administrador puede agregar productos.
+            </summary>
+            <param name="usuarioId">Identificador del usuario.</param>
+            <param name="productoId">Identificador del producto.</param>
+            <param name="cantidad">Cantidad del producto a agregar.</param>
+            <returns>Carrito actualizado.</returns>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.CarritoController.DeleteProductoFromCarrito(System.Int32,System.Int32)">
+            <summary>
+            Elimina un producto del carrito de un usuario.
+            Solo el usuario propietario o un administrador puede eliminar productos.
+            </summary>
+            <param name="usuarioId">Identificador del usuario.</param>
+            <param name="productoId">Identificador del producto a eliminar.</param>
+            <returns>Carrito actualizado.</returns>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.CarritoController.ClearCarrito(System.Int32)">
+            <summary>
+            Vacía el carrito de un usuario.
+            Solo el usuario propietario o un administrador puede vaciar el carrito.
+            </summary>
+            <param name="usuarioId">Identificador del usuario.</param>
+            <returns>Carrito vacío.</returns>
+        </member>
+        <member name="T:BicTechBack.src.API.Controllers.CategoriaController">
+            <summary>
+            Controlador para la gestión de categorías de productos.
+            </summary>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.CategoriaController.GetAll">
+            <summary>
+            Obtiene la lista de todas las categorías.
+            </summary>
+            <returns>Lista de categorías.</returns>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.CategoriaController.GetPaged(System.Int32,System.Int32,System.String)">
+            <summary>
+            Obtiene una lista paginada de categorías.
+            </summary>
+            <param name="page">Número de página (por defecto 1).</param>
+            <param name="pageSize">Cantidad de categorías por página (por defecto 10).</param>
+            <param name="filtro">Filtro opcional por nombre.</param>
+            <returns>Lista paginada de categorías y el total.</returns>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.CategoriaController.GetById(System.Int32)">
+            <summary>
+            Obtiene una categoría por su identificador.
+            </summary>
+            <param name="id">Identificador de la categoría.</param>
+            <returns>Categoría encontrada o error si no existe.</returns>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.CategoriaController.Create(BicTechBack.src.Core.DTOs.CrearCategoriaDTO)">
+            <summary>
+            Crea una nueva categoría.
+            </summary>
+            <param name="dto">Datos de la categoría a crear.</param>
+            <returns>Categoría creada.</returns>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.CategoriaController.Update(System.Int32,BicTechBack.src.Core.DTOs.CrearCategoriaDTO)">
+            <summary>
+            Actualiza una categoría existente.
+            </summary>
+            <param name="id">Identificador de la categoría a actualizar.</param>
+            <param name="dto">Datos nuevos de la categoría.</param>
+            <returns>Categoría actualizada o error si no existe.</returns>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.CategoriaController.Delete(System.Int32)">
+            <summary>
+            Elimina una categoría por su identificador.
+            </summary>
+            <param name="id">Identificador de la categoría a eliminar.</param>
+            <returns>Resultado de la operación.</returns>
+        </member>
+        <member name="T:BicTechBack.src.API.Controllers.CategoriaMarcaController">
+            <summary>
+            Controlador para la gestión de relaciones entre categorías y marcas.
+            </summary>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.CategoriaMarcaController.GetAll">
+            <summary>
+            Obtiene todas las relaciones categoría-marca.
+            </summary>
+            <returns>Lista de relaciones categoría-marca.</returns>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.CategoriaMarcaController.GetPaged(System.Int32,System.Int32,System.String)">
+            <summary>
+            Obtiene una lista paginada de relaciones categoría-marca.
+            </summary>
+            <param name="page">Número de página (por defecto 1).</param>
+            <param name="pageSize">Cantidad de relaciones por página (por defecto 10).</param>
+            <param name="filtro">Filtro opcional por categoría o marca.</param>
+            <returns>Lista paginada de relaciones y el total.</returns>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.CategoriaMarcaController.Create(BicTechBack.src.Core.DTOs.CrearCategoriaMarcaDTO)">
+            <summary>
+            Crea una nueva relación entre una categoría y una marca.
+            </summary>
+            <param name="dto">Datos de la relación a crear.</param>
+            <returns>Relación creada.</returns>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.CategoriaMarcaController.ObtenerMarcasPorCategoria(System.Int32)">
+            <summary>
+            Obtiene todas las marcas asociadas a una categoría.
+            </summary>
+            <param name="id">Identificador de la categoría.</param>
+            <returns>Lista de marcas asociadas a la categoría.</returns>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.CategoriaMarcaController.ObtenerCategoriasPorMarca(System.Int32)">
+            <summary>
+            Obtiene todas las categorías asociadas a una marca.
+            </summary>
+            <param name="id">Identificador de la marca.</param>
+            <returns>Lista de categorías asociadas a la marca.</returns>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.CategoriaMarcaController.Delete(System.Int32)">
+            <summary>
+            Elimina una relación categoría-marca por su identificador.
+            </summary>
+            <param name="id">Identificador de la relación a eliminar.</param>
+            <returns>Resultado de la operación.</returns>
+        </member>
+        <member name="T:BicTechBack.src.API.Controllers.MarcaController">
+            <summary>
+            Controlador para la gestión de marcas de productos.
+            </summary>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.MarcaController.GetAll">
+            <summary>
+            Obtiene la lista de todas las marcas.
+            </summary>
+            <returns>Lista de marcas.</returns>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.MarcaController.GetPaged(System.Int32,System.Int32,System.String)">
+            <summary>
+            Obtiene una lista paginada de marcas.
+            </summary>
+            <param name="page">Número de página (por defecto 1).</param>
+            <param name="pageSize">Cantidad de marcas por página (por defecto 10).</param>
+            <param name="filtro">Filtro opcional por nombre.</param>
+            <returns>Lista paginada de marcas y el total.</returns>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.MarcaController.GetById(System.Int32)">
+            <summary>
+            Obtiene una marca por su identificador.
+            </summary>
+            <param name="id">Identificador de la marca.</param>
+            <returns>Marca encontrada o error si no existe.</returns>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.MarcaController.Create(BicTechBack.src.Core.DTOs.CrearMarcaDTO)">
+            <summary>
+            Crea una nueva marca.
+            </summary>
+            <param name="dto">Datos de la marca a crear.</param>
+            <returns>Marca creada.</returns>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.MarcaController.Update(System.Int32,BicTechBack.src.Core.DTOs.CrearMarcaDTO)">
+            <summary>
+            Actualiza una marca existente.
+            </summary>
+            <param name="id">Identificador de la marca a actualizar.</param>
+            <param name="dto">Datos nuevos de la marca.</param>
+            <returns>Marca actualizada o error si no existe.</returns>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.MarcaController.Delete(System.Int32)">
+            <summary>
+            Elimina una marca por su identificador.
+            </summary>
+            <param name="id">Identificador de la marca a eliminar.</param>
+            <returns>Resultado de la operación.</returns>
+        </member>
+        <member name="T:BicTechBack.src.API.Controllers.PaisController">
+            <summary>
+            Controlador para la gestión de paises de marcas.
+            </summary>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.PaisController.GetAll">
+            <summary>
+            Obtiene la lista de todos los países.
+            </summary>
+            <returns>Lista de países.</returns>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.PaisController.GetPaged(System.Int32,System.Int32,System.String)">
+            <summary>
+            Obtiene una lista paginada de países.
+            </summary>
+            <param name="page">Número de página (por defecto 1).</param>
+            <param name="pageSize">Cantidad de países por página (por defecto 10).</param>
+            <param name="filtro">Filtro opcional por nombre.</param>
+            <returns>Lista paginada de países y el total.</returns>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.PaisController.GetById(System.Int32)">
+            <summary>
+            Obtiene un país por su identificador.
+            </summary>
+            <param name="id">Identificador del país.</param>
+            <returns>País encontrado o error si no existe.</returns>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.PaisController.Create(BicTechBack.src.Core.DTOs.CrearPaisDTO)">
+            <summary>
+            Crea un nuevo país.
+            </summary>
+            <param name="dto">Datos del país a crear.</param>
+            <returns>País creado.</returns>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.PaisController.Update(System.Int32,BicTechBack.src.Core.DTOs.CrearPaisDTO)">
+            <summary>
+            Actualiza un país existente.
+            </summary>
+            <param name="id">Identificador del país a actualizar.</param>
+            <param name="dto">Datos nuevos del país.</param>
+            <returns>País actualizado o error si no existe.</returns>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.PaisController.Delete(System.Int32)">
+            <summary>
+            Elimina un país por su identificador.
+            </summary>
+            <param name="id">Identificador del país a eliminar.</param>
+            <returns>Resultado de la operación.</returns>
+        </member>
+        <member name="T:BicTechBack.src.API.Controllers.PedidoController">
+            <summary>
+            Controlador para la gestión de pedidos.
+            Permite a usuarios y administradores consultar, crear, actualizar y eliminar pedidos.
+            </summary>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.PedidoController.GetAll">
+            <summary>
+            Obtiene la lista de pedidos.
+            Los administradores ven todos los pedidos, los usuarios solo los suyos.
+            </summary>
+            <returns>Lista de pedidos.</returns>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.PedidoController.GetPaged(System.Int32,System.Int32,System.String)">
+            <summary>
+            Obtiene una lista paginada de pedidos.
+            </summary>
+            <param name="page">Número de página (por defecto 1).</param>
+            <param name="pageSize">Cantidad de pedidos por página (por defecto 10).</param>
+            <param name="filtro">Filtro opcional por usuario, estado, etc.</param>
+            <returns>Lista paginada de pedidos y el total.</returns>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.PedidoController.GetById(System.Int32)">
+            <summary>
+            Obtiene un pedido por su identificador.
+            Solo el usuario propietario o un administrador puede acceder.
+            </summary>
+            <param name="id">Identificador del pedido.</param>
+            <returns>Pedido encontrado o error si no existe o no tiene permisos.</returns>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.PedidoController.Create(BicTechBack.src.Core.DTOs.CrearPedidoDTO)">
+            <summary>
+            Crea un nuevo pedido.
+            </summary>
+            <param name="dto">Datos del pedido a crear.</param>
+            <returns>Pedido creado.</returns>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.PedidoController.Update(System.Int32,BicTechBack.src.Core.DTOs.CrearPedidoDTO)">
+            <summary>
+            Actualiza un pedido existente.
+            Solo accesible para administradores.
+            </summary>
+            <param name="id">Identificador del pedido a actualizar.</param>
+            <param name="dto">Datos nuevos del pedido.</param>
+            <returns>Pedido actualizado o error si no existe.</returns>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.PedidoController.Delete(System.Int32)">
+            <summary>
+            Elimina un pedido por su identificador.
+            Solo accesible para administradores.
+            </summary>
+            <param name="id">Identificador del pedido a eliminar.</param>
+            <returns>Resultado de la operación.</returns>
+        </member>
+        <member name="T:BicTechBack.src.API.Controllers.ProductoController">
+            <summary>
+            Controlador para la gestión de productos.
+            </summary>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.ProductoController.GetAll">
+            <summary>
+            Obtiene la lista de todos los productos.
+            </summary>
+            <returns>Lista de productos.</returns>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.ProductoController.GetPaged(System.Int32,System.Int32,System.String)">
+            <summary>
+            Obtiene una lista paginada de productos.
+            </summary>
+            <param name="page">Número de página (por defecto 1).</param>
+            <param name="pageSize">Cantidad de productos por página (por defecto 10).</param>
+            <param name="filtro">Filtro opcional por nombre, categoría, etc.</param>
+            <returns>Lista paginada de productos y el total.</returns>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.ProductoController.GetById(System.Int32)">
+            <summary>
+            Obtiene un producto por su identificador.
+            </summary>
+            <param name="id">Identificador del producto.</param>
+            <returns>Producto encontrado o error si no existe.</returns>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.ProductoController.Create(BicTechBack.src.Core.DTOs.CrearProductoDTO)">
+            <summary>
+            Crea un nuevo producto.
+            </summary>
+            <param name="dto">Datos del producto a crear.</param>
+            <returns>Producto creado.</returns>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.ProductoController.Update(System.Int32,BicTechBack.src.Core.DTOs.CrearProductoDTO)">
+            <summary>
+            Actualiza un producto existente.
+            </summary>
+            <param name="id">Identificador del producto a actualizar.</param>
+            <param name="dto">Datos nuevos del producto.</param>
+            <returns>Producto actualizado o error si no existe.</returns>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.ProductoController.Delete(System.Int32)">
+            <summary>
+            Elimina un producto por su identificador.
+            </summary>
+            <param name="id">Identificador del producto a eliminar.</param>
+            <returns>Resultado de la operación.</returns>
+        </member>
+        <member name="T:BicTechBack.src.API.Controllers.UsuarioController">
+            <summary>
+            Controlador para la gestión de usuarios del sistema.
+            Solo accesible para administradores.
+            </summary>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.UsuarioController.GetAll">
+            <summary>
+            Obtiene la lista de todos los usuarios.
+            </summary>
+            <returns>Lista de usuarios.</returns>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.UsuarioController.GetPaged(System.Int32,System.Int32,System.String)">
+            <summary>
+            Obtiene una lista paginada de usuarios.
+            </summary>
+            <param name="page">Número de página (por defecto 1).</param>
+            <param name="pageSize">Cantidad de usuarios por página (por defecto 10).</param>
+            <param name="filtro">Filtro opcional por nombre o email.</param>
+            <returns>Lista paginada de usuarios y el total.</returns>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.UsuarioController.GetById(System.Int32)">
+            <summary>
+            Obtiene un usuario por su identificador.
+            </summary>
+            <param name="id">Identificador del usuario.</param>
+            <returns>Usuario encontrado o error si no existe.</returns>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.UsuarioController.Update(System.Int32,BicTechBack.src.Core.DTOs.CrearUsuarioDTO)">
+            <summary>
+            Actualiza los datos de un usuario existente.
+            </summary>
+            <param name="id">Identificador del usuario a actualizar.</param>
+            <param name="dto">Datos nuevos del usuario.</param>
+            <returns>Usuario actualizado o error si no existe.</returns>
+        </member>
+        <member name="M:BicTechBack.src.API.Controllers.UsuarioController.Delete(System.Int32)">
+            <summary>
+            Elimina un usuario por su identificador.
+            </summary>
+            <param name="id">Identificador del usuario a eliminar.</param>
+            <returns>Resultado de la operación.</returns>
+        </member>
+        <member name="T:BicTechBack.src.Core.DTOs.AgregarProductoPedidoDTO">
+            <summary>
+            DTO para agregar un producto a un pedido existente.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.AgregarProductoPedidoDTO.PedidoId">
+            <summary>
+            Identificador del pedido al que se agregará el producto.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.AgregarProductoPedidoDTO.ProductoId">
+            <summary>
+            Identificador del producto que se agregará al pedido.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.AgregarProductoPedidoDTO.Cantidad">
+            <summary>
+            Cantidad del producto a agregar al pedido.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.AgregarProductoPedidoDTO.Precio">
+            <summary>
+            Precio unitario del producto al momento de agregarlo.
+            </summary>
+        </member>
+        <member name="T:BicTechBack.src.Core.DTOs.CarritoDetalleDTO">
+            <summary>
+            DTO que representa el detalle de un producto dentro de un carrito de compras.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.CarritoDetalleDTO.Id">
+            <summary>
+            Identificador único del detalle del carrito.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.CarritoDetalleDTO.CarritoId">
+            <summary>
+            Identificador del carrito al que pertenece este detalle.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.CarritoDetalleDTO.ProductoId">
+            <summary>
+            Identificador del producto agregado al carrito.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.CarritoDetalleDTO.Cantidad">
+            <summary>
+            Cantidad del producto en el carrito.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.CarritoDetalleDTO.Producto">
+            <summary>
+            Producto asociado a este detalle del carrito.
+            </summary>
+        </member>
+        <member name="T:BicTechBack.src.Core.DTOs.CarritoDTO">
+            <summary>
+            DTO que representa un carrito de compras de un usuario.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.CarritoDTO.Id">
+            <summary>
+            Identificador único del carrito.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.CarritoDTO.UsuarioId">
+            <summary>
+            Identificador del usuario propietario del carrito.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.CarritoDTO.Productos">
+            <summary>
+            Lista de productos y sus detalles contenidos en el carrito.
+            </summary>
+        </member>
+        <member name="T:BicTechBack.src.Core.DTOs.CategoriaDTO">
+            <summary>
+            DTO que representa una categoría de productos.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.CategoriaDTO.Id">
+            <summary>
+            Identificador único de la categoría.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.CategoriaDTO.Nombre">
+            <summary>
+            Nombre de la categoría.
+            </summary>
+        </member>
+        <member name="T:BicTechBack.src.Core.DTOs.CategoriaMarcaDTO">
+            <summary>
+            DTO que representa la relación entre una categoría y una marca.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.CategoriaMarcaDTO.Id">
+            <summary>
+            Identificador único de la relación categoría-marca.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.CategoriaMarcaDTO.CategoriaId">
+            <summary>
+            Identificador de la categoría asociada.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.CategoriaMarcaDTO.MarcaId">
+            <summary>
+            Identificador de la marca asociada.
+            </summary>
+        </member>
+        <member name="T:BicTechBack.src.Core.DTOs.CrearCarritoDetalleDTO">
+            <summary>
+            DTO para crear un nuevo detalle en un carrito de compras.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.CrearCarritoDetalleDTO.CarritoId">
+            <summary>
+            Identificador del carrito al que se agregará el producto.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.CrearCarritoDetalleDTO.ProductoId">
+            <summary>
+            Identificador del producto que se agregará al carrito.
+            </summary>
+        </member>
+        <member name="T:BicTechBack.src.Core.DTOs.CrearCarritoDTO">
+            <summary>
+            DTO para crear un nuevo carrito de compras para un usuario.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.CrearCarritoDTO.UsuarioId">
+            <summary>
+            Identificador del usuario propietario del carrito.
+            </summary>
+        </member>
+        <member name="T:BicTechBack.src.Core.DTOs.CrearCategoriaDTO">
+            <summary>
+            DTO para crear una nueva categoría de productos.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.CrearCategoriaDTO.Nombre">
+            <summary>
+            Nombre de la categoría.
+            </summary>
+        </member>
+        <member name="T:BicTechBack.src.Core.DTOs.CrearCategoriaMarcaDTO">
+            <summary>
+            DTO para crear una relación entre una categoría y una marca.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.CrearCategoriaMarcaDTO.CategoriaId">
+            <summary>
+            Identificador de la categoría asociada.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.CrearCategoriaMarcaDTO.MarcaId">
+            <summary>
+            Identificador de la marca asociada.
+            </summary>
+        </member>
+        <member name="T:BicTechBack.src.Core.DTOs.CrearMarcaDTO">
+            <summary>
+            DTO para crear una nueva marca.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.CrearMarcaDTO.Nombre">
+            <summary>
+            Nombre de la marca.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.CrearMarcaDTO.PaisId">
+            <summary>
+            Identificador de país que se agregará al la marca.
+            </summary>
+        </member>
+        <member name="T:BicTechBack.src.Core.DTOs.CrearPaisDTO">
+            <summary>
+            DTO para crear un nuevo país.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.CrearPaisDTO.Nombre">
+            <summary>
+            Nombre del país.
+            </summary>
+        </member>
+        <member name="T:BicTechBack.src.Core.DTOs.CrearPedidoDetalleDTO">
+            <summary>
+            DTO para crear un nuevo detalle de pedido.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.CrearPedidoDetalleDTO.ProductoId">
+            <summary>
+            Identificador del producto que se agregará al pedido.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.CrearPedidoDetalleDTO.Cantidad">
+            <summary>
+            Cantidad del producto a agregar al pedido.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.CrearPedidoDetalleDTO.Precio">
+            <summary>
+            Precio unitario del producto al momento de agregarlo al pedido.
+            </summary>
+        </member>
+        <member name="T:BicTechBack.src.Core.DTOs.CrearPedidoDTO">
+            <summary>
+            DTO para crear un nuevo pedido.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.CrearPedidoDTO.UsuarioId">
+            <summary>
+            Identificador del usuario que realiza el pedido.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.CrearPedidoDTO.DireccionEnvio">
+            <summary>
+            Dirección de envío del pedido.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.CrearPedidoDTO.Productos">
+            <summary>
+            Lista de productos que forman parte del pedido.
+            </summary>
+        </member>
+        <member name="T:BicTechBack.src.Core.DTOs.CrearProductoDTO">
+            <summary>
+            DTO para crear un nuevo producto.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.CrearProductoDTO.Nombre">
+            <summary>
+            Nombre del producto.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.CrearProductoDTO.Precio">
+            <summary>
+            Precio del producto.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.CrearProductoDTO.Descripcion">
+            <summary>
+            Descripción del producto.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.CrearProductoDTO.CategoriaId">
+            <summary>
+            Identificador de la categoría a la que pertenece el producto.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.CrearProductoDTO.MarcaId">
+            <summary>
+            Identificador de la marca a la que pertenece el producto.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.CrearProductoDTO.Stock">
+            <summary>
+            Stock disponible del producto.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.CrearProductoDTO.ImagenUrl">
+            <summary>
+            URL de la imagen del producto.
+            </summary>
+        </member>
+        <member name="T:BicTechBack.src.Core.DTOs.CrearUsuarioDTO">
+            <summary>
+            DTO para crear un nuevo usuario.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.CrearUsuarioDTO.Nombre">
+            <summary>
+            Nombre del usuario.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.CrearUsuarioDTO.Email">
+            <summary>
+            Correo electrónico del usuario.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.CrearUsuarioDTO.Password">
+            <summary>
+            Contraseña del usuario.
+            </summary>
+        </member>
+        <member name="T:BicTechBack.src.Core.DTOs.LoginResultDTO">
+            <summary>
+            DTO que representa el resultado de un inicio de sesión exitoso.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.LoginResultDTO.Token">
+            <summary>
+            Token JWT generado para el usuario autenticado.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.LoginResultDTO.RefreshToken">
+            <summary>
+            Token de actualización (refresh token) para renovar la sesión.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.LoginResultDTO.UsuarioId">
+            <summary>
+            Identificador único del usuario autenticado.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.LoginResultDTO.Nombre">
+            <summary>
+            Nombre del usuario autenticado.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.LoginResultDTO.Email">
+            <summary>
+            Correo electrónico del usuario autenticado.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.LoginResultDTO.Rol">
+            <summary>
+            Rol del usuario autenticado (e.g., Admin, User).
+            </summary>
+        </member>
+        <member name="T:BicTechBack.src.Core.DTOs.LoginUsuarioDTO">
+            <summary>
+            DTO para la solicitud de inicio de sesión de un usuario.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.LoginUsuarioDTO.Email">
+            <summary>
+            Correo electrónico del usuario.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.LoginUsuarioDTO.Password">
+            <summary>
+            Contraseña del usuario.
+            </summary>
+        </member>
+        <member name="T:BicTechBack.src.Core.DTOs.MarcaDTO">
+            <summary>
+            DTO que representa una marca de productos.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.MarcaDTO.Id">
+            <summary>
+            Identificador único de la marca.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.MarcaDTO.Nombre">
+            <summary>
+            Nombre de la marca.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.MarcaDTO.Pais">
+            <summary>
+            Nombre del país al que pertenece la marca.
+            </summary>
+        </member>
+        <member name="T:BicTechBack.src.Core.DTOs.PaisDTO">
+            <summary>
+            DTO que representa un país.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.PaisDTO.Id">
+            <summary>
+            Identificador único del país.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.PaisDTO.Nombre">
+            <summary>
+            Nombre del país.
+            </summary>
+        </member>
+        <member name="T:BicTechBack.src.Core.DTOs.PedidoDetalleDTO">
+            <summary>
+            DTO que representa el detalle de un producto dentro de un pedido.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.PedidoDetalleDTO.Id">
+            <summary>
+            Identificador único del detalle del pedido.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.PedidoDetalleDTO.PedidoId">
+            <summary>
+            Identificador del pedido al que pertenece este detalle.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.PedidoDetalleDTO.ProductoId">
+            <summary>
+            Identificador del producto incluido en el pedido.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.PedidoDetalleDTO.NombreProducto">
+            <summary>
+            Nombre del producto incluido en el pedido.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.PedidoDetalleDTO.Cantidad">
+            <summary>
+            Cantidad del producto en el pedido.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.PedidoDetalleDTO.Precio">
+            <summary>
+            Precio unitario del producto en el pedido.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.PedidoDetalleDTO.Subtotal">
+            <summary>
+            Subtotal correspondiente a este producto en el pedido.
+            </summary>
+        </member>
+        <member name="T:BicTechBack.src.Core.DTOs.PedidoDTO">
+            <summary>
+            DTO que representa un pedido realizado por un usuario.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.PedidoDTO.Id">
+            <summary>
+            Identificador único del pedido.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.PedidoDTO.UsuarioId">
+            <summary>
+            Identificador del usuario que realizó el pedido.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.PedidoDTO.FechaPedido">
+            <summary>
+            Fecha y hora en que se realizó el pedido.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.PedidoDTO.Total">
+            <summary>
+            Monto total del pedido.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.PedidoDTO.Estado">
+            <summary>
+            Estado actual del pedido (por ejemplo: Pendiente, Enviado, Entregado).
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.PedidoDTO.DireccionEnvio">
+            <summary>
+            Dirección de envío asociada al pedido.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.PedidoDTO.Productos">
+            <summary>
+            Lista de productos y sus detalles incluidos en el pedido.
+            </summary>
+        </member>
+        <member name="T:BicTechBack.src.Core.DTOs.ProductoDTO">
+            <summary>
+            DTO que representa un producto disponible en el sistema.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.ProductoDTO.Id">
+            <summary>
+            Identificador único del producto.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.ProductoDTO.Nombre">
+            <summary>
+            Nombre del producto.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.ProductoDTO.Precio">
+            <summary>
+            Precio del producto.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.ProductoDTO.Descripcion">
+            <summary>
+            Descripción del producto.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.ProductoDTO.CategoriaId">
+            <summary>
+            Id de la categoría a la que pertenece el producto.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.ProductoDTO.MarcaId">
+            <summary>
+            Id de la marca a la que pertenece el producto.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.ProductoDTO.Stock">
+            <summary>
+            Stock disponible del producto.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.ProductoDTO.ImagenUrl">
+            <summary>
+            Url de la imagen del producto.
+            </summary>
+        </member>
+        <member name="T:BicTechBack.src.Core.DTOs.RefreshRequestDTO">
+            <summary>
+            DTO para solicitar la renovación de un token de autenticación.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.RefreshRequestDTO.Token">
+            <summary>
+            Token JWT actual que se desea renovar.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.RefreshRequestDTO.RefreshToken">
+            <summary>
+            Token de actualización (refresh token) asociado al usuario.
+            </summary>
+        </member>
+        <member name="T:BicTechBack.src.Core.DTOs.RegisterUsuarioDTO">
+            <summary>
+            DTO para registrar un nuevo usuario en el sistema.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.RegisterUsuarioDTO.Nombre">
+            <summary>
+            Nombre del usuario.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.RegisterUsuarioDTO.Email">
+            <summary>
+            Correo electrónico del usuario.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.RegisterUsuarioDTO.Password">
+            <summary>
+            Contraseña del usuario.
+            </summary>
+        </member>
+        <member name="T:BicTechBack.src.Core.DTOs.UsuarioDTO">
+            <summary>
+            DTO que representa un usuario del sistema.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.UsuarioDTO.Id">
+            <summary>
+            Identificador único del usuario.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.UsuarioDTO.Nombre">
+            <summary>
+            Nombre del usuario.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.UsuarioDTO.Email">
+            <summary>
+            Correo electrónico del usuario.
+            </summary>
+        </member>
+        <member name="P:BicTechBack.src.Core.DTOs.UsuarioDTO.Rol">
+            <summary>
+            Rol asignado al usuario.
+            </summary>
+        </member>
+    </members>
+</doc>

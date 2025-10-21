@@ -127,7 +127,13 @@ builder.Services.AddAuthentication(options =>
 // ===================================================
 // 🧩 CONFIGURACIÓN STRIPE (HttpClientFactory + Polly)
 // ===================================================
-builder.Services.Configure<StripeOptions>(builder.Configuration.GetSection("Stripe"));
+builder.Services.Configure<StripeOptions>(opts =>
+{
+    opts.BaseUrl = builder.Configuration["Stripe:BaseUrl"];
+    opts.SecretKey = Environment.GetEnvironmentVariable("STRIPE_SECRETKEY") 
+                     ?? builder.Configuration["Stripe:SecretKey"];
+});
+
 
 builder.Services.AddHttpClient("Stripe", (sp, client) =>
 {

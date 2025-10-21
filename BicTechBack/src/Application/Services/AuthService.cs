@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using BicTechBack.src.Core.DTOs;
 using BicTechBack.src.Core.Entities;
 using BicTechBack.src.Core.Interfaces;
@@ -21,6 +21,7 @@ namespace BicTechBack.src.Core.Services
         private readonly PasswordHasher<Usuario> _passwordHasher = new();
         private readonly IConfiguration _configuration;
         private readonly ILogger<AuthService> _logger; 
+
         public AuthService(
             IAuthRepository repository,
             IMapper mapper,
@@ -156,6 +157,17 @@ namespace BicTechBack.src.Core.Services
 
         private string GenerateJwtToken(Usuario usuario)
         {
+            // Leer variables JWT desde entorno primero
+            var jwtKey = Environment.GetEnvironmentVariable("JWT_KEY") 
+                         ?? _configuration["Jwt:Key"];
+            var jwtIssuer = Environment.GetEnvironmentVariable("JWT_ISSUER") 
+                            ?? _configuration["Jwt:Issuer"];
+            var jwtAudience = Environment.GetEnvironmentVariable("JWT_AUDIENCE") 
+                              ?? _configuration["Jwt:Audience"];
+
+            if (string.IsNullOrEmpty(jwtKey))
+                throw new Exception("JWT_KEY no está definida en las variables de entorno.");
+
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, usuario.Id.ToString()),
@@ -164,19 +176,20 @@ namespace BicTechBack.src.Core.Services
                 new Claim(ClaimTypes.Role, usuario.Rol.ToString())
             };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
-                issuer: _configuration["Jwt:Issuer"],
-                audience: _configuration["Jwt:Audience"],
+                issuer: jwtIssuer,
+                audience: jwtAudience,
                 claims: claims,
                 expires: DateTime.UtcNow.AddHours(2),
                 signingCredentials: creds
-                );
+            );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
         private string GenerateRefreshToken()
         {
             var randomNumber = new byte[32];

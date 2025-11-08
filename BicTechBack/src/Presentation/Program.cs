@@ -4,8 +4,8 @@ using BicTechBack.src.Core.Interfaces;
 using BicTechBack.src.Core.Services;
 using BicTechBack.src.Infrastructure.Data;
 using BicTechBack.src.Infrastructure.Repositories;
-using Infrastructure.Config;   // donde estará StripeOptions
-using Infrastructure.Services; // donde estará StripeService
+using Infrastructure.Config;  
+using Infrastructure.Services; 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -103,8 +103,13 @@ builder.Services.AddCors(options =>
 // ==========================================
 // Base de datos
 // ==========================================
+
+//builder.Services.AddDbContext<AppDbContext>(options =>
+    //options.UseSqlite(builder.Configuration.GetConnectionString("SQLiteConnection")));
+
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("SQLiteConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SQLServerConnection")));
+
 
 // AutoMapper
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

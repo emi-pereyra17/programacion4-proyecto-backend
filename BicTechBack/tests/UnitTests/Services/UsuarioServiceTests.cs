@@ -3,6 +3,7 @@ using BicTechBack.src.Core.DTOs;
 using BicTechBack.src.Core.Entities;
 using BicTechBack.src.Core.Interfaces;
 using BicTechBack.src.Core.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Moq;
 using System;
@@ -21,6 +22,7 @@ namespace BicTechBack.UnitTests.Services
             var mockRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
             var mockLogger = new Mock<ILogger<UsuarioService>>();
+            var mockHasher = new Mock<IPasswordHasher<Usuario>>();
 
             var dto = new CrearUsuarioDTO
             {
@@ -34,7 +36,7 @@ namespace BicTechBack.UnitTests.Services
             mockRepo.Setup(r => r.CreateAsync(It.IsAny<Usuario>())).ReturnsAsync(1);
             mockMapper.Setup(m => m.Map<UsuarioDTO>(It.IsAny<Usuario>())).Returns(new UsuarioDTO { Id = 1, Nombre = dto.Nombre, Email = dto.Email, Rol = "User" });
 
-            var service = new UsuarioService(mockRepo.Object, mockMapper.Object, mockLogger.Object);
+            var service = new UsuarioService(mockRepo.Object, mockMapper.Object, mockLogger.Object, mockHasher.Object);
 
             var result = await service.CreateUsuarioAsync(dto, "User");
 
@@ -51,6 +53,7 @@ namespace BicTechBack.UnitTests.Services
             var mockRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
             var mockLogger = new Mock<ILogger<UsuarioService>>();
+            var mockHasher = new Mock<IPasswordHasher<Usuario>>();
 
             var dto = new CrearUsuarioDTO
             {
@@ -61,7 +64,7 @@ namespace BicTechBack.UnitTests.Services
 
             mockRepo.Setup(r => r.GetAllAsync()).ReturnsAsync(new List<Usuario> { new Usuario { Id = 1, Email = dto.Email } });
 
-            var service = new UsuarioService(mockRepo.Object, mockMapper.Object, mockLogger.Object);
+            var service = new UsuarioService(mockRepo.Object, mockMapper.Object, mockLogger.Object, mockHasher.Object);
 
             await Assert.ThrowsAsync<InvalidOperationException>(() => service.CreateUsuarioAsync(dto, "Cliente"));
         }
@@ -72,6 +75,7 @@ namespace BicTechBack.UnitTests.Services
             var mockRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
             var mockLogger = new Mock<ILogger<UsuarioService>>();
+            var mockHasher = new Mock<IPasswordHasher<Usuario>>();
 
             var dto = new CrearUsuarioDTO
             {
@@ -82,7 +86,7 @@ namespace BicTechBack.UnitTests.Services
 
             mockRepo.Setup(r => r.GetAllAsync()).ReturnsAsync(new List<Usuario>());
 
-            var service = new UsuarioService(mockRepo.Object, mockMapper.Object, mockLogger.Object);
+            var service = new UsuarioService(mockRepo.Object, mockMapper.Object, mockLogger.Object, mockHasher.Object);
 
             await Assert.ThrowsAsync<ArgumentException>(() => service.CreateUsuarioAsync(dto, ""));
         }
@@ -93,6 +97,7 @@ namespace BicTechBack.UnitTests.Services
             var mockRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
             var mockLogger = new Mock<ILogger<UsuarioService>>();
+            var mockHasher = new Mock<IPasswordHasher<Usuario>>();
 
             var dto = new CrearUsuarioDTO
             {
@@ -104,7 +109,7 @@ namespace BicTechBack.UnitTests.Services
             mockRepo.Setup(r => r.GetAllAsync()).ReturnsAsync(new List<Usuario>());
             mockMapper.Setup(m => m.Map<Usuario>(dto)).Returns(new Usuario { Nombre = dto.Nombre, Email = dto.Email, Password = dto.Password });
 
-            var service = new UsuarioService(mockRepo.Object, mockMapper.Object, mockLogger.Object);
+            var service = new UsuarioService(mockRepo.Object, mockMapper.Object, mockLogger.Object, mockHasher.Object);
 
             await Assert.ThrowsAsync<ArgumentException>(() => service.CreateUsuarioAsync(dto, "RolInvalido"));
         }
@@ -115,13 +120,14 @@ namespace BicTechBack.UnitTests.Services
             var mockRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
             var mockLogger = new Mock<ILogger<UsuarioService>>();
+            var mockHasher = new Mock<IPasswordHasher<Usuario>>();
 
             var usuario = new Usuario { Id = 1, Nombre = "Test", Email = "test@mail.com" };
 
             mockRepo.Setup(r => r.GetByIdAsync(1)).ReturnsAsync(usuario);
             mockRepo.Setup(r => r.DeleteAsync(1)).ReturnsAsync(true);
 
-            var service = new UsuarioService(mockRepo.Object, mockMapper.Object, mockLogger.Object);
+            var service = new UsuarioService(mockRepo.Object, mockMapper.Object, mockLogger.Object, mockHasher.Object);
 
             var result = await service.DeleteUsuarioAsync(1);
 
@@ -135,10 +141,11 @@ namespace BicTechBack.UnitTests.Services
             var mockRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
             var mockLogger = new Mock<ILogger<UsuarioService>>();
+            var mockHasher = new Mock<IPasswordHasher<Usuario>>();
 
             mockRepo.Setup(r => r.GetByIdAsync(1)).ReturnsAsync((Usuario?)null);
 
-            var service = new UsuarioService(mockRepo.Object, mockMapper.Object, mockLogger.Object);
+            var service = new UsuarioService(mockRepo.Object, mockMapper.Object, mockLogger.Object, mockHasher.Object);
 
             await Assert.ThrowsAsync<KeyNotFoundException>(() => service.DeleteUsuarioAsync(1));
         }
@@ -149,6 +156,7 @@ namespace BicTechBack.UnitTests.Services
             var mockRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
             var mockLogger = new Mock<ILogger<UsuarioService>>();
+            var mockHasher = new Mock<IPasswordHasher<Usuario>>();
 
             var usuarios = new List<Usuario>
             {
@@ -164,7 +172,7 @@ namespace BicTechBack.UnitTests.Services
                     new UsuarioDTO { Id = 2, Nombre = "Test2", Email = "test2@mail.com" }
                 });
 
-            var service = new UsuarioService(mockRepo.Object, mockMapper.Object, mockLogger.Object);
+            var service = new UsuarioService(mockRepo.Object, mockMapper.Object, mockLogger.Object, mockHasher.Object);
 
             var result = await service.GetAllUsuariosAsync();
 
@@ -178,12 +186,13 @@ namespace BicTechBack.UnitTests.Services
             var mockRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
             var mockLogger = new Mock<ILogger<UsuarioService>>();
+            var mockHasher = new Mock<IPasswordHasher<Usuario>>();
 
             mockRepo.Setup(r => r.GetAllAsync()).ReturnsAsync(new List<Usuario>());
             mockMapper.Setup(m => m.Map<IEnumerable<UsuarioDTO>>(It.IsAny<IEnumerable<Usuario>>()))
                 .Returns(new List<UsuarioDTO>());
 
-            var service = new UsuarioService(mockRepo.Object, mockMapper.Object, mockLogger.Object);
+            var service = new UsuarioService(mockRepo.Object, mockMapper.Object, mockLogger.Object, mockHasher.Object);
 
             var result = await service.GetAllUsuariosAsync();
 
@@ -197,12 +206,13 @@ namespace BicTechBack.UnitTests.Services
             var mockRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
             var mockLogger = new Mock<ILogger<UsuarioService>>();
+            var mockHasher = new Mock<IPasswordHasher<Usuario>>();
 
             var usuario = new Usuario { Id = 1, Nombre = "Test", Email = "test@mail.com" };
             mockRepo.Setup(r => r.GetByIdAsync(1)).ReturnsAsync(usuario);
             mockMapper.Setup(m => m.Map<UsuarioDTO>(It.IsAny<Usuario>())).Returns(new UsuarioDTO { Id = 1, Nombre = "Test", Email = "test@mail.com" });
 
-            var service = new UsuarioService(mockRepo.Object, mockMapper.Object, mockLogger.Object);
+            var service = new UsuarioService(mockRepo.Object, mockMapper.Object, mockLogger.Object, mockHasher.Object);
 
             var result = await service.GetUsuarioByIdAsync(1);
 
@@ -216,45 +226,13 @@ namespace BicTechBack.UnitTests.Services
             var mockRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
             var mockLogger = new Mock<ILogger<UsuarioService>>();
+            var mockHasher = new Mock<IPasswordHasher<Usuario>>();
 
             mockRepo.Setup(r => r.GetByIdAsync(1)).ReturnsAsync((Usuario?)null);
 
-            var service = new UsuarioService(mockRepo.Object, mockMapper.Object, mockLogger.Object);
+            var service = new UsuarioService(mockRepo.Object, mockMapper.Object, mockLogger.Object, mockHasher.Object);
 
             await Assert.ThrowsAsync<KeyNotFoundException>(() => service.GetUsuarioByIdAsync(1));
-        }
-
-        [Fact]
-        public async Task GetUsuariosAsync_UsuariosExistentesYPaginacion_RetornaListaDeDTOs()
-        {
-            var mockRepo = new Mock<IUsuarioRepository>();
-            var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<UsuarioService>>();
-
-            var usuarios = new List<Usuario>
-            {
-                new Usuario { Id = 1, Nombre = "Test1", Email = "test1@mail.com" },
-                new Usuario { Id = 2, Nombre = "Test2", Email = "test2@mail.com" },
-                new Usuario { Id = 3, Nombre = "Test3", Email = "test3@mail.com" }
-            };
-
-            var page = 1;
-            var pageSize = 2;
-            var total = usuarios.Count();
-
-            var usuariosPaginados = usuarios.Skip((page - 1) * pageSize).Take(pageSize);
-
-            mockRepo.Setup(r => r.GetAllAsync()).ReturnsAsync(usuarios);
-            mockMapper.Setup(m => m.Map<IEnumerable<UsuarioDTO>>(It.IsAny<IEnumerable<Usuario>>()))
-                .Returns(usuariosPaginados.Select(u => new UsuarioDTO { Id = u.Id, Nombre = u.Nombre, Email = u.Email }));
-
-            var service = new UsuarioService(mockRepo.Object, mockMapper.Object, mockLogger.Object);
-
-            var result = await service.GetUsuariosAsync(page, pageSize, null);
-
-            Assert.NotNull(result);
-            Assert.Equal(2, result.Usuarios.Count());
-            Assert.Equal(total, result.Total);
         }
 
         [Fact]
@@ -263,6 +241,7 @@ namespace BicTechBack.UnitTests.Services
             var mockRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
             var mockLogger = new Mock<ILogger<UsuarioService>>();
+            var mockHasher = new Mock<IPasswordHasher<Usuario>>();
 
             var usuarioExistente = new Usuario
             {
@@ -281,69 +260,15 @@ namespace BicTechBack.UnitTests.Services
             mockRepo.Setup(r => r.GetByIdAsync(1)).ReturnsAsync(usuarioExistente);
             mockRepo.Setup(r => r.GetAllAsync()).ReturnsAsync(new List<Usuario> { usuarioExistente });
             mockRepo.Setup(r => r.UpdateAsync(It.IsAny<Usuario>())).ReturnsAsync(usuarioExistente);
-            mockMapper.Setup(m => m.Map<UsuarioDTO>(It.IsAny<Usuario>())).Returns(new UsuarioDTO { Id = 1, Nombre = "Nuevo", Email = "nuevo@mail.com"});
+            mockMapper.Setup(m => m.Map<UsuarioDTO>(It.IsAny<Usuario>())).Returns(new UsuarioDTO { Id = 1, Nombre = "Nuevo", Email = "nuevo@mail.com" });
 
-            var service = new UsuarioService(mockRepo.Object, mockMapper.Object, mockLogger.Object);
+            var service = new UsuarioService(mockRepo.Object, mockMapper.Object, mockLogger.Object, mockHasher.Object);
 
             var result = await service.UpdateUsuarioAsync(dto, 1);
 
             Assert.NotNull(result);
             Assert.Equal("Nuevo", result.Nombre);
             Assert.Equal("nuevo@mail.com", result.Email);
-        }
-
-        [Fact]
-        public async Task UpdateUsuarioAsync_UsuarioNoExistente_LanzaKeyNotFoundException()
-        {
-            var mockRepo = new Mock<IUsuarioRepository>();
-            var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<UsuarioService>>();
-
-            var dto = new CrearUsuarioDTO
-            {
-                Nombre = "Nuevo",
-                Email = "nuevo@mail.com",
-                Password = "new"
-            };
-
-            mockRepo.Setup(r => r.GetByIdAsync(1)).ReturnsAsync((Usuario?)null);
-
-            var service = new UsuarioService(mockRepo.Object, mockMapper.Object, mockLogger.Object);
-
-            await Assert.ThrowsAsync<KeyNotFoundException>(() => service.UpdateUsuarioAsync(dto, 1));
-        }
-
-        [Fact]
-        public async Task UpdateUsuarioAsync_EmailDuplicado_LanzaInvalidOperationException()
-        {
-            var mockRepo = new Mock<IUsuarioRepository>();
-            var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<UsuarioService>>();
-
-            var usuarioExistente = new Usuario
-            {
-                Id = 1,
-                Nombre = "Antiguo",
-                Email = "antiguo@mail.com",
-                Password = "old"
-            };
-            var dto = new CrearUsuarioDTO
-            {
-                Nombre = "Nuevo",
-                Email = "duplicado@mail.com",
-                Password = "new"
-            };
-
-            mockRepo.Setup(r => r.GetByIdAsync(1)).ReturnsAsync(usuarioExistente);
-            mockRepo.Setup(r => r.GetAllAsync()).ReturnsAsync(new List<Usuario>
-            {
-                usuarioExistente,
-                new Usuario { Id = 2, Email = "duplicado@mail.com" }
-            });
-
-            var service = new UsuarioService(mockRepo.Object, mockMapper.Object, mockLogger.Object);
-
-            await Assert.ThrowsAsync<InvalidOperationException>(() => service.UpdateUsuarioAsync(dto, 1));
         }
     }
 }

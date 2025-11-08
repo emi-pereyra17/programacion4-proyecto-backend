@@ -6,6 +6,7 @@ using BicTechBack.src.Core.Mappings;
 using BicTechBack.src.Core.Services;
 using BicTechBack.src.Infrastructure.Data;
 using BicTechBack.src.Infrastructure.Repositories;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Xunit;
@@ -31,19 +32,23 @@ namespace BicTechBack.IntegrationTests.Services
             return new AppDbContext(options);
         }
 
+        private UsuarioService GetService(AppDbContext context)
+        {
+            var repo = new UsuarioRepository(context);
+            var mapper = GetMapper();
+            var logger = new LoggerFactory().CreateLogger<UsuarioService>();
+            var passwordHasher = new PasswordHasher<Usuario>(); // ✅ agregado
+            return new UsuarioService(repo, mapper, logger, passwordHasher);
+        }
+
         /// <summary>
         /// Prueba que se pueda crear un usuario válido y que realmente se guarde en la base de datos.
-        /// Se verifica que el resultado no sea nulo, que los datos devueltos sean correctos
-        /// y que el usuario exista en la base de datos después de la operación.
         /// </summary>
         [Fact]
         public async Task CreateUsuarioAsync_UsuarioValido_PersisteEnDb()
         {
             using var context = GetDbContext();
-            var repo = new UsuarioRepository(context);
-            var mapper = GetMapper();
-            var logger = new LoggerFactory().CreateLogger<UsuarioService>();
-            var service = new UsuarioService(repo, mapper, logger);
+            var service = GetService(context);
 
             var dto = new CrearUsuarioDTO
             {
@@ -52,36 +57,24 @@ namespace BicTechBack.IntegrationTests.Services
                 Password = "1234"
             };
 
-            // Act: se crea el usuario
             var result = await service.CreateUsuarioAsync(dto, "User");
 
-            // Assert: el resultado no debe ser nulo y los datos deben coincidir
             Assert.NotNull(result);
             Assert.Equal("Integracion", result.Nombre);
             Assert.Equal("integ@mail.com", result.Email);
             Assert.Equal("User", result.Rol);
 
-            // Assert: el usuario debe existir en la base de datos
             var usuarioEnDb = await context.Usuarios.FirstOrDefaultAsync(u => u.Email == "integ@mail.com");
             Assert.NotNull(usuarioEnDb);
             Assert.Equal("Integracion", usuarioEnDb.Nombre);
         }
 
-        /// <summary>
-        /// Prueba que no se pueda crear un usuario con un email ya existente.
-        /// Se agrega un usuario inicial y luego se intenta crear otro con el mismo email,
-        /// esperando que se lance una InvalidOperationException.
-        /// </summary>
         [Fact]
         public async Task CreateUsuarioAsync_EmailDuplicado_LanzaInvalidOperationException()
         {
             using var context = GetDbContext();
-            var repo = new UsuarioRepository(context);
-            var mapper = GetMapper();
-            var logger = new LoggerFactory().CreateLogger<UsuarioService>();
-            var service = new UsuarioService(repo, mapper, logger);
+            var service = GetService(context);
 
-            // Arrange: se agrega un usuario existente
             context.Usuarios.Add(new Usuario
             {
                 Nombre = "Existente",
@@ -98,7 +91,6 @@ namespace BicTechBack.IntegrationTests.Services
                 Password = "abcd"
             };
 
-            // Act & Assert: se espera una excepción al intentar crear un usuario con email duplicado
             await Assert.ThrowsAsync<InvalidOperationException>(() => service.CreateUsuarioAsync(dto, "User"));
         }
 
@@ -106,10 +98,7 @@ namespace BicTechBack.IntegrationTests.Services
         public async Task CreateUsuarioAsync_RolVacio_LanzaArgumentException()
         {
             using var context = GetDbContext();
-            var repo = new UsuarioRepository(context);
-            var mapper = GetMapper();
-            var logger = new LoggerFactory().CreateLogger<UsuarioService>();
-            var service = new UsuarioService(repo, mapper, logger);
+            var service = GetService(context);
 
             var dto = new CrearUsuarioDTO
             {
@@ -125,10 +114,7 @@ namespace BicTechBack.IntegrationTests.Services
         public async Task CreateUsuarioAsync_RolInvalido_LanzaArgumentException()
         {
             using var context = GetDbContext();
-            var repo = new UsuarioRepository(context);
-            var mapper = GetMapper();
-            var logger = new LoggerFactory().CreateLogger<UsuarioService>();
-            var service = new UsuarioService(repo, mapper, logger);
+            var service = GetService(context);
 
             var dto = new CrearUsuarioDTO
             {
@@ -144,10 +130,7 @@ namespace BicTechBack.IntegrationTests.Services
         public async Task DeleteUsuarioAsync_UsuarioExistente_EliminaDeDb()
         {
             using var context = GetDbContext();
-            var repo = new UsuarioRepository(context);
-            var mapper = GetMapper();
-            var logger = new LoggerFactory().CreateLogger<UsuarioService>();
-            var service = new UsuarioService(repo, mapper, logger);
+            var service = GetService(context);
 
             var usuario = new Usuario
             {
@@ -170,10 +153,7 @@ namespace BicTechBack.IntegrationTests.Services
         public async Task DeleteUsuarioAsync_UsuarioNoExistente_LanzaKeyNotFoundException()
         {
             using var context = GetDbContext();
-            var repo = new UsuarioRepository(context);
-            var mapper = GetMapper();
-            var logger = new LoggerFactory().CreateLogger<UsuarioService>();
-            var service = new UsuarioService(repo, mapper, logger);
+            var service = GetService(context);
 
             await Assert.ThrowsAsync<KeyNotFoundException>(() => service.DeleteUsuarioAsync(999));
         }
@@ -182,10 +162,7 @@ namespace BicTechBack.IntegrationTests.Services
         public async Task GetAllUsuariosAsync_UsuariosExistentes_RetornaTodos()
         {
             using var context = GetDbContext();
-            var repo = new UsuarioRepository(context);
-            var mapper = GetMapper();
-            var logger = new LoggerFactory().CreateLogger<UsuarioService>();
-            var service = new UsuarioService(repo, mapper, logger);
+            var service = GetService(context);
 
             context.Usuarios.AddRange(
                 new Usuario { Nombre = "A", Email = "a@mail.com", Password = "1", Rol = RolUsuario.User },
@@ -205,10 +182,7 @@ namespace BicTechBack.IntegrationTests.Services
         public async Task GetAllUsuariosAsync_SinUsuarios_RetornaVacio()
         {
             using var context = GetDbContext();
-            var repo = new UsuarioRepository(context);
-            var mapper = GetMapper();
-            var logger = new LoggerFactory().CreateLogger<UsuarioService>();
-            var service = new UsuarioService(repo, mapper, logger);
+            var service = GetService(context);
 
             var result = await service.GetAllUsuariosAsync();
 
@@ -220,10 +194,7 @@ namespace BicTechBack.IntegrationTests.Services
         public async Task GetUsuarioByIdAsync_UsuarioExistente_RetornaUsuario()
         {
             using var context = GetDbContext();
-            var repo = new UsuarioRepository(context);
-            var mapper = GetMapper();
-            var logger = new LoggerFactory().CreateLogger<UsuarioService>();
-            var service = new UsuarioService(repo, mapper, logger);
+            var service = GetService(context);
 
             var usuario = new Usuario
             {
@@ -246,10 +217,7 @@ namespace BicTechBack.IntegrationTests.Services
         public async Task GetUsuarioByIdAsync_UsuarioNoExistente_LanzaKeyNotFoundException()
         {
             using var context = GetDbContext();
-            var repo = new UsuarioRepository(context);
-            var mapper = GetMapper();
-            var logger = new LoggerFactory().CreateLogger<UsuarioService>();
-            var service = new UsuarioService(repo, mapper, logger);
+            var service = GetService(context);
 
             await Assert.ThrowsAsync<KeyNotFoundException>(() => service.GetUsuarioByIdAsync(999));
         }
@@ -258,10 +226,7 @@ namespace BicTechBack.IntegrationTests.Services
         public async Task GetUsuariosAsync_Paginado_RetornaUsuariosYTotal()
         {
             using var context = GetDbContext();
-            var repo = new UsuarioRepository(context);
-            var mapper = GetMapper();
-            var logger = new LoggerFactory().CreateLogger<UsuarioService>();
-            var service = new UsuarioService(repo, mapper, logger);
+            var service = GetService(context);
 
             context.Usuarios.AddRange(
                 new Usuario { Nombre = "A", Email = "a@mail.com", Password = "1", Rol = RolUsuario.User },
@@ -281,10 +246,7 @@ namespace BicTechBack.IntegrationTests.Services
         public async Task UpdateUsuarioAsync_UsuarioExistente_ActualizaDatos()
         {
             using var context = GetDbContext();
-            var repo = new UsuarioRepository(context);
-            var mapper = GetMapper();
-            var logger = new LoggerFactory().CreateLogger<UsuarioService>();
-            var service = new UsuarioService(repo, mapper, logger);
+            var service = GetService(context);
 
             var usuario = new Usuario
             {
@@ -318,10 +280,7 @@ namespace BicTechBack.IntegrationTests.Services
         public async Task UpdateUsuarioAsync_UsuarioNoExistente_LanzaKeyNotFoundException()
         {
             using var context = GetDbContext();
-            var repo = new UsuarioRepository(context);
-            var mapper = GetMapper();
-            var logger = new LoggerFactory().CreateLogger<UsuarioService>();
-            var service = new UsuarioService(repo, mapper, logger);
+            var service = GetService(context);
 
             var dto = new CrearUsuarioDTO
             {
@@ -337,10 +296,7 @@ namespace BicTechBack.IntegrationTests.Services
         public async Task UpdateUsuarioAsync_EmailDuplicado_LanzaInvalidOperationException()
         {
             using var context = GetDbContext();
-            var repo = new UsuarioRepository(context);
-            var mapper = GetMapper();
-            var logger = new LoggerFactory().CreateLogger<UsuarioService>();
-            var service = new UsuarioService(repo, mapper, logger);
+            var service = GetService(context);
 
             var usuario1 = new Usuario
             {
@@ -362,7 +318,7 @@ namespace BicTechBack.IntegrationTests.Services
             var dto = new CrearUsuarioDTO
             {
                 Nombre = "Nuevo",
-                Email = "usuario2@mail.com", // Email duplicado
+                Email = "usuario2@mail.com",
                 Password = "new"
             };
 

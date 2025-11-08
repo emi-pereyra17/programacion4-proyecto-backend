@@ -47,6 +47,45 @@ namespace BicTechBack.src.API.Controllers
         }
 
         /// <summary>
+        /// Crea un nuevo usuario en el sistema.
+        /// Solo accesible para administradores.
+        /// </summary>
+        /// <param name="dto">Datos del usuario a crear, incluyendo nombre, email, contraseña y rol.</param>
+        /// <returns>El usuario creado o un mensaje de error si falla la operación.</returns>
+        [HttpPost]
+        public async Task<ActionResult> CreateUsuario([FromBody] CrearUsuarioDTO dto)
+        {
+            _logger.LogInformation("Intentando crear un nuevo usuario. Email: {Email}, Rol: {Rol}", dto.Email, dto.Rol);
+
+            if (!ModelState.IsValid)
+            {
+                _logger.LogWarning("Datos inválidos al intentar crear usuario. Email: {Email}", dto.Email);
+                return BadRequest(new { message = "Datos inválidos. Verifica los campos requeridos." });
+            }
+
+            try
+            {
+                var usuarioCreado = await _usuarioService.CreateUsuarioAsync(dto, dto.Rol);
+                _logger.LogInformation("Usuario creado correctamente. Email: {Email}, Rol: {Rol}", dto.Email, dto.Rol);
+                return Ok(new
+                {
+                    message = "Usuario creado correctamente",
+                    usuario = usuarioCreado
+                });
+            }
+            catch (InvalidOperationException ex)
+            {
+                _logger.LogWarning("Error de operación al crear usuario. Email: {Email}, Error: {Error}", dto.Email, ex.Message);
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error al crear usuario. Email: {Email}", dto.Email);
+                return StatusCode(500, new { message = "Error interno al crear el usuario", error = ex.Message });
+            }
+        }
+
+        /// <summary>
         /// Obtiene una lista paginada de usuarios.
         /// </summary>
         /// <param name="page">Número de página (por defecto 1).</param>

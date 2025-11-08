@@ -2,6 +2,7 @@
 using BicTechBack.src.Core.DTOs;
 using BicTechBack.src.Core.Entities;
 using BicTechBack.src.Core.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -12,28 +13,39 @@ namespace BicTechBack.src.Core.Services
         private readonly IUsuarioRepository _repository;
         private readonly IMapper _mapper;
         private readonly ILogger<UsuarioService> _logger;
+        private readonly IPasswordHasher<Usuario> _passwordHasher;
 
-        public UsuarioService(IUsuarioRepository repository, IMapper mapper, ILogger<UsuarioService> logger)
+        public UsuarioService(
+            IUsuarioRepository repository,
+            IMapper mapper,
+            ILogger<UsuarioService> logger,
+            IPasswordHasher<Usuario> passwordHasher)
         {
             _repository = repository;
             _mapper = mapper;
             _logger = logger;
+            _passwordHasher = passwordHasher;
         }
+
         public async Task<UsuarioDTO> CreateUsuarioAsync(CrearUsuarioDTO dto, string rol)
         {
             _logger.LogInformation("Intentando crear usuario con Email: {Email}", dto.Email);
+
             var usuarios = await _repository.GetAllAsync();
             if (usuarios.Any(u => u.Email.Equals(dto.Email, StringComparison.OrdinalIgnoreCase)))
             {
                 _logger.LogWarning("Intento de crear Usuario con Email ya existente: {Email}", dto.Email);
                 throw new InvalidOperationException("Ya existe un usuario con ese email.");
             }
+
             if (string.IsNullOrWhiteSpace(rol))
             {
                 _logger.LogWarning("Rol vacío o nulo al crear usuario con email: {Email}", dto.Email);
                 throw new ArgumentException("El rol no puede ser nulo o vacío.", nameof(rol));
             }
+
             var usuario = _mapper.Map<Usuario>(dto);
+
             if (!Enum.TryParse<RolUsuario>(rol, true, out var rolUsuario))
             {
                 _logger.LogWarning("Rol inválido '{Rol}' al crear usuario con email: {Email}", rol, dto.Email);
@@ -42,8 +54,11 @@ namespace BicTechBack.src.Core.Services
 
             usuario.Rol = rolUsuario;
 
+            usuario.Password = _passwordHasher.HashPassword(usuario, dto.Password);
+
             var usuarioCreadoId = await _repository.CreateAsync(usuario);
             usuario.Id = usuarioCreadoId;
+
             _logger.LogInformation("Usuario creado correctamente. Id: {Id}, Email: {Email}", usuario.Id, usuario.Email);
             return _mapper.Map<UsuarioDTO>(usuario);
         }
@@ -57,6 +72,7 @@ namespace BicTechBack.src.Core.Services
                 _logger.LogWarning("Intento de eliminar usuario no existente. Id: {Id}", id);
                 throw new KeyNotFoundException("Usuario no encontrado.");
             }
+
             var eliminado = await _repository.DeleteAsync(id);
 
             if (eliminado)
@@ -117,7 +133,6 @@ namespace BicTechBack.src.Core.Services
                 throw new KeyNotFoundException("Usuario no encontrado.");
             }
 
-
             var usuarios = await _repository.GetAllAsync();
             if (usuarios.Any(u => u.Email.Equals(dto.Email, StringComparison.OrdinalIgnoreCase) && u.Id != id))
             {
@@ -125,10 +140,13 @@ namespace BicTechBack.src.Core.Services
                 throw new InvalidOperationException("Ya existe un usuario con ese email.");
             }
 
-
             usuarioExistente.Nombre = dto.Nombre;
             usuarioExistente.Email = dto.Email;
-            usuarioExistente.Password = dto.Password;
+
+            if (!string.IsNullOrWhiteSpace(dto.Password))
+            {
+                usuarioExistente.Password = _passwordHasher.HashPassword(usuarioExistente, dto.Password);
+            }
 
             var usuarioActualizado = await _repository.UpdateAsync(usuarioExistente);
             _logger.LogInformation("Usuario actualizado correctamente. Id: {Id}, Email: {Email}", usuarioActualizado.Id, usuarioActualizado.Email);
@@ -136,3 +154,4 @@ namespace BicTechBack.src.Core.Services
         }
     }
 }
+

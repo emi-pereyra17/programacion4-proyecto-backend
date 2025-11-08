@@ -888,6 +888,22 @@
   },
   {
     "ContainingType": "BicTechBack.src.API.Controllers.UsuarioController",
+    "Method": "CreateUsuario",
+    "RelativePath": "usuarios",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "BicTechBack.src.Core.DTOs.CrearUsuarioDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BicTechBack.src.API.Controllers.UsuarioController",
     "Method": "GetById",
     "RelativePath": "usuarios/{id}",
     "HttpMethod": "GET",

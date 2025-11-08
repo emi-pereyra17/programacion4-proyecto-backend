@@ -422,6 +422,14 @@
             </summary>
             <returns>Lista de usuarios.</returns>
         </member>
+        <member name="M:BicTechBack.src.API.Controllers.UsuarioController.CreateUsuario(BicTechBack.src.Core.DTOs.CrearUsuarioDTO)">
+            <summary>
+            Crea un nuevo usuario en el sistema.
+            Solo accesible para administradores.
+            </summary>
+            <param name="dto">Datos del usuario a crear, incluyendo nombre, email, contraseña y rol.</param>
+            <returns>El usuario creado o un mensaje de error si falla la operación.</returns>
+        </member>
         <member name="M:BicTechBack.src.API.Controllers.UsuarioController.GetPaged(System.Int32,System.Int32,System.String)">
             <summary>
             Obtiene una lista paginada de usuarios.

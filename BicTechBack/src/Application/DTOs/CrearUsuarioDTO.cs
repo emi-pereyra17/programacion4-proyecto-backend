@@ -26,5 +26,8 @@ namespace BicTechBack.src.Core.DTOs
         /// </summary>
         [Required(ErrorMessage = "El password es obligatorio.")]
         public string Password { get; set; }
+
+        [Required(ErrorMessage = "El rol es obligatorio.")]
+        public string Rol { get; set; }
     }
 }

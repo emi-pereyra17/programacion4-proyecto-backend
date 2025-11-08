@@ -1508,6 +1508,37 @@
             "description": "OK"
           }
         }
+      },
+      "post": {
+        "tags": [
+          "Usuario"
+        ],
+        "summary": "Crea un nuevo usuario en el sistema.\r\nSolo accesible para administradores.",
+        "requestBody": {
+          "description": "Datos del usuario a crear, incluyendo nombre, email, contraseña y rol.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearUsuarioDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearUsuarioDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearUsuarioDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
     "/usuarios/paginado": {
@@ -1828,7 +1859,8 @@
         "required": [
           "email",
           "nombre",
-          "password"
+          "password",
+          "rol"
         ],
         "type": "object",
         "properties": {
@@ -1843,6 +1875,10 @@
             "format": "email"
           },
           "password": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "rol": {
             "minLength": 1,
             "type": "string"
           }

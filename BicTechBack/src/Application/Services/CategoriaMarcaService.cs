@@ -2,7 +2,6 @@
 using BicTechBack.src.Core.DTOs;
 using BicTechBack.src.Core.Entities;
 using BicTechBack.src.Core.Interfaces;
-using Microsoft.Extensions.Logging;
 namespace BicTechBack.src.Core.Services
 {
     public class CategoriaMarcaService : ICategoriaMarcaService
@@ -11,14 +10,14 @@ namespace BicTechBack.src.Core.Services
         private readonly ICategoriaRepository _categoriaRepository;
         private readonly IMarcaRepository _marcaRepository;
         private readonly IMapper _mapper;
-        private readonly ILogger<CategoriaMarcaService> _logger; 
+        private readonly IAppLogger<CategoriaMarcaService> _logger;
 
         public CategoriaMarcaService(
             ICategoriaMarcaRepository categoriaMarcaRepository,
             ICategoriaRepository categoriaRepository,
             IMarcaRepository marcaRepository,
             IMapper mapper,
-            ILogger<CategoriaMarcaService> logger) 
+            IAppLogger<CategoriaMarcaService> logger)
         {
             _repository = categoriaMarcaRepository;
             _categoriaRepository = categoriaRepository;

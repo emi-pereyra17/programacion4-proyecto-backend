@@ -2,8 +2,6 @@
 using BicTechBack.src.Core.DTOs;
 using BicTechBack.src.Core.Entities;
 using BicTechBack.src.Core.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace BicTechBack.src.Core.Services
 {
@@ -13,14 +11,14 @@ namespace BicTechBack.src.Core.Services
         private readonly IProductoRepository _productoRepository;
         private readonly IUsuarioRepository _usuarioRepository;
         private readonly IMapper _mapper;
-        private readonly ILogger<CarritoService> _logger; 
+        private readonly IAppLogger<CarritoService> _logger;
 
         public CarritoService(
             ICarritoRepository repository,
             IMapper mapper,
             IUsuarioRepository usuarioRepository,
             IProductoRepository productoRepository,
-            ILogger<CarritoService> logger) 
+            IAppLogger<CarritoService> logger)
         {
             _repository = repository;
             _mapper = mapper;
@@ -28,6 +26,7 @@ namespace BicTechBack.src.Core.Services
             _productoRepository = productoRepository;
             _logger = logger;
         }
+
 
         public async Task<CarritoDTO> AddProductoToCarritoAsync(int usuarioId, int productoId, int cantidad)
         {

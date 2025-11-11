@@ -2,9 +2,6 @@
 using BicTechBack.src.Core.DTOs;
 using BicTechBack.src.Core.Entities;
 using BicTechBack.src.Core.Interfaces;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace BicTechBack.src.Core.Services
 {
@@ -12,14 +9,15 @@ namespace BicTechBack.src.Core.Services
     {
         private readonly IUsuarioRepository _repository;
         private readonly IMapper _mapper;
-        private readonly ILogger<UsuarioService> _logger;
-        private readonly IPasswordHasher<Usuario> _passwordHasher;
+        private readonly IAppLogger<UsuarioService> _logger;
+        private readonly IPasswordHasherService _passwordHasher;
+
 
         public UsuarioService(
             IUsuarioRepository repository,
             IMapper mapper,
-            ILogger<UsuarioService> logger,
-            IPasswordHasher<Usuario> passwordHasher)
+            IAppLogger<UsuarioService> logger,
+            IPasswordHasherService passwordHasher)
         {
             _repository = repository;
             _mapper = mapper;
@@ -54,7 +52,7 @@ namespace BicTechBack.src.Core.Services
 
             usuario.Rol = rolUsuario;
 
-            usuario.Password = _passwordHasher.HashPassword(usuario, dto.Password);
+            usuario.Password = _passwordHasher.HashPassword(dto.Password);
 
             var usuarioCreadoId = await _repository.CreateAsync(usuario);
             usuario.Id = usuarioCreadoId;
@@ -145,7 +143,7 @@ namespace BicTechBack.src.Core.Services
 
             if (!string.IsNullOrWhiteSpace(dto.Password))
             {
-                usuarioExistente.Password = _passwordHasher.HashPassword(usuarioExistente, dto.Password);
+                usuarioExistente.Password = _passwordHasher.HashPassword(dto.Password);
             }
 
             var usuarioActualizado = await _repository.UpdateAsync(usuarioExistente);
@@ -154,4 +152,3 @@ namespace BicTechBack.src.Core.Services
         }
     }
 }
-

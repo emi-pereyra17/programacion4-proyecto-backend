@@ -2,7 +2,6 @@
 using BicTechBack.src.Core.DTOs;
 using BicTechBack.src.Core.Entities;
 using BicTechBack.src.Core.Interfaces;
-using Microsoft.Extensions.Logging;
 
 namespace BicTechBack.src.Core.Services
 {
@@ -11,9 +10,9 @@ namespace BicTechBack.src.Core.Services
         private readonly IMarcaRepository _repository;
         private readonly IPaisRepository _paisRepository;
         private readonly IMapper _mapper;
-        private readonly ILogger<MarcaService> _logger; 
+        private readonly IAppLogger<MarcaService> _logger;
 
-        public MarcaService(IMarcaRepository repository, IMapper mapper, ILogger<MarcaService> logger, IPaisRepository paisRepository) 
+        public MarcaService(IMarcaRepository repository, IMapper mapper, IAppLogger<MarcaService> logger, IPaisRepository paisRepository)
         {
             _repository = repository;
             _paisRepository = paisRepository;

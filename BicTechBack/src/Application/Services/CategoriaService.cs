@@ -2,7 +2,6 @@
 using BicTechBack.src.Core.Interfaces;
 using BicTechBack.src.Core.Entities;
 using AutoMapper;
-using Microsoft.Extensions.Logging;
 
 namespace BicTechBack.src.Core.Services
 {
@@ -10,9 +9,9 @@ namespace BicTechBack.src.Core.Services
     {
         private readonly ICategoriaRepository _repository;
         private readonly IMapper _mapper;
-        private readonly ILogger<CategoriaService> _logger; 
+        private readonly IAppLogger<CategoriaService> _logger;
 
-        public CategoriaService(ICategoriaRepository repository, IMapper mapper, ILogger<CategoriaService> logger) // Inyecta el logger
+        public CategoriaService(ICategoriaRepository repository, IMapper mapper, IAppLogger<CategoriaService> logger)
         {
             _repository = repository;
             _mapper = mapper;

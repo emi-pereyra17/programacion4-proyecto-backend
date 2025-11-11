@@ -3,16 +3,16 @@ using BicTechBack.src.Core.Entities;
 using BicTechBack.src.Core.Interfaces;
 using BicTechBack.src.Core.Services;
 using BicTechBack.src.Infrastructure.Data;
+using BicTechBack.src.Infrastructure.Logging;
 using BicTechBack.src.Infrastructure.Repositories;
-using Infrastructure.Config;  
-using Infrastructure.Services; 
+using BicTechBack.src.Infrastructure.Security;
+using Infrastructure.Config;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Polly;
-using Polly.Extensions.Http;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -86,7 +86,8 @@ builder.Services.AddScoped<ICategoriaService, CategoriaService>();
 builder.Services.AddScoped<ICategoriaMarcaService, CategoriaMarcaService>();
 builder.Services.AddScoped<ICarritoService, CarritoService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<IPasswordHasher<Usuario>, PasswordHasher<Usuario>>();
+builder.Services.AddScoped<IPasswordHasherService, PasswordHasherService>();
+builder.Services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
 
 
 // ==========================================
@@ -105,7 +106,7 @@ builder.Services.AddCors(options =>
 // ==========================================
 
 //builder.Services.AddDbContext<AppDbContext>(options =>
-   //options.UseSqlite(builder.Configuration.GetConnectionString("SQLiteConnection")));
+//options.UseSqlite(builder.Configuration.GetConnectionString("SQLiteConnection")));
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("SQLServerConnection")));
@@ -117,11 +118,11 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 // ==========================================
 // 🔐 Configuración JWT desde variables de entorno
 // ==========================================
-var jwtKey = Environment.GetEnvironmentVariable("JWT_KEY") 
+var jwtKey = Environment.GetEnvironmentVariable("JWT_KEY")
              ?? builder.Configuration["Jwt:Key"];
-var jwtIssuer = Environment.GetEnvironmentVariable("JWT_ISSUER") 
+var jwtIssuer = Environment.GetEnvironmentVariable("JWT_ISSUER")
                 ?? builder.Configuration["Jwt:Issuer"];
-var jwtAudience = Environment.GetEnvironmentVariable("JWT_AUDIENCE") 
+var jwtAudience = Environment.GetEnvironmentVariable("JWT_AUDIENCE")
                   ?? builder.Configuration["Jwt:Audience"];
 
 if (string.IsNullOrEmpty(jwtKey))
@@ -154,40 +155,18 @@ builder.Services.AddAuthentication(options =>
 // ==========================================
 builder.Services.Configure<StripeOptions>(opts =>
 {
-    opts.BaseUrl = Environment.GetEnvironmentVariable("STRIPE_BASEURL") 
+    opts.BaseUrl = Environment.GetEnvironmentVariable("STRIPE_BASEURL")
                    ?? builder.Configuration["Stripe:BaseUrl"];
-    opts.SecretKey = Environment.GetEnvironmentVariable("STRIPE_SECRETKEY") 
+    opts.SecretKey = Environment.GetEnvironmentVariable("STRIPE_SECRETKEY")
                      ?? builder.Configuration["Stripe:SecretKey"];
 
     if (string.IsNullOrEmpty(opts.SecretKey))
         throw new Exception("STRIPE_SECRETKEY no está definida en las variables de entorno.");
 });
 
-// HttpClient Stripe
-builder.Services.AddHttpClient("Stripe", (sp, client) =>
-{
-    var opts = sp.GetRequiredService<IOptions<StripeOptions>>().Value;
-    client.BaseAddress = new Uri(opts.BaseUrl);
-    client.DefaultRequestHeaders.UserAgent.ParseAdd("BicTechBack/1.0");
-    client.DefaultRequestHeaders.Authorization =
-        new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", opts.SecretKey);
-})
-.AddPolicyHandler(GetRetryPolicy())
-.AddPolicyHandler(GetCircuitBreakerPolicy());
-
 // Servicio Stripe
+builder.Services.AddStripeHttpClient();
 builder.Services.AddScoped<IStripeService, StripeService>();
-
-// Métodos estáticos locales para Polly
-static IAsyncPolicy<HttpResponseMessage> GetRetryPolicy() =>
-    HttpPolicyExtensions
-        .HandleTransientHttpError()
-        .WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)));
-
-static IAsyncPolicy<HttpResponseMessage> GetCircuitBreakerPolicy() =>
-    HttpPolicyExtensions
-        .HandleTransientHttpError()
-        .CircuitBreakerAsync(5, TimeSpan.FromSeconds(30));
 
 // ==========================================
 // Construir app
@@ -223,4 +202,3 @@ var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
 app.Urls.Add($"http://*:{port}");
 
 app.Run();
-

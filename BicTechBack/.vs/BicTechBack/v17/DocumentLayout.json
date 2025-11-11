@@ -1,34 +1,38 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\26mas\\source\\repos\\programacion4-proyecto-backend\\BicTechBack\\",
+  "WorkspaceRootPath": "C:\\Users\\santi\\source\\repos\\programacion4-proyecto-backend\\BicTechBack\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D1E93517-6B79-4D43-949C-AD604399D0F8}|src\\Domain\\Domain.csproj|c:\\users\\26mas\\source\\repos\\programacion4-proyecto-backend\\bictechback\\src\\domain\\interfaces\\icarritorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1E93517-6B79-4D43-949C-AD604399D0F8}|src\\Domain\\Domain.csproj|solutionrelative:src\\domain\\interfaces\\icarritorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{7D44CE21-3A18-4C08-9814-2DEED3EAC3B4}|src\\Application\\Application.csproj|c:\\users\\santi\\source\\repos\\programacion4-proyecto-backend\\bictechback\\src\\application\\services\\usuarioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D44CE21-3A18-4C08-9814-2DEED3EAC3B4}|src\\Application\\Application.csproj|solutionrelative:src\\application\\services\\usuarioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8A177184-3480-40F3-9E3D-9394DD6F4EAA}|src\\Presentation\\Presentation.csproj|c:\\users\\26mas\\source\\repos\\programacion4-proyecto-backend\\bictechback\\src\\presentation\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8A177184-3480-40F3-9E3D-9394DD6F4EAA}|src\\Presentation\\Presentation.csproj|solutionrelative:src\\presentation\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{7D44CE21-3A18-4C08-9814-2DEED3EAC3B4}|src\\Application\\Application.csproj|c:\\users\\santi\\source\\repos\\programacion4-proyecto-backend\\bictechback\\src\\application\\services\\productoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D44CE21-3A18-4C08-9814-2DEED3EAC3B4}|src\\Application\\Application.csproj|solutionrelative:src\\application\\services\\productoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AED128CC-C062-4FD5-897F-07C7C00DBEF7}|src\\Infrastructure\\Infrastructure.csproj|c:\\users\\26mas\\source\\repos\\programacion4-proyecto-backend\\bictechback\\src\\infrastructure\\services\\stripeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AED128CC-C062-4FD5-897F-07C7C00DBEF7}|src\\Infrastructure\\Infrastructure.csproj|solutionrelative:src\\infrastructure\\services\\stripeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{7D44CE21-3A18-4C08-9814-2DEED3EAC3B4}|src\\Application\\Application.csproj|c:\\users\\santi\\source\\repos\\programacion4-proyecto-backend\\bictechback\\src\\application\\services\\pedidoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D44CE21-3A18-4C08-9814-2DEED3EAC3B4}|src\\Application\\Application.csproj|solutionrelative:src\\application\\services\\pedidoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7D44CE21-3A18-4C08-9814-2DEED3EAC3B4}|src\\Application\\Application.csproj|c:\\users\\26mas\\source\\repos\\programacion4-proyecto-backend\\bictechback\\src\\application\\application.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{7D44CE21-3A18-4C08-9814-2DEED3EAC3B4}|src\\Application\\Application.csproj|solutionrelative:src\\application\\application.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{7D44CE21-3A18-4C08-9814-2DEED3EAC3B4}|src\\Application\\Application.csproj|c:\\users\\santi\\source\\repos\\programacion4-proyecto-backend\\bictechback\\src\\application\\services\\paisservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D44CE21-3A18-4C08-9814-2DEED3EAC3B4}|src\\Application\\Application.csproj|solutionrelative:src\\application\\services\\paisservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AED128CC-C062-4FD5-897F-07C7C00DBEF7}|src\\Infrastructure\\Infrastructure.csproj|c:\\users\\26mas\\source\\repos\\programacion4-proyecto-backend\\bictechback\\src\\infrastructure\\infrastructure.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{AED128CC-C062-4FD5-897F-07C7C00DBEF7}|src\\Infrastructure\\Infrastructure.csproj|solutionrelative:src\\infrastructure\\infrastructure.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{7D44CE21-3A18-4C08-9814-2DEED3EAC3B4}|src\\Application\\Application.csproj|c:\\users\\santi\\source\\repos\\programacion4-proyecto-backend\\bictechback\\src\\application\\services\\marcaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D44CE21-3A18-4C08-9814-2DEED3EAC3B4}|src\\Application\\Application.csproj|solutionrelative:src\\application\\services\\marcaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8A177184-3480-40F3-9E3D-9394DD6F4EAA}|src\\Presentation\\Presentation.csproj|c:\\users\\26mas\\source\\repos\\programacion4-proyecto-backend\\bictechback\\src\\presentation\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8A177184-3480-40F3-9E3D-9394DD6F4EAA}|src\\Presentation\\Presentation.csproj|solutionrelative:src\\presentation\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{7D44CE21-3A18-4C08-9814-2DEED3EAC3B4}|src\\Application\\Application.csproj|c:\\users\\santi\\source\\repos\\programacion4-proyecto-backend\\bictechback\\src\\application\\services\\categoriaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D44CE21-3A18-4C08-9814-2DEED3EAC3B4}|src\\Application\\Application.csproj|solutionrelative:src\\application\\services\\categoriaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8A177184-3480-40F3-9E3D-9394DD6F4EAA}|src\\Presentation\\Presentation.csproj|c:\\users\\26mas\\source\\repos\\programacion4-proyecto-backend\\bictechback\\src\\presentation\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{8A177184-3480-40F3-9E3D-9394DD6F4EAA}|src\\Presentation\\Presentation.csproj|solutionrelative:src\\presentation\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{7D44CE21-3A18-4C08-9814-2DEED3EAC3B4}|src\\Application\\Application.csproj|c:\\users\\santi\\source\\repos\\programacion4-proyecto-backend\\bictechback\\src\\application\\services\\categoriamarcaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D44CE21-3A18-4C08-9814-2DEED3EAC3B4}|src\\Application\\Application.csproj|solutionrelative:src\\application\\services\\categoriamarcaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D44CE21-3A18-4C08-9814-2DEED3EAC3B4}|src\\Application\\Application.csproj|c:\\users\\santi\\source\\repos\\programacion4-proyecto-backend\\bictechback\\src\\application\\services\\carritoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D44CE21-3A18-4C08-9814-2DEED3EAC3B4}|src\\Application\\Application.csproj|solutionrelative:src\\application\\services\\carritoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,33 +42,119 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 1,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UsuarioService.cs",
+              "DocumentMoniker": "C:\\Users\\santi\\source\\repos\\programacion4-proyecto-backend\\BicTechBack\\src\\Application\\Services\\UsuarioService.cs",
+              "RelativeDocumentMoniker": "src\\Application\\Services\\UsuarioService.cs",
+              "ToolTip": "C:\\Users\\santi\\source\\repos\\programacion4-proyecto-backend\\BicTechBack\\src\\Application\\Services\\UsuarioService.cs",
+              "RelativeToolTip": "src\\Application\\Services\\UsuarioService.cs",
+              "ViewState": "AgIAAG8AAAAAAAAAAAAowIkAAABbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-11T19:17:06.053Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ProductoService.cs",
+              "DocumentMoniker": "C:\\Users\\santi\\source\\repos\\programacion4-proyecto-backend\\BicTechBack\\src\\Application\\Services\\ProductoService.cs",
+              "RelativeDocumentMoniker": "src\\Application\\Services\\ProductoService.cs",
+              "ToolTip": "C:\\Users\\santi\\source\\repos\\programacion4-proyecto-backend\\BicTechBack\\src\\Application\\Services\\ProductoService.cs",
+              "RelativeToolTip": "src\\Application\\Services\\ProductoService.cs",
+              "ViewState": "AgIAAGYAAAAAAAAAAAAowJAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-11T19:15:49.885Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "PedidoService.cs",
+              "DocumentMoniker": "C:\\Users\\santi\\source\\repos\\programacion4-proyecto-backend\\BicTechBack\\src\\Application\\Services\\PedidoService.cs",
+              "RelativeDocumentMoniker": "src\\Application\\Services\\PedidoService.cs",
+              "ToolTip": "C:\\Users\\santi\\source\\repos\\programacion4-proyecto-backend\\BicTechBack\\src\\Application\\Services\\PedidoService.cs",
+              "RelativeToolTip": "src\\Application\\Services\\PedidoService.cs",
+              "ViewState": "AgIAAMsAAAAAAAAAAAAowPUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-11T19:15:15.616Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "Application",
-              "DocumentMoniker": "C:\\Users\\26mas\\Source\\Repos\\programacion4-proyecto-backend\\BicTechBack\\src\\Application\\Application.csproj",
-              "RelativeDocumentMoniker": "src\\Application\\Application.csproj",
-              "ToolTip": "C:\\Users\\26mas\\Source\\Repos\\programacion4-proyecto-backend\\BicTechBack\\src\\Application\\Application.csproj",
-              "RelativeToolTip": "src\\Application\\Application.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-11-11T17:58:22.92Z",
+              "Title": "PaisService.cs",
+              "DocumentMoniker": "C:\\Users\\santi\\source\\repos\\programacion4-proyecto-backend\\BicTechBack\\src\\Application\\Services\\PaisService.cs",
+              "RelativeDocumentMoniker": "src\\Application\\Services\\PaisService.cs",
+              "ToolTip": "C:\\Users\\santi\\source\\repos\\programacion4-proyecto-backend\\BicTechBack\\src\\Application\\Services\\PaisService.cs",
+              "RelativeToolTip": "src\\Application\\Services\\PaisService.cs",
+              "ViewState": "AgIAAEcAAAAAAAAAAAAowGAAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-11T19:14:29.752Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "Infrastructure",
-              "DocumentMoniker": "C:\\Users\\26mas\\Source\\Repos\\programacion4-proyecto-backend\\BicTechBack\\src\\Infrastructure\\Infrastructure.csproj",
-              "RelativeDocumentMoniker": "src\\Infrastructure\\Infrastructure.csproj",
-              "ToolTip": "C:\\Users\\26mas\\Source\\Repos\\programacion4-proyecto-backend\\BicTechBack\\src\\Infrastructure\\Infrastructure.csproj",
-              "RelativeToolTip": "src\\Infrastructure\\Infrastructure.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAABIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-11-11T17:54:33.253Z",
+              "Title": "MarcaService.cs",
+              "DocumentMoniker": "C:\\Users\\santi\\source\\repos\\programacion4-proyecto-backend\\BicTechBack\\src\\Application\\Services\\MarcaService.cs",
+              "RelativeDocumentMoniker": "src\\Application\\Services\\MarcaService.cs",
+              "ToolTip": "C:\\Users\\santi\\source\\repos\\programacion4-proyecto-backend\\BicTechBack\\src\\Application\\Services\\MarcaService.cs",
+              "RelativeToolTip": "src\\Application\\Services\\MarcaService.cs",
+              "ViewState": "AgIAAFEAAAAAAAAAAAAgwIkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-11T19:13:41.96Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "CategoriaService.cs",
+              "DocumentMoniker": "C:\\Users\\santi\\source\\repos\\programacion4-proyecto-backend\\BicTechBack\\src\\Application\\Services\\CategoriaService.cs",
+              "RelativeDocumentMoniker": "src\\Application\\Services\\CategoriaService.cs",
+              "ToolTip": "C:\\Users\\santi\\source\\repos\\programacion4-proyecto-backend\\BicTechBack\\src\\Application\\Services\\CategoriaService.cs",
+              "RelativeToolTip": "src\\Application\\Services\\CategoriaService.cs",
+              "ViewState": "AgIAAFcAAAAAAAAAAAAwwHgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-11T19:13:19.851Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "CategoriaMarcaService.cs",
+              "DocumentMoniker": "C:\\Users\\santi\\source\\repos\\programacion4-proyecto-backend\\BicTechBack\\src\\Application\\Services\\CategoriaMarcaService.cs",
+              "RelativeDocumentMoniker": "src\\Application\\Services\\CategoriaMarcaService.cs",
+              "ToolTip": "C:\\Users\\santi\\source\\repos\\programacion4-proyecto-backend\\BicTechBack\\src\\Application\\Services\\CategoriaMarcaService.cs",
+              "RelativeToolTip": "src\\Application\\Services\\CategoriaMarcaService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-11T19:11:43.532Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "CarritoService.cs",
+              "DocumentMoniker": "C:\\Users\\santi\\source\\repos\\programacion4-proyecto-backend\\BicTechBack\\src\\Application\\Services\\CarritoService.cs",
+              "RelativeDocumentMoniker": "src\\Application\\Services\\CarritoService.cs",
+              "ToolTip": "C:\\Users\\santi\\source\\repos\\programacion4-proyecto-backend\\BicTechBack\\src\\Application\\Services\\CarritoService.cs",
+              "RelativeToolTip": "src\\Application\\Services\\CarritoService.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAQwBkAAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-11T19:09:49.801Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
               "$type": "Bookmark",
@@ -72,79 +162,31 @@
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "StripeService.cs",
-              "DocumentMoniker": "C:\\Users\\26mas\\source\\repos\\programacion4-proyecto-backend\\BicTechBack\\src\\Infrastructure\\Services\\StripeService.cs",
-              "RelativeDocumentMoniker": "src\\Infrastructure\\Services\\StripeService.cs",
-              "ToolTip": "C:\\Users\\26mas\\source\\repos\\programacion4-proyecto-backend\\BicTechBack\\src\\Infrastructure\\Services\\StripeService.cs",
-              "RelativeToolTip": "src\\Infrastructure\\Services\\StripeService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-11T17:42:16.545Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "AuthController.cs",
-              "DocumentMoniker": "C:\\Users\\26mas\\source\\repos\\programacion4-proyecto-backend\\BicTechBack\\src\\Presentation\\Controllers\\AuthController.cs",
-              "RelativeDocumentMoniker": "src\\Presentation\\Controllers\\AuthController.cs",
-              "ToolTip": "C:\\Users\\26mas\\source\\repos\\programacion4-proyecto-backend\\BicTechBack\\src\\Presentation\\Controllers\\AuthController.cs",
-              "RelativeToolTip": "src\\Presentation\\Controllers\\AuthController.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAUwBYAAAAdAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-11T14:26:22.891Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ICarritoRepository.cs",
-              "DocumentMoniker": "C:\\Users\\26mas\\source\\repos\\programacion4-proyecto-backend\\BicTechBack\\src\\Domain\\Interfaces\\ICarritoRepository.cs",
-              "RelativeDocumentMoniker": "src\\Domain\\Interfaces\\ICarritoRepository.cs",
-              "ToolTip": "C:\\Users\\26mas\\source\\repos\\programacion4-proyecto-backend\\BicTechBack\\src\\Domain\\Interfaces\\ICarritoRepository.cs",
-              "RelativeToolTip": "src\\Domain\\Interfaces\\ICarritoRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAGAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-11T14:20:18.8Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\26mas\\source\\repos\\programacion4-proyecto-backend\\BicTechBack\\src\\Presentation\\appsettings.json",
-              "RelativeDocumentMoniker": "src\\Presentation\\appsettings.json",
-              "ToolTip": "C:\\Users\\26mas\\source\\repos\\programacion4-proyecto-backend\\BicTechBack\\src\\Presentation\\appsettings.json",
-              "RelativeToolTip": "src\\Presentation\\appsettings.json",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAAB4AAAAdAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-11-11T12:58:55.25Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\26mas\\source\\repos\\programacion4-proyecto-backend\\BicTechBack\\src\\Presentation\\Program.cs",
-              "RelativeDocumentMoniker": "src\\Presentation\\Program.cs",
-              "ToolTip": "C:\\Users\\26mas\\source\\repos\\programacion4-proyecto-backend\\BicTechBack\\src\\Presentation\\Program.cs",
-              "RelativeToolTip": "src\\Presentation\\Program.cs",
-              "ViewState": "AgIAAF0AAAAAAAAAAAAAAGsAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-11T12:57:27.713Z",
-              "EditorCaption": ""
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+              "Name": "ST:1:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{56df62a4-05a3-4e5b-aa1a-99371ccfb997}"
+              "Name": "ST:2:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:3:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:4:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:605150511:0:{bf84ea66-d821-4dba-b1b1-2777d8574775}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:597345585:0:{bf84ea66-d821-4dba-b1b1-2777d8574775}"
             }
           ]
         }

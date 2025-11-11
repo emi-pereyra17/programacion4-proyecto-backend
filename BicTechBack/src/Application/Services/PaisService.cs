@@ -2,7 +2,6 @@
 using BicTechBack.src.Core.DTOs;
 using BicTechBack.src.Core.Entities;
 using BicTechBack.src.Core.Interfaces;
-using Microsoft.Extensions.Logging;
 
 namespace BicTechBack.src.Core.Services
 {
@@ -10,9 +9,9 @@ namespace BicTechBack.src.Core.Services
     {
         private readonly IPaisRepository _repository;
         private readonly IMapper _mapper;
-        private readonly ILogger<PaisService> _logger;
+        private readonly IAppLogger<PaisService> _logger;
 
-        public PaisService(IPaisRepository repository, IMapper mapper, ILogger<PaisService> logger)
+        public PaisService(IPaisRepository repository, IMapper mapper, IAppLogger<PaisService> logger)
         {
             _repository = repository;
             _mapper = mapper;

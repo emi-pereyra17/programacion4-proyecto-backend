@@ -461,53 +461,5 @@
             <param name="id">Identificador del usuario a eliminar.</param>
             <returns>Resultado de la operación.</returns>
         </member>
-        <member name="T:BicTechBack.Migrations.InitialCreate">
-            <inheritdoc />
-        </member>
-        <member name="M:BicTechBack.Migrations.InitialCreate.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="M:BicTechBack.Migrations.InitialCreate.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="M:BicTechBack.Migrations.InitialCreate.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="T:BicTechBack.Migrations.ActualizaEntidades">
-            <inheritdoc />
-        </member>
-        <member name="M:BicTechBack.Migrations.ActualizaEntidades.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="M:BicTechBack.Migrations.ActualizaEntidades.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="M:BicTechBack.Migrations.ActualizaEntidades.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="T:BicTechBack.Migrations.AddRefreshTokenToUsuario">
-            <inheritdoc />
-        </member>
-        <member name="M:BicTechBack.Migrations.AddRefreshTokenToUsuario.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="M:BicTechBack.Migrations.AddRefreshTokenToUsuario.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="M:BicTechBack.Migrations.AddRefreshTokenToUsuario.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="T:BicTechBack.Migrations.AddPaisToMarca">
-            <inheritdoc />
-        </member>
-        <member name="M:BicTechBack.Migrations.AddPaisToMarca.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="M:BicTechBack.Migrations.AddPaisToMarca.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="M:BicTechBack.Migrations.AddPaisToMarca.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
-            <inheritdoc />
-        </member>
     </members>
 </doc>

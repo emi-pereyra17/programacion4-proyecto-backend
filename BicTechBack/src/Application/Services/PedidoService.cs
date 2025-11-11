@@ -2,7 +2,6 @@
 using BicTechBack.src.Core.DTOs;
 using BicTechBack.src.Core.Entities;
 using BicTechBack.src.Core.Interfaces;
-using Microsoft.Extensions.Logging;
 
 namespace BicTechBack.src.Core.Services
 {
@@ -12,14 +11,14 @@ namespace BicTechBack.src.Core.Services
         private readonly IUsuarioRepository _usuarioRepository;
         private readonly IProductoRepository _productoRepository;
         private readonly IMapper _mapper;
-        private readonly ILogger<PedidoService> _logger; 
+        private readonly IAppLogger<PedidoService> _logger;
 
         public PedidoService(
             IPedidoRepository repository,
             IUsuarioRepository usuarioRepository,
             IProductoRepository productoRepository,
             IMapper mapper,
-            ILogger<PedidoService> logger) 
+            IAppLogger<PedidoService> logger)
         {
             _repository = repository;
             _usuarioRepository = usuarioRepository;

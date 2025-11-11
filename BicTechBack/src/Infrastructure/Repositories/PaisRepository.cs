@@ -2,54 +2,28 @@
 using BicTechBack.src.Core.Interfaces;
 using BicTechBack.src.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Infrastructure.Repositories;
 
 namespace BicTechBack.src.Infrastructure.Repositories
 {
-    public class PaisRepository : IPaisRepository
+    public class PaisRepository : Repository<Pais>, IPaisRepository
     {
-        private readonly AppDbContext _context;
+        public PaisRepository(AppDbContext context) : base(context) { }
 
-        public PaisRepository(AppDbContext context)
-        {
-            _context = context;
-        }
-        public async Task<Pais> AddAsync(Pais pais)
-        {
-            _context.Paises.Add(pais);
-            await _context.SaveChangesAsync();
-            return pais;
-        }
-
-        public async Task<bool> DeleteAsync(int id)
-        {
-            var pais = await _context.Paises.FindAsync(id);
-            if (pais == null)
-                return false;
-
-            _context.Paises.Remove(pais);
-            await _context.SaveChangesAsync();
-            return true;
-        }
-
-        public async Task<IEnumerable<Pais>> GetAllAsync()
+        public override async Task<IEnumerable<Pais>> GetAllAsync()
         {
             return await _context.Paises
                 .Include(p => p.Marcas)
                 .ToListAsync();
         }
 
-        public async Task<Pais?> GetByIdAsync(int id)
+        public override async Task<Pais?> GetByIdAsync(int id)
         {
             return await _context.Paises
                 .Include(p => p.Marcas)
                 .FirstOrDefaultAsync(p => p.Id == id);
-        }
-
-        public async Task<Pais> UpdateAsync(Pais pais)
-        {
-            _context.Paises.Update(pais);
-            await _context.SaveChangesAsync();
-            return pais;
         }
     }
 }

@@ -2,43 +2,30 @@
 using BicTechBack.src.Core.Interfaces;
 using BicTechBack.src.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Infrastructure.Repositories;
 
 namespace BicTechBack.src.Infrastructure.Repositories
 {
-    public class CategoriaMarcaRepository : ICategoriaMarcaRepository
+    public class CategoriaMarcaRepository : Repository<CategoriaMarca>, ICategoriaMarcaRepository
     {
-        private readonly AppDbContext _context;
+        public CategoriaMarcaRepository(AppDbContext context) : base(context) { }
 
-        public CategoriaMarcaRepository(AppDbContext context)
-        {
-            _context = context;
-        }
-        public async Task<CategoriaMarca> AddAsync(CategoriaMarca categoriaMarca)
-        {
-            _context.CategoriasMarcas.Add(categoriaMarca);
-            await _context.SaveChangesAsync();
-            return categoriaMarca;
-        }
-
-        public async Task<bool> DeleteAsync(int id)
-        {
-            var categoriaMarca = await _context.CategoriasMarcas.FindAsync(id);
-            if (categoriaMarca == null)
-            {
-                return false;
-            }
-
-            _context.CategoriasMarcas.Remove(categoriaMarca);
-            await _context.SaveChangesAsync();
-            return true;
-        }
-
-        public async Task<IEnumerable<CategoriaMarca>> GetAllAsync()
+        public override async Task<IEnumerable<CategoriaMarca>> GetAllAsync()
         {
             return await _context.CategoriasMarcas
                 .Include(cm => cm.Categoria)
                 .Include(cm => cm.Marca)
                 .ToListAsync();
+        }
+
+        public override async Task<CategoriaMarca?> GetByIdAsync(int id)
+        {
+            return await _context.CategoriasMarcas
+                .Include(cm => cm.Categoria)
+                .Include(cm => cm.Marca)
+                .FirstOrDefaultAsync(cm => cm.Id == id);
         }
 
         public async Task<IEnumerable<CategoriaMarca>> GetByCategoriaIdAsync(int categoriaId)
@@ -50,11 +37,6 @@ namespace BicTechBack.src.Infrastructure.Repositories
                 .ToListAsync();
         }
 
-        public Task<CategoriaMarca?> GetByIdAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<IEnumerable<CategoriaMarca>> GetByMarcaIdAsync(int marcaId)
         {
             return await _context.CategoriasMarcas
@@ -62,11 +44,6 @@ namespace BicTechBack.src.Infrastructure.Repositories
                 .Include(cm => cm.Categoria)
                 .Include(cm => cm.Marca)
                 .ToListAsync();
-        }
-
-        public Task<CategoriaMarca> UpdateAsync(CategoriaMarca entity)
-        {
-            throw new NotImplementedException();
         }
     }
 }

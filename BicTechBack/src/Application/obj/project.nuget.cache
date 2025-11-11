@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "0PWwZAcXNiI=",
+  "dgSpecHash": "curWHzoYRxw=",
   "success": true,
-  "projectFilePath": "C:\\Users\\santi\\Source\\Repos\\programacion4-proyecto-backend\\BicTechBack\\src\\Application\\Application.csproj",
+  "projectFilePath": "C:\\Users\\26mas\\Source\\Repos\\programacion4-proyecto-backend\\BicTechBack\\src\\Application\\Application.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\santi\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
-    "C:\\Users\\santi\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512"
+    "C:\\Users\\26mas\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
+    "C:\\Users\\26mas\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512"
   ],
   "logs": []
 }

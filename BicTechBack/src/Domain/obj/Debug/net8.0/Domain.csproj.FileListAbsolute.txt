@@ -27,7 +27,6 @@ C:\Users\Emi\Desktop\Programacion 4 Proyecto\BicTechBack\src\Domain\obj\Debug\ne
 C:\Users\26mas\Source\Repos\programacion4-proyecto-backend\BicTechBack\src\Domain\bin\Debug\net8.0\Domain.deps.json
 C:\Users\26mas\Source\Repos\programacion4-proyecto-backend\BicTechBack\src\Domain\bin\Debug\net8.0\Domain.dll
 C:\Users\26mas\Source\Repos\programacion4-proyecto-backend\BicTechBack\src\Domain\bin\Debug\net8.0\Domain.pdb
-C:\Users\26mas\Source\Repos\programacion4-proyecto-backend\BicTechBack\src\Domain\obj\Debug\net8.0\Domain.csproj.AssemblyReference.cache
 C:\Users\26mas\Source\Repos\programacion4-proyecto-backend\BicTechBack\src\Domain\obj\Debug\net8.0\Domain.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\26mas\Source\Repos\programacion4-proyecto-backend\BicTechBack\src\Domain\obj\Debug\net8.0\Domain.AssemblyInfoInputs.cache
 C:\Users\26mas\Source\Repos\programacion4-proyecto-backend\BicTechBack\src\Domain\obj\Debug\net8.0\Domain.AssemblyInfo.cs

@@ -93,6 +93,10 @@ namespace BicTechBack.src.Infrastructure.Data
                 .Property(pd => pd.Subtotal)
                 .HasColumnType("decimal(18,2)");
 
+            modelBuilder.Entity<PedidoDetalle>()
+                .Property(pd => pd.Id)
+                .ValueGeneratedOnAdd();
+
             modelBuilder.Entity<CategoriaMarca>()
                 .HasKey(cm => cm.Id);
 

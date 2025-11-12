@@ -1751,8 +1751,8 @@
       },
       "CrearPedidoDTO": {
         "required": [
+          "detalles",
           "direccionEnvio",
-          "productos",
           "usuarioId"
         ],
         "type": "object",
@@ -1768,7 +1768,7 @@
             "minLength": 0,
             "type": "string"
           },
-          "productos": {
+          "detalles": {
             "minItems": 1,
             "type": "array",
             "items": {

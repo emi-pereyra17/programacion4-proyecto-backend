@@ -1,18 +1,14 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\26mas\\source\\repos\\programacion4-proyecto-backend\\BicTechBack\\",
+  "WorkspaceRootPath": "C:\\Users\\Emi\\Desktop\\Programacion 4 Proyecto\\BicTechBack\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{AED128CC-C062-4FD5-897F-07C7C00DBEF7}|src\\Infrastructure\\Infrastructure.csproj|c:\\users\\26mas\\source\\repos\\programacion4-proyecto-backend\\bictechback\\src\\infrastructure\\repositories\\usuariorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AED128CC-C062-4FD5-897F-07C7C00DBEF7}|src\\Infrastructure\\Infrastructure.csproj|solutionrelative:src\\infrastructure\\repositories\\usuariorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8A177184-3480-40F3-9E3D-9394DD6F4EAA}|src\\Presentation\\Presentation.csproj|c:\\users\\emi\\desktop\\programacion 4 proyecto\\bictechback\\src\\presentation\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8A177184-3480-40F3-9E3D-9394DD6F4EAA}|src\\Presentation\\Presentation.csproj|solutionrelative:src\\presentation\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AED128CC-C062-4FD5-897F-07C7C00DBEF7}|src\\Infrastructure\\Infrastructure.csproj|c:\\users\\26mas\\source\\repos\\programacion4-proyecto-backend\\bictechback\\src\\infrastructure\\repositories\\productorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AED128CC-C062-4FD5-897F-07C7C00DBEF7}|src\\Infrastructure\\Infrastructure.csproj|solutionrelative:src\\infrastructure\\repositories\\productorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AED128CC-C062-4FD5-897F-07C7C00DBEF7}|src\\Infrastructure\\Infrastructure.csproj|c:\\users\\26mas\\source\\repos\\programacion4-proyecto-backend\\bictechback\\src\\infrastructure\\repositories\\pedidorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AED128CC-C062-4FD5-897F-07C7C00DBEF7}|src\\Infrastructure\\Infrastructure.csproj|solutionrelative:src\\infrastructure\\repositories\\pedidorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8A177184-3480-40F3-9E3D-9394DD6F4EAA}|src\\Presentation\\Presentation.csproj|c:\\users\\emi\\desktop\\programacion 4 proyecto\\bictechback\\src\\presentation\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{8A177184-3480-40F3-9E3D-9394DD6F4EAA}|src\\Presentation\\Presentation.csproj|solutionrelative:src\\presentation\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,46 +18,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
             {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "UsuarioRepository.cs",
-              "DocumentMoniker": "C:\\Users\\26mas\\source\\repos\\programacion4-proyecto-backend\\BicTechBack\\src\\Infrastructure\\Repositories\\UsuarioRepository.cs",
-              "RelativeDocumentMoniker": "src\\Infrastructure\\Repositories\\UsuarioRepository.cs",
-              "ToolTip": "C:\\Users\\26mas\\source\\repos\\programacion4-proyecto-backend\\BicTechBack\\src\\Infrastructure\\Repositories\\UsuarioRepository.cs",
-              "RelativeToolTip": "src\\Infrastructure\\Repositories\\UsuarioRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC0AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-11T19:35:52.876Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ProductoRepository.cs",
-              "DocumentMoniker": "C:\\Users\\26mas\\source\\repos\\programacion4-proyecto-backend\\BicTechBack\\src\\Infrastructure\\Repositories\\ProductoRepository.cs",
-              "RelativeDocumentMoniker": "src\\Infrastructure\\Repositories\\ProductoRepository.cs",
-              "ToolTip": "C:\\Users\\26mas\\source\\repos\\programacion4-proyecto-backend\\BicTechBack\\src\\Infrastructure\\Repositories\\ProductoRepository.cs",
-              "RelativeToolTip": "src\\Infrastructure\\Repositories\\ProductoRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-11T19:34:16.681Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "PedidoRepository.cs",
-              "DocumentMoniker": "C:\\Users\\26mas\\source\\repos\\programacion4-proyecto-backend\\BicTechBack\\src\\Infrastructure\\Repositories\\PedidoRepository.cs",
-              "RelativeDocumentMoniker": "src\\Infrastructure\\Repositories\\PedidoRepository.cs",
-              "ToolTip": "C:\\Users\\26mas\\source\\repos\\programacion4-proyecto-backend\\BicTechBack\\src\\Infrastructure\\Repositories\\PedidoRepository.cs",
-              "RelativeToolTip": "src\\Infrastructure\\Repositories\\PedidoRepository.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAA0wCQAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-11T19:34:09.564Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
             },
             {
               "$type": "Bookmark",
@@ -69,35 +30,33 @@
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+              "Name": "ST:0:0:{0174dea2-fdbe-4ef1-8f99-c0beae78880f}"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Emi\\Desktop\\Programacion 4 Proyecto\\BicTechBack\\src\\Presentation\\Program.cs",
+              "RelativeDocumentMoniker": "src\\Presentation\\Program.cs",
+              "ToolTip": "C:\\Users\\Emi\\Desktop\\Programacion 4 Proyecto\\BicTechBack\\src\\Presentation\\Program.cs",
+              "RelativeToolTip": "src\\Presentation\\Program.cs",
+              "ViewState": "AgIAAF0AAAAAAAAAAADwv3AAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-12T03:34:41.957Z",
+              "EditorCaption": ""
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:1:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:2:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:3:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:4:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:605150511:0:{bf84ea66-d821-4dba-b1b1-2777d8574775}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:597345585:0:{bf84ea66-d821-4dba-b1b1-2777d8574775}"
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Emi\\Desktop\\Programacion 4 Proyecto\\BicTechBack\\src\\Presentation\\appsettings.json",
+              "RelativeDocumentMoniker": "src\\Presentation\\appsettings.json",
+              "ToolTip": "C:\\Users\\Emi\\Desktop\\Programacion 4 Proyecto\\BicTechBack\\src\\Presentation\\appsettings.json",
+              "RelativeToolTip": "src\\Presentation\\appsettings.json",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABgAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-11-12T03:34:28.482Z",
+              "EditorCaption": ""
             }
           ]
         }

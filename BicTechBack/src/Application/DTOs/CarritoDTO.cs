@@ -18,6 +18,6 @@
         /// <summary>
         /// Lista de productos y sus detalles contenidos en el carrito.
         /// </summary>
-        public List<CarritoDetalleDTO> Productos { get; set; } = new();
+        public List<CarritoDetalleDTO> CarritosDetalles { get; set; } = new();
     }
 }

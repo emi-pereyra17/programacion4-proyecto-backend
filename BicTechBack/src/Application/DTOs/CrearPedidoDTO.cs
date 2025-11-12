@@ -24,8 +24,8 @@ namespace BicTechBack.src.Core.DTOs
         /// <summary>
         /// Lista de productos que forman parte del pedido.
         /// </summary>
-        [Required(ErrorMessage = "Debe agregar al menos un producto al pedido.")]
-        [MinLength(1, ErrorMessage = "Debe agregar al menos un producto al pedido.")]
-        public List<CrearPedidoDetalleDTO> Productos { get; set; }
+        [Required(ErrorMessage = "Debe agregar al menos un detalle al pedido.")]
+        [MinLength(1, ErrorMessage = "Debe agregar al menos un detalle al pedido.")]
+        public List<CrearPedidoDetalleDTO> Detalles { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using BicTechBack.src.Core.Interfaces;
 using BicTechBack.src.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Infrastructure.Repositories;
 
@@ -17,6 +18,8 @@ namespace BicTechBack.src.Infrastructure.Repositories
             return await _context.Pedidos
                 .Where(p => p.UsuarioId == clienteId)
                 .Include(p => p.Usuario)
+                .Include(p => p.PedidosDetalles)
+                    .ThenInclude(d => d.Producto)
                 .ToListAsync();
         }
 
@@ -24,6 +27,8 @@ namespace BicTechBack.src.Infrastructure.Repositories
         {
             return await _context.Pedidos
                 .Include(p => p.Usuario)
+                .Include(p => p.PedidosDetalles)
+                    .ThenInclude(d => d.Producto)
                 .ToListAsync();
         }
 
@@ -31,6 +36,8 @@ namespace BicTechBack.src.Infrastructure.Repositories
         {
             return await _context.Pedidos
                 .Include(p => p.Usuario)
+                .Include(p => p.PedidosDetalles)
+                    .ThenInclude(d => d.Producto)
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
     }

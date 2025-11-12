@@ -36,8 +36,8 @@
         public string DireccionEnvio { get; set; }
 
         /// <summary>
-        /// Lista de productos y sus detalles incluidos en el pedido.
+        /// Lista de detalles incluidos en el pedido.
         /// </summary>
-        public List<PedidoDetalleDTO> Productos { get; set; }
+        public List<PedidoDetalleDTO> Detalles { get; set; }
     }
 }

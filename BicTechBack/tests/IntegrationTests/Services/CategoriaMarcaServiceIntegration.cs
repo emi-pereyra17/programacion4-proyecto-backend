@@ -4,6 +4,7 @@ using BicTechBack.src.Core.Entities;
 using BicTechBack.src.Core.Mappings;
 using BicTechBack.src.Core.Services;
 using BicTechBack.src.Infrastructure.Data;
+using BicTechBack.src.Infrastructure.Logging;
 using BicTechBack.src.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -38,7 +39,8 @@ namespace BicTechBack.IntegrationTests.Services
             var categoriaRepo = new CategoriaRepository(context);
             var marcaRepo = new MarcaRepository(context);
             var mapper = GetMapper();
-            var logger = new LoggerFactory().CreateLogger<CategoriaMarcaService>();
+            var msLogger = new LoggerFactory().CreateLogger<CategoriaMarcaService>();
+            var logger = new LoggerAdapter<CategoriaMarcaService>(msLogger);
             return new CategoriaMarcaService(repo, categoriaRepo, marcaRepo, mapper, logger);
         }
 

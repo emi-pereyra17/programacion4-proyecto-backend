@@ -4,6 +4,7 @@ using BicTechBack.src.Core.Entities;
 using BicTechBack.src.Core.Mappings;
 using BicTechBack.src.Core.Services;
 using BicTechBack.src.Infrastructure.Data;
+using BicTechBack.src.Infrastructure.Logging;
 using BicTechBack.src.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -18,7 +19,7 @@ namespace BicTechBack.IntegrationTests.Services
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<CarritoProfile>();
-                cfg.AddProfile<CarritoDetalleProfile>(); 
+                cfg.AddProfile<CarritoDetalleProfile>();
                 cfg.AddProfile<ProductoProfile>();
                 cfg.AddProfile<UsuarioProfile>();
             });
@@ -39,7 +40,8 @@ namespace BicTechBack.IntegrationTests.Services
             var productoRepo = new ProductoRepository(context);
             var usuarioRepo = new UsuarioRepository(context);
             var mapper = GetMapper();
-            var logger = new LoggerFactory().CreateLogger<CarritoService>();
+            var msLogger = new LoggerFactory().CreateLogger<CarritoService>();
+            var logger = new LoggerAdapter<CarritoService>(msLogger);
             return new CarritoService(repo, mapper, usuarioRepo, productoRepo, logger);
         }
 
@@ -83,9 +85,9 @@ namespace BicTechBack.IntegrationTests.Services
 
             Assert.NotNull(result);
             Assert.Equal(usuario.Id, result.UsuarioId);
-            Assert.Single(result.Productos);
-            Assert.Equal(producto.Id, result.Productos[0].ProductoId);
-            Assert.Equal(2, result.Productos[0].Cantidad);
+            Assert.Single(result.CarritosDetalles);
+            Assert.Equal(producto.Id, result.CarritosDetalles[0].ProductoId);
+            Assert.Equal(2, result.CarritosDetalles[0].Cantidad);
         }
 
         [Fact]
@@ -137,7 +139,7 @@ namespace BicTechBack.IntegrationTests.Services
             var result = await service.DeleteProductoFromCarritoAsync(usuario.Id, producto.Id);
 
             Assert.NotNull(result);
-            Assert.Empty(result.Productos);
+            Assert.Empty(result.CarritosDetalles);
         }
 
         [Fact]
@@ -172,8 +174,8 @@ namespace BicTechBack.IntegrationTests.Services
             var result = await service.UpdateAmountProductoAsync(usuario.Id, producto.Id, 5);
 
             Assert.NotNull(result);
-            Assert.Single(result.Productos);
-            Assert.Equal(5, result.Productos[0].Cantidad);
+            Assert.Single(result.CarritosDetalles);
+            Assert.Equal(5, result.CarritosDetalles[0].Cantidad);
         }
 
         [Fact]
@@ -232,7 +234,7 @@ namespace BicTechBack.IntegrationTests.Services
             var result = await service.ClearCarritoAsync(usuario.Id);
 
             Assert.NotNull(result);
-            Assert.Empty(result.Productos);
+            Assert.Empty(result.CarritosDetalles);
         }
 
         [Fact]
@@ -257,7 +259,7 @@ namespace BicTechBack.IntegrationTests.Services
 
             Assert.NotNull(result);
             Assert.Equal(usuario.Id, result.UsuarioId);
-            Assert.Single(result.Productos);
+            Assert.Single(result.CarritosDetalles);
         }
 
         [Fact]
@@ -276,7 +278,7 @@ namespace BicTechBack.IntegrationTests.Services
 
             Assert.NotNull(result);
             Assert.Equal(usuario.Id, result.UsuarioId);
-            Assert.True(result.Id == 0 || result.Productos == null || result.Productos.Count == 0);
+            Assert.True(result.Id == 0 || result.CarritosDetalles == null || result.CarritosDetalles.Count == 0);
         }
 
         [Fact]

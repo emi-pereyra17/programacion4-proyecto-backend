@@ -3,7 +3,6 @@ using BicTechBack.src.Core.DTOs;
 using BicTechBack.src.Core.Entities;
 using BicTechBack.src.Core.Interfaces;
 using BicTechBack.src.Core.Services;
-using Microsoft.Extensions.Logging;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -22,7 +21,7 @@ namespace BicTechBack.UnitTests.Services
             var mockProductoRepo = new Mock<IProductoRepository>();
             var mockUsuarioRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<CarritoService>>();
+            var mockLogger = new Mock<IAppLogger<CarritoService>>();
 
             var usuarioId = 1;
             var productoId = 2;
@@ -52,7 +51,7 @@ namespace BicTechBack.UnitTests.Services
             var mockProductoRepo = new Mock<IProductoRepository>();
             var mockUsuarioRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<CarritoService>>();
+            var mockLogger = new Mock<IAppLogger<CarritoService>>();
 
             var service = new CarritoService(
                 mockRepo.Object, mockMapper.Object, mockUsuarioRepo.Object, mockProductoRepo.Object, mockLogger.Object);
@@ -67,7 +66,7 @@ namespace BicTechBack.UnitTests.Services
             var mockProductoRepo = new Mock<IProductoRepository>();
             var mockUsuarioRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<CarritoService>>();
+            var mockLogger = new Mock<IAppLogger<CarritoService>>();
 
             mockProductoRepo.Setup(r => r.GetByIdAsync(2)).ReturnsAsync((Producto?)null);
 
@@ -84,7 +83,7 @@ namespace BicTechBack.UnitTests.Services
             var mockProductoRepo = new Mock<IProductoRepository>();
             var mockUsuarioRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<CarritoService>>();
+            var mockLogger = new Mock<IAppLogger<CarritoService>>();
 
             var usuarioId = 1;
             var productoId = 2;
@@ -108,7 +107,7 @@ namespace BicTechBack.UnitTests.Services
             var mockProductoRepo = new Mock<IProductoRepository>();
             var mockUsuarioRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<CarritoService>>();
+            var mockLogger = new Mock<IAppLogger<CarritoService>>();
 
             var usuarioId = 1;
             var productoId = 2;
@@ -133,7 +132,7 @@ namespace BicTechBack.UnitTests.Services
             var mockProductoRepo = new Mock<IProductoRepository>();
             var mockUsuarioRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<CarritoService>>();
+            var mockLogger = new Mock<IAppLogger<CarritoService>>();
 
             var usuario = new Usuario { Id = 1 };
             var carrito = new Carrito { Id = 1, UsuarioId = 1 };
@@ -159,7 +158,7 @@ namespace BicTechBack.UnitTests.Services
             var mockProductoRepo = new Mock<IProductoRepository>();
             var mockUsuarioRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<CarritoService>>();
+            var mockLogger = new Mock<IAppLogger<CarritoService>>();
 
             mockUsuarioRepo.Setup(r => r.GetByIdAsync(1)).ReturnsAsync((Usuario?)null);
 
@@ -176,7 +175,7 @@ namespace BicTechBack.UnitTests.Services
             var mockProductoRepo = new Mock<IProductoRepository>();
             var mockUsuarioRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<CarritoService>>();
+            var mockLogger = new Mock<IAppLogger<CarritoService>>();
 
             var usuario = new Usuario { Id = 1 };
 
@@ -196,7 +195,7 @@ namespace BicTechBack.UnitTests.Services
             var mockProductoRepo = new Mock<IProductoRepository>();
             var mockUsuarioRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<CarritoService>>();
+            var mockLogger = new Mock<IAppLogger<CarritoService>>();
 
             var usuarioId = 1;
             var productoId = 2;
@@ -224,7 +223,7 @@ namespace BicTechBack.UnitTests.Services
             var mockProductoRepo = new Mock<IProductoRepository>();
             var mockUsuarioRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<CarritoService>>();
+            var mockLogger = new Mock<IAppLogger<CarritoService>>();
 
             mockRepo.Setup(r => r.GetByUsuarioIdAsync(1)).ReturnsAsync((Carrito?)null);
 
@@ -241,7 +240,7 @@ namespace BicTechBack.UnitTests.Services
             var mockProductoRepo = new Mock<IProductoRepository>();
             var mockUsuarioRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<CarritoService>>();
+            var mockLogger = new Mock<IAppLogger<CarritoService>>();
 
             var carrito = new Carrito { Id = 1, UsuarioId = 1, CarritosDetalles = new List<CarritoDetalle>() };
 
@@ -260,7 +259,7 @@ namespace BicTechBack.UnitTests.Services
             var mockProductoRepo = new Mock<IProductoRepository>();
             var mockUsuarioRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<CarritoService>>();
+            var mockLogger = new Mock<IAppLogger<CarritoService>>();
 
             var usuarioId = 1;
             var productoId = 2;
@@ -283,7 +282,7 @@ namespace BicTechBack.UnitTests.Services
             var mockProductoRepo = new Mock<IProductoRepository>();
             var mockUsuarioRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<CarritoService>>();
+            var mockLogger = new Mock<IAppLogger<CarritoService>>();
 
             var carritos = new List<Carrito>
             {
@@ -315,7 +314,7 @@ namespace BicTechBack.UnitTests.Services
             var mockProductoRepo = new Mock<IProductoRepository>();
             var mockUsuarioRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<CarritoService>>();
+            var mockLogger = new Mock<IAppLogger<CarritoService>>();
 
             mockRepo.Setup(r => r.GetAllAsync()).ReturnsAsync(new List<Carrito>());
             mockMapper.Setup(m => m.Map<IEnumerable<CarritoDTO>>(It.IsAny<IEnumerable<Carrito>>()))
@@ -337,7 +336,7 @@ namespace BicTechBack.UnitTests.Services
             var mockProductoRepo = new Mock<IProductoRepository>();
             var mockUsuarioRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<CarritoService>>();
+            var mockLogger = new Mock<IAppLogger<CarritoService>>();
 
             var carrito = new Carrito { Id = 1, UsuarioId = 1 };
             mockRepo.Setup(r => r.GetByUsuarioIdAsync(1)).ReturnsAsync(carrito);
@@ -359,7 +358,7 @@ namespace BicTechBack.UnitTests.Services
             var mockProductoRepo = new Mock<IProductoRepository>();
             var mockUsuarioRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<CarritoService>>();
+            var mockLogger = new Mock<IAppLogger<CarritoService>>();
 
             mockRepo.Setup(r => r.GetByUsuarioIdAsync(1)).ReturnsAsync((Carrito?)null);
 
@@ -380,7 +379,7 @@ namespace BicTechBack.UnitTests.Services
             var mockProductoRepo = new Mock<IProductoRepository>();
             var mockUsuarioRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<CarritoService>>();
+            var mockLogger = new Mock<IAppLogger<CarritoService>>();
 
             var carritos = new List<Carrito>
             {
@@ -416,7 +415,7 @@ namespace BicTechBack.UnitTests.Services
             var mockProductoRepo = new Mock<IProductoRepository>();
             var mockUsuarioRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<CarritoService>>();
+            var mockLogger = new Mock<IAppLogger<CarritoService>>();
 
             var usuarioId = 1;
             var productoId = 2;
@@ -447,7 +446,7 @@ namespace BicTechBack.UnitTests.Services
             var mockProductoRepo = new Mock<IProductoRepository>();
             var mockUsuarioRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<CarritoService>>();
+            var mockLogger = new Mock<IAppLogger<CarritoService>>();
 
             mockRepo.Setup(r => r.GetByUsuarioIdAsync(1)).ReturnsAsync((Carrito?)null);
 
@@ -464,7 +463,7 @@ namespace BicTechBack.UnitTests.Services
             var mockProductoRepo = new Mock<IProductoRepository>();
             var mockUsuarioRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<CarritoService>>();
+            var mockLogger = new Mock<IAppLogger<CarritoService>>();
 
             var carrito = new Carrito { Id = 1, UsuarioId = 1, CarritosDetalles = new List<CarritoDetalle>() };
 
@@ -483,7 +482,7 @@ namespace BicTechBack.UnitTests.Services
             var mockProductoRepo = new Mock<IProductoRepository>();
             var mockUsuarioRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<CarritoService>>();
+            var mockLogger = new Mock<IAppLogger<CarritoService>>();
 
             var usuarioId = 1;
             var productoId = 2;
@@ -505,7 +504,7 @@ namespace BicTechBack.UnitTests.Services
             var mockProductoRepo = new Mock<IProductoRepository>();
             var mockUsuarioRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<CarritoService>>();
+            var mockLogger = new Mock<IAppLogger<CarritoService>>();
 
             var usuarioId = 1;
             var productoId = 2;
@@ -528,7 +527,7 @@ namespace BicTechBack.UnitTests.Services
             var mockProductoRepo = new Mock<IProductoRepository>();
             var mockUsuarioRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<CarritoService>>();
+            var mockLogger = new Mock<IAppLogger<CarritoService>>();
 
             var usuarioId = 1;
             var productoId = 2;
@@ -553,7 +552,7 @@ namespace BicTechBack.UnitTests.Services
             var mockProductoRepo = new Mock<IProductoRepository>();
             var mockUsuarioRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<CarritoService>>();
+            var mockLogger = new Mock<IAppLogger<CarritoService>>();
 
             var usuarioId = 1;
             var productoId = 2;

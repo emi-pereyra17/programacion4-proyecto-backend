@@ -3,7 +3,6 @@ using BicTechBack.src.Core.DTOs;
 using BicTechBack.src.Core.Entities;
 using BicTechBack.src.Core.Interfaces;
 using BicTechBack.src.Core.Services;
-using Microsoft.Extensions.Logging;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -22,7 +21,7 @@ namespace BicTechBack.UnitTests.Services
             var mockUsuarioRepo = new Mock<IUsuarioRepository>();
             var mockProductoRepo = new Mock<IProductoRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<PedidoService>>();
+            var mockLogger = new Mock<IAppLogger<PedidoService>>();
 
             var usuario = new Usuario { Id = 1, Nombre = "Usuario Test" };
             var producto = new Producto { Id = 1, Nombre = "Producto Test", Stock = 10, Precio = 100 };
@@ -30,7 +29,7 @@ namespace BicTechBack.UnitTests.Services
             {
                 UsuarioId = 1,
                 DireccionEnvio = "Calle Falsa 123",
-                Productos = new List<CrearPedidoDetalleDTO>
+                Detalles = new List<CrearPedidoDetalleDTO>
                 {
                     new CrearPedidoDetalleDTO { ProductoId = 1, Cantidad = 2, Precio = 100 }
                 }
@@ -65,13 +64,13 @@ namespace BicTechBack.UnitTests.Services
             var mockUsuarioRepo = new Mock<IUsuarioRepository>();
             var mockProductoRepo = new Mock<IProductoRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<PedidoService>>();
+            var mockLogger = new Mock<IAppLogger<PedidoService>>();
 
             var dto = new CrearPedidoDTO
             {
                 UsuarioId = 1,
                 DireccionEnvio = "Calle Falsa 123",
-                Productos = new List<CrearPedidoDetalleDTO>
+                Detalles = new List<CrearPedidoDetalleDTO>
                 {
                     new CrearPedidoDetalleDTO { ProductoId = 1, Cantidad = 2, Precio = 100 }
                 }
@@ -91,20 +90,20 @@ namespace BicTechBack.UnitTests.Services
         }
 
         [Fact]
-        public async Task CreatePedidoAsync_SinProductos_LanzaArgumentException()
+        public async Task CreatePedidoAsync_SinDetalles_LanzaArgumentException()
         {
             var mockRepo = new Mock<IPedidoRepository>();
             var mockUsuarioRepo = new Mock<IUsuarioRepository>();
             var mockProductoRepo = new Mock<IProductoRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<PedidoService>>();
+            var mockLogger = new Mock<IAppLogger<PedidoService>>();
 
             var usuario = new Usuario { Id = 1, Nombre = "Usuario Test" };
             var dto = new CrearPedidoDTO
             {
                 UsuarioId = 1,
                 DireccionEnvio = "Calle Falsa 123",
-                Productos = new List<CrearPedidoDetalleDTO>()
+                Detalles = new List<CrearPedidoDetalleDTO>()
             };
 
             mockUsuarioRepo.Setup(r => r.GetByIdAsync(dto.UsuarioId)).ReturnsAsync(usuario);
@@ -127,14 +126,14 @@ namespace BicTechBack.UnitTests.Services
             var mockUsuarioRepo = new Mock<IUsuarioRepository>();
             var mockProductoRepo = new Mock<IProductoRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<PedidoService>>();
+            var mockLogger = new Mock<IAppLogger<PedidoService>>();
 
             var usuario = new Usuario { Id = 1, Nombre = "Usuario Test" };
             var dto = new CrearPedidoDTO
             {
                 UsuarioId = 1,
                 DireccionEnvio = "Calle Falsa 123",
-                Productos = new List<CrearPedidoDetalleDTO>
+                Detalles = new List<CrearPedidoDetalleDTO>
                 {
                     new CrearPedidoDetalleDTO { ProductoId = 1, Cantidad = 2, Precio = 100 }
                 }
@@ -161,7 +160,7 @@ namespace BicTechBack.UnitTests.Services
             var mockUsuarioRepo = new Mock<IUsuarioRepository>();
             var mockProductoRepo = new Mock<IProductoRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<PedidoService>>();
+            var mockLogger = new Mock<IAppLogger<PedidoService>>();
 
             var usuario = new Usuario { Id = 1, Nombre = "Usuario Test" };
             var producto = new Producto { Id = 1, Nombre = "Producto Test", Stock = 1, Precio = 100 };
@@ -169,7 +168,7 @@ namespace BicTechBack.UnitTests.Services
             {
                 UsuarioId = 1,
                 DireccionEnvio = "Calle Falsa 123",
-                Productos = new List<CrearPedidoDetalleDTO>
+                Detalles = new List<CrearPedidoDetalleDTO>
                 {
                     new CrearPedidoDetalleDTO { ProductoId = 1, Cantidad = 2, Precio = 100 }
                 }
@@ -196,7 +195,7 @@ namespace BicTechBack.UnitTests.Services
             var mockUsuarioRepo = new Mock<IUsuarioRepository>();
             var mockProductoRepo = new Mock<IProductoRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<PedidoService>>();
+            var mockLogger = new Mock<IAppLogger<PedidoService>>();
 
             var pedido = new Pedido
             {
@@ -214,6 +213,7 @@ namespace BicTechBack.UnitTests.Services
 
             mockRepo.Setup(r => r.GetByIdAsync(dto.PedidoId)).ReturnsAsync(pedido);
             mockRepo.Setup(r => r.UpdateAsync(It.IsAny<Pedido>())).ReturnsAsync(pedido);
+            mockProductoRepo.Setup(r => r.GetByIdAsync(2)).ReturnsAsync(new Producto { Id = 2, Nombre = "Producto Test 2", Stock = 10, Precio = 50 });
             mockMapper.Setup(m => m.Map<PedidoDTO>(It.IsAny<Pedido>())).Returns(new PedidoDTO { Id = 1 });
 
             var service = new PedidoService(
@@ -238,7 +238,7 @@ namespace BicTechBack.UnitTests.Services
             var mockUsuarioRepo = new Mock<IUsuarioRepository>();
             var mockProductoRepo = new Mock<IProductoRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<PedidoService>>();
+            var mockLogger = new Mock<IAppLogger<PedidoService>>();
 
             var dto = new AgregarProductoPedidoDTO
             {
@@ -268,7 +268,7 @@ namespace BicTechBack.UnitTests.Services
             var mockUsuarioRepo = new Mock<IUsuarioRepository>();
             var mockProductoRepo = new Mock<IProductoRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<PedidoService>>();
+            var mockLogger = new Mock<IAppLogger<PedidoService>>();
 
             mockRepo.Setup(r => r.DeleteAsync(1)).ReturnsAsync(true);
 
@@ -293,7 +293,7 @@ namespace BicTechBack.UnitTests.Services
             var mockUsuarioRepo = new Mock<IUsuarioRepository>();
             var mockProductoRepo = new Mock<IProductoRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<PedidoService>>();
+            var mockLogger = new Mock<IAppLogger<PedidoService>>();
 
             mockRepo.Setup(r => r.DeleteAsync(1)).ReturnsAsync(false);
 
@@ -315,7 +315,7 @@ namespace BicTechBack.UnitTests.Services
             var mockUsuarioRepo = new Mock<IUsuarioRepository>();
             var mockProductoRepo = new Mock<IProductoRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<PedidoService>>();
+            var mockLogger = new Mock<IAppLogger<PedidoService>>();
 
             var pedidos = new List<Pedido>
             {
@@ -352,7 +352,7 @@ namespace BicTechBack.UnitTests.Services
             var mockUsuarioRepo = new Mock<IUsuarioRepository>();
             var mockProductoRepo = new Mock<IProductoRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<PedidoService>>();
+            var mockLogger = new Mock<IAppLogger<PedidoService>>();
 
             mockRepo.Setup(r => r.GetAllAsync()).ReturnsAsync(new List<Pedido>());
             mockMapper.Setup(m => m.Map<IEnumerable<PedidoDTO>>(It.IsAny<IEnumerable<Pedido>>()))
@@ -379,7 +379,7 @@ namespace BicTechBack.UnitTests.Services
             var mockUsuarioRepo = new Mock<IUsuarioRepository>();
             var mockProductoRepo = new Mock<IProductoRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<PedidoService>>();
+            var mockLogger = new Mock<IAppLogger<PedidoService>>();
 
             var pedido = new Pedido { Id = 1, UsuarioId = 1 };
             mockRepo.Setup(r => r.GetByIdAsync(1)).ReturnsAsync(pedido);
@@ -400,13 +400,13 @@ namespace BicTechBack.UnitTests.Services
         }
 
         [Fact]
-        public async Task GetPedidoByIdAsync_PedidoNoExistente_LanzaKeyNotFoundException()
+        public async Task GetPedidoByIdAsync_PedidoNoExiste_LanzaKeyNotFoundException()
         {
             var mockRepo = new Mock<IPedidoRepository>();
             var mockUsuarioRepo = new Mock<IUsuarioRepository>();
             var mockProductoRepo = new Mock<IProductoRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<PedidoService>>();
+            var mockLogger = new Mock<IAppLogger<PedidoService>>();
 
             mockRepo.Setup(r => r.GetByIdAsync(1)).ReturnsAsync((Pedido?)null);
 
@@ -428,7 +428,7 @@ namespace BicTechBack.UnitTests.Services
             var mockUsuarioRepo = new Mock<IUsuarioRepository>();
             var mockProductoRepo = new Mock<IProductoRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<PedidoService>>();
+            var mockLogger = new Mock<IAppLogger<PedidoService>>();
 
             var pedidoExistente = new Pedido
             {
@@ -436,23 +436,24 @@ namespace BicTechBack.UnitTests.Services
                 UsuarioId = 1,
                 DireccionEnvio = "Antigua",
                 PedidosDetalles = new List<PedidoDetalle>
-                {
-                    new PedidoDetalle { ProductoId = 1, Cantidad = 1, Precio = 100, Subtotal = 100 }
-                }
+        {
+            new PedidoDetalle { ProductoId = 1, Cantidad = 1, Precio = 100, Subtotal = 100 }
+        }
             };
             var usuario = new Usuario { Id = 2, Nombre = "Usuario Nuevo" };
             var dto = new CrearPedidoDTO
             {
                 UsuarioId = 2,
                 DireccionEnvio = "Nueva Direccion",
-                Productos = new List<CrearPedidoDetalleDTO>
-                {
-                    new CrearPedidoDetalleDTO { ProductoId = 2, Cantidad = 2, Precio = 50 }
-                }
+                Detalles = new List<CrearPedidoDetalleDTO>
+        {
+            new CrearPedidoDetalleDTO { ProductoId = 2, Cantidad = 2, Precio = 50 }
+        }
             };
 
             mockRepo.Setup(r => r.GetByIdAsync(1)).ReturnsAsync(pedidoExistente);
             mockUsuarioRepo.Setup(r => r.GetByIdAsync(dto.UsuarioId)).ReturnsAsync(usuario);
+            mockProductoRepo.Setup(r => r.GetByIdAsync(2)).ReturnsAsync(new Producto { Id = 2, Nombre = "Producto Test 2", Stock = 10, Precio = 50 });
             mockRepo.Setup(r => r.UpdateAsync(It.IsAny<Pedido>())).ReturnsAsync(pedidoExistente);
             mockMapper.Setup(m => m.Map<PedidoDTO>(It.IsAny<Pedido>())).Returns(new PedidoDTO { Id = 1, UsuarioId = 2 });
 
@@ -478,13 +479,13 @@ namespace BicTechBack.UnitTests.Services
             var mockUsuarioRepo = new Mock<IUsuarioRepository>();
             var mockProductoRepo = new Mock<IProductoRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<PedidoService>>();
+            var mockLogger = new Mock<IAppLogger<PedidoService>>();
 
             var dto = new CrearPedidoDTO
             {
                 UsuarioId = 1,
                 DireccionEnvio = "Nueva Direccion",
-                Productos = new List<CrearPedidoDetalleDTO>
+                Detalles = new List<CrearPedidoDetalleDTO>
                 {
                     new CrearPedidoDetalleDTO { ProductoId = 2, Cantidad = 2, Precio = 50 }
                 }
@@ -510,7 +511,7 @@ namespace BicTechBack.UnitTests.Services
             var mockUsuarioRepo = new Mock<IUsuarioRepository>();
             var mockProductoRepo = new Mock<IProductoRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<PedidoService>>();
+            var mockLogger = new Mock<IAppLogger<PedidoService>>();
 
             var pedidoExistente = new Pedido
             {
@@ -523,7 +524,7 @@ namespace BicTechBack.UnitTests.Services
             {
                 UsuarioId = 2,
                 DireccionEnvio = "Nueva Direccion",
-                Productos = new List<CrearPedidoDetalleDTO>
+                Detalles = new List<CrearPedidoDetalleDTO>
                 {
                     new CrearPedidoDetalleDTO { ProductoId = 2, Cantidad = 2, Precio = 50 }
                 }
@@ -544,13 +545,13 @@ namespace BicTechBack.UnitTests.Services
         }
 
         [Fact]
-        public async Task UpdatePedidoAsync_SinProductos_LanzaArgumentException()
+        public async Task UpdatePedidoAsync_SinDetalles_LanzaArgumentException()
         {
             var mockRepo = new Mock<IPedidoRepository>();
             var mockUsuarioRepo = new Mock<IUsuarioRepository>();
             var mockProductoRepo = new Mock<IProductoRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<PedidoService>>();
+            var mockLogger = new Mock<IAppLogger<PedidoService>>();
 
             var pedidoExistente = new Pedido
             {
@@ -564,7 +565,7 @@ namespace BicTechBack.UnitTests.Services
             {
                 UsuarioId = 1,
                 DireccionEnvio = "Nueva Direccion",
-                Productos = new List<CrearPedidoDetalleDTO>()
+                Detalles = new List<CrearPedidoDetalleDTO>()
             };
 
             mockRepo.Setup(r => r.GetByIdAsync(1)).ReturnsAsync(pedidoExistente);
@@ -588,7 +589,7 @@ namespace BicTechBack.UnitTests.Services
             var mockUsuarioRepo = new Mock<IUsuarioRepository>();
             var mockProductoRepo = new Mock<IProductoRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<PedidoService>>();
+            var mockLogger = new Mock<IAppLogger<PedidoService>>();
 
             var pedidos = new List<Pedido>
             {
@@ -625,7 +626,7 @@ namespace BicTechBack.UnitTests.Services
             var mockUsuarioRepo = new Mock<IUsuarioRepository>();
             var mockProductoRepo = new Mock<IProductoRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<PedidoService>>();
+            var mockLogger = new Mock<IAppLogger<PedidoService>>();
 
             mockRepo.Setup(r => r.GetByClienteIdAsync(1)).ReturnsAsync(new List<Pedido>());
             mockMapper.Setup(m => m.Map<IEnumerable<PedidoDTO>>(It.IsAny<IEnumerable<Pedido>>()))
@@ -652,7 +653,7 @@ namespace BicTechBack.UnitTests.Services
             var mockUsuarioRepo = new Mock<IUsuarioRepository>();
             var mockProductoRepo = new Mock<IProductoRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<PedidoService>>();
+            var mockLogger = new Mock<IAppLogger<PedidoService>>();
 
             var pedidos = new List<Pedido>
             {

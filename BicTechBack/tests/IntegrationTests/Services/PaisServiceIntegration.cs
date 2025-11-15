@@ -4,6 +4,7 @@ using BicTechBack.src.Core.Entities;
 using BicTechBack.src.Core.Mappings;
 using BicTechBack.src.Core.Services;
 using BicTechBack.src.Infrastructure.Data;
+using BicTechBack.src.Infrastructure.Logging;
 using BicTechBack.src.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -34,7 +35,8 @@ namespace BicTechBack.IntegrationTests.Services
         {
             var repo = new PaisRepository(context);
             var mapper = GetMapper();
-            var logger = new LoggerFactory().CreateLogger<PaisService>();
+            var msLogger = new LoggerFactory().CreateLogger<PaisService>();
+            var logger = new LoggerAdapter<PaisService>(msLogger);
             return new PaisService(repo, mapper, logger);
         }
 

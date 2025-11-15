@@ -3,8 +3,6 @@ using BicTechBack.src.Core.DTOs;
 using BicTechBack.src.Core.Entities;
 using BicTechBack.src.Core.Interfaces;
 using BicTechBack.src.Core.Services;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Logging;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -21,8 +19,8 @@ namespace BicTechBack.UnitTests.Services
         {
             var mockRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<UsuarioService>>();
-            var mockHasher = new Mock<IPasswordHasher<Usuario>>();
+            var mockLogger = new Mock<IAppLogger<UsuarioService>>();
+            var mockHasher = new Mock<IPasswordHasherService>();
 
             var dto = new CrearUsuarioDTO
             {
@@ -52,8 +50,8 @@ namespace BicTechBack.UnitTests.Services
         {
             var mockRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<UsuarioService>>();
-            var mockHasher = new Mock<IPasswordHasher<Usuario>>();
+            var mockLogger = new Mock<IAppLogger<UsuarioService>>();
+            var mockHasher = new Mock<IPasswordHasherService>();
 
             var dto = new CrearUsuarioDTO
             {
@@ -74,8 +72,8 @@ namespace BicTechBack.UnitTests.Services
         {
             var mockRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<UsuarioService>>();
-            var mockHasher = new Mock<IPasswordHasher<Usuario>>();
+            var mockLogger = new Mock<IAppLogger<UsuarioService>>();
+            var mockHasher = new Mock<IPasswordHasherService>();
 
             var dto = new CrearUsuarioDTO
             {
@@ -96,8 +94,8 @@ namespace BicTechBack.UnitTests.Services
         {
             var mockRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<UsuarioService>>();
-            var mockHasher = new Mock<IPasswordHasher<Usuario>>();
+            var mockLogger = new Mock<IAppLogger<UsuarioService>>();
+            var mockHasher = new Mock<IPasswordHasherService>();
 
             var dto = new CrearUsuarioDTO
             {
@@ -119,8 +117,8 @@ namespace BicTechBack.UnitTests.Services
         {
             var mockRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<UsuarioService>>();
-            var mockHasher = new Mock<IPasswordHasher<Usuario>>();
+            var mockLogger = new Mock<IAppLogger<UsuarioService>>();
+            var mockHasher = new Mock<IPasswordHasherService>();
 
             var usuario = new Usuario { Id = 1, Nombre = "Test", Email = "test@mail.com" };
 
@@ -140,8 +138,8 @@ namespace BicTechBack.UnitTests.Services
         {
             var mockRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<UsuarioService>>();
-            var mockHasher = new Mock<IPasswordHasher<Usuario>>();
+            var mockLogger = new Mock<IAppLogger<UsuarioService>>();
+            var mockHasher = new Mock<IPasswordHasherService>();
 
             mockRepo.Setup(r => r.GetByIdAsync(1)).ReturnsAsync((Usuario?)null);
 
@@ -155,8 +153,8 @@ namespace BicTechBack.UnitTests.Services
         {
             var mockRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<UsuarioService>>();
-            var mockHasher = new Mock<IPasswordHasher<Usuario>>();
+            var mockLogger = new Mock<IAppLogger<UsuarioService>>();
+            var mockHasher = new Mock<IPasswordHasherService>();
 
             var usuarios = new List<Usuario>
             {
@@ -185,8 +183,8 @@ namespace BicTechBack.UnitTests.Services
         {
             var mockRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<UsuarioService>>();
-            var mockHasher = new Mock<IPasswordHasher<Usuario>>();
+            var mockLogger = new Mock<IAppLogger<UsuarioService>>();
+            var mockHasher = new Mock<IPasswordHasherService>();
 
             mockRepo.Setup(r => r.GetAllAsync()).ReturnsAsync(new List<Usuario>());
             mockMapper.Setup(m => m.Map<IEnumerable<UsuarioDTO>>(It.IsAny<IEnumerable<Usuario>>()))
@@ -205,8 +203,8 @@ namespace BicTechBack.UnitTests.Services
         {
             var mockRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<UsuarioService>>();
-            var mockHasher = new Mock<IPasswordHasher<Usuario>>();
+            var mockLogger = new Mock<IAppLogger<UsuarioService>>();
+            var mockHasher = new Mock<IPasswordHasherService>();
 
             var usuario = new Usuario { Id = 1, Nombre = "Test", Email = "test@mail.com" };
             mockRepo.Setup(r => r.GetByIdAsync(1)).ReturnsAsync(usuario);
@@ -225,8 +223,8 @@ namespace BicTechBack.UnitTests.Services
         {
             var mockRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<UsuarioService>>();
-            var mockHasher = new Mock<IPasswordHasher<Usuario>>();
+            var mockLogger = new Mock<IAppLogger<UsuarioService>>();
+            var mockHasher = new Mock<IPasswordHasherService>();
 
             mockRepo.Setup(r => r.GetByIdAsync(1)).ReturnsAsync((Usuario?)null);
 
@@ -240,8 +238,8 @@ namespace BicTechBack.UnitTests.Services
         {
             var mockRepo = new Mock<IUsuarioRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<UsuarioService>>();
-            var mockHasher = new Mock<IPasswordHasher<Usuario>>();
+            var mockLogger = new Mock<IAppLogger<UsuarioService>>();
+            var mockHasher = new Mock<IPasswordHasherService>();
 
             var usuarioExistente = new Usuario
             {

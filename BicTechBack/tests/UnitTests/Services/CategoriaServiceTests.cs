@@ -3,7 +3,6 @@ using BicTechBack.src.Core.DTOs;
 using BicTechBack.src.Core.Entities;
 using BicTechBack.src.Core.Interfaces;
 using BicTechBack.src.Core.Services;
-using Microsoft.Extensions.Logging;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -20,7 +19,7 @@ namespace BicTechBack.UnitTests.Services
         {
             var mockRepo = new Mock<ICategoriaRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<CategoriaService>>();
+            var mockLogger = new Mock<IAppLogger<CategoriaService>>();
 
             var dto = new CrearCategoriaDTO { Nombre = "Electrónica" };
             var categoria = new Categoria { Id = 1, Nombre = "Electrónica" };
@@ -44,7 +43,7 @@ namespace BicTechBack.UnitTests.Services
         {
             var mockRepo = new Mock<ICategoriaRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<CategoriaService>>();
+            var mockLogger = new Mock<IAppLogger<CategoriaService>>();
 
             var dto = new CrearCategoriaDTO { Nombre = "Electrónica" };
             mockRepo.Setup(r => r.GetAllAsync()).ReturnsAsync(new List<Categoria> { new Categoria { Id = 1, Nombre = "Electrónica" } });
@@ -59,7 +58,7 @@ namespace BicTechBack.UnitTests.Services
         {
             var mockRepo = new Mock<ICategoriaRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<CategoriaService>>();
+            var mockLogger = new Mock<IAppLogger<CategoriaService>>();
 
             mockRepo.Setup(r => r.DeleteAsync(1)).ReturnsAsync(true);
 
@@ -76,7 +75,7 @@ namespace BicTechBack.UnitTests.Services
         {
             var mockRepo = new Mock<ICategoriaRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<CategoriaService>>();
+            var mockLogger = new Mock<IAppLogger<CategoriaService>>();
 
             mockRepo.Setup(r => r.DeleteAsync(1)).ReturnsAsync(false);
 
@@ -90,7 +89,7 @@ namespace BicTechBack.UnitTests.Services
         {
             var mockRepo = new Mock<ICategoriaRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<CategoriaService>>();
+            var mockLogger = new Mock<IAppLogger<CategoriaService>>();
 
             var categorias = new List<Categoria>
             {
@@ -119,7 +118,7 @@ namespace BicTechBack.UnitTests.Services
         {
             var mockRepo = new Mock<ICategoriaRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<CategoriaService>>();
+            var mockLogger = new Mock<IAppLogger<CategoriaService>>();
 
             mockRepo.Setup(r => r.GetAllAsync()).ReturnsAsync(new List<Categoria>());
             mockMapper.Setup(m => m.Map<IEnumerable<CategoriaDTO>>(It.IsAny<IEnumerable<Categoria>>()))
@@ -138,7 +137,7 @@ namespace BicTechBack.UnitTests.Services
         {
             var mockRepo = new Mock<ICategoriaRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<CategoriaService>>();
+            var mockLogger = new Mock<IAppLogger<CategoriaService>>();
 
             var categoria = new Categoria { Id = 1, Nombre = "Electrónica" };
             mockRepo.Setup(r => r.GetByIdAsync(1)).ReturnsAsync(categoria);
@@ -157,7 +156,7 @@ namespace BicTechBack.UnitTests.Services
         {
             var mockRepo = new Mock<ICategoriaRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<CategoriaService>>();
+            var mockLogger = new Mock<IAppLogger<CategoriaService>>();
 
             mockRepo.Setup(r => r.GetByIdAsync(1)).ReturnsAsync((Categoria?)null);
 
@@ -171,7 +170,7 @@ namespace BicTechBack.UnitTests.Services
         {
             var mockRepo = new Mock<ICategoriaRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<CategoriaService>>();
+            var mockLogger = new Mock<IAppLogger<CategoriaService>>();
 
             var categorias = new List<Categoria>
             {
@@ -204,7 +203,7 @@ namespace BicTechBack.UnitTests.Services
         {
             var mockRepo = new Mock<ICategoriaRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<CategoriaService>>();
+            var mockLogger = new Mock<IAppLogger<CategoriaService>>();
 
             var categoriaExistente = new Categoria { Id = 1, Nombre = "Electrónica" };
             var dto = new CrearCategoriaDTO { Nombre = "Ropa" };
@@ -227,7 +226,7 @@ namespace BicTechBack.UnitTests.Services
         {
             var mockRepo = new Mock<ICategoriaRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<CategoriaService>>();
+            var mockLogger = new Mock<IAppLogger<CategoriaService>>();
 
             var dto = new CrearCategoriaDTO { Nombre = "Ropa" };
 
@@ -243,7 +242,7 @@ namespace BicTechBack.UnitTests.Services
         {
             var mockRepo = new Mock<ICategoriaRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<CategoriaService>>();
+            var mockLogger = new Mock<IAppLogger<CategoriaService>>();
 
             var categoriaExistente = new Categoria { Id = 1, Nombre = "Electrónica" };
             var dto = new CrearCategoriaDTO { Nombre = "Ropa" };

@@ -3,7 +3,6 @@ using BicTechBack.src.Core.DTOs;
 using BicTechBack.src.Core.Entities;
 using BicTechBack.src.Core.Interfaces;
 using BicTechBack.src.Core.Services;
-using Microsoft.Extensions.Logging;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -22,7 +21,7 @@ namespace BicTechBack.UnitTests.Services
             var mockCategoriaRepo = new Mock<ICategoriaRepository>();
             var mockMarcaRepo = new Mock<IMarcaRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<ProductoService>>();
+            var mockLogger = new Mock<IAppLogger<ProductoService>>();
 
             var dto = new CrearProductoDTO
             {
@@ -52,14 +51,11 @@ namespace BicTechBack.UnitTests.Services
                 mockLogger.Object
             );
 
-
             var result = await service.CreateProductoAsync(dto);
-
 
             Assert.NotNull(result);
             Assert.Equal(dto.Nombre, result.Nombre);
             mockRepo.Verify(r => r.AddAsync(It.IsAny<Producto>()), Times.Once);
-
         }
 
         [Fact]
@@ -69,7 +65,7 @@ namespace BicTechBack.UnitTests.Services
             var mockCategoriaRepo = new Mock<ICategoriaRepository>();
             var mockMarcaRepo = new Mock<IMarcaRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<ProductoService>>();
+            var mockLogger = new Mock<IAppLogger<ProductoService>>();
 
             var dto = new CrearProductoDTO
             {
@@ -95,11 +91,10 @@ namespace BicTechBack.UnitTests.Services
                 mockLogger.Object
             );
 
-            await Assert.ThrowsAsync<InvalidOperationException>(async() => 
+            await Assert.ThrowsAsync<InvalidOperationException>(async () =>
             {
                 await service.CreateProductoAsync(dto);
             });
-
         }
 
         [Fact]
@@ -109,7 +104,7 @@ namespace BicTechBack.UnitTests.Services
             var mockCategoriaRepo = new Mock<ICategoriaRepository>();
             var mockMarcaRepo = new Mock<IMarcaRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<ProductoService>>();
+            var mockLogger = new Mock<IAppLogger<ProductoService>>();
 
             var dto = new CrearProductoDTO
             {
@@ -146,7 +141,7 @@ namespace BicTechBack.UnitTests.Services
             var mockCategoriaRepo = new Mock<ICategoriaRepository>();
             var mockMarcaRepo = new Mock<IMarcaRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<ProductoService>>();
+            var mockLogger = new Mock<IAppLogger<ProductoService>>();
 
             var dto = new CrearProductoDTO
             {
@@ -178,14 +173,14 @@ namespace BicTechBack.UnitTests.Services
         public async Task DeleteProductoAsync_EliminacionCorrecta_RetornaTrue()
         {
             var mockRepo = new Mock<IProductoRepository>();
-            var mockLogger = new Mock<ILogger<ProductoService>>();
+            var mockLogger = new Mock<IAppLogger<ProductoService>>();
 
             int productoId = 1;
             mockRepo.Setup(r => r.DeleteAsync(productoId)).ReturnsAsync(true);
 
             var service = new ProductoService(
                 mockRepo.Object,
-                null, 
+                null,
                 null,
                 null,
                 mockLogger.Object
@@ -201,7 +196,7 @@ namespace BicTechBack.UnitTests.Services
         public async Task DeleteProductoAsync_EliminacionFallida_RetornaFalse()
         {
             var mockRepo = new Mock<IProductoRepository>();
-            var mockLogger = new Mock<ILogger<ProductoService>>();
+            var mockLogger = new Mock<IAppLogger<ProductoService>>();
 
             int productoId = 2;
 
@@ -224,7 +219,7 @@ namespace BicTechBack.UnitTests.Services
         public async Task GetAllProductosAsync_ProductosExistentes_RetornaListaDeDTOs()
         {
             var mockRepo = new Mock<IProductoRepository>();
-            var mockLogger = new Mock<ILogger<ProductoService>>();
+            var mockLogger = new Mock<IAppLogger<ProductoService>>();
             var mockMapper = new Mock<IMapper>();
 
             mockRepo.Setup(r => r.GetAllAsync()).ReturnsAsync(new List<Producto>
@@ -260,7 +255,7 @@ namespace BicTechBack.UnitTests.Services
         public async Task GetAllProductosAsync_NoProductos_RetornaListaVacia()
         {
             var mockRepo = new Mock<IProductoRepository>();
-            var mockLogger = new Mock<ILogger<ProductoService>>();
+            var mockLogger = new Mock<IAppLogger<ProductoService>>();
             var mockMapper = new Mock<IMapper>();
 
             mockRepo.Setup(r => r.GetAllAsync()).ReturnsAsync(new List<Producto>());
@@ -285,7 +280,7 @@ namespace BicTechBack.UnitTests.Services
         public async Task GetProductoByIdAsync_ProductoExistente_RetornaDTO()
         {
             var mockRepo = new Mock<IProductoRepository>();
-            var mockLogger = new Mock<ILogger<ProductoService>>();
+            var mockLogger = new Mock<IAppLogger<ProductoService>>();
             var mockMapper = new Mock<IMapper>();
 
             int productoId = 1;
@@ -317,7 +312,7 @@ namespace BicTechBack.UnitTests.Services
         public async Task GetProductoByIdAsync_ProductoNoExistente_LanzaKeyNotFoundException()
         {
             var mockRepo = new Mock<IProductoRepository>();
-            var mockLogger = new Mock<ILogger<ProductoService>>();
+            var mockLogger = new Mock<IAppLogger<ProductoService>>();
             var mockMapper = new Mock<IMapper>();
 
             int productoId = 99;
@@ -343,7 +338,7 @@ namespace BicTechBack.UnitTests.Services
         public async Task GetProductosAsync_ProductosExistentesYPaginacion_RetornaListaDeDTOs()
         {
             var mockRepo = new Mock<IProductoRepository>();
-            var mockLogger = new Mock<ILogger<ProductoService>>();
+            var mockLogger = new Mock<IAppLogger<ProductoService>>();
             var mockMapper = new Mock<IMapper>();
 
             var productos = new List<Producto>
@@ -389,7 +384,7 @@ namespace BicTechBack.UnitTests.Services
             var mockCategoriaRepo = new Mock<ICategoriaRepository>();
             var mockMarcaRepo = new Mock<IMarcaRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<ProductoService>>();
+            var mockLogger = new Mock<IAppLogger<ProductoService>>();
 
             var productoExistenteId = 1;
             var producto = new CrearProductoDTO
@@ -474,7 +469,7 @@ namespace BicTechBack.UnitTests.Services
             var mockCategoriaRepo = new Mock<ICategoriaRepository>();
             var mockMarcaRepo = new Mock<IMarcaRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<ProductoService>>();
+            var mockLogger = new Mock<IAppLogger<ProductoService>>();
 
             var productoExistenteId = 1;
 
@@ -528,7 +523,7 @@ namespace BicTechBack.UnitTests.Services
             var mockCategoriaRepo = new Mock<ICategoriaRepository>();
             var mockMarcaRepo = new Mock<IMarcaRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<ProductoService>>();
+            var mockLogger = new Mock<IAppLogger<ProductoService>>();
             var productoExistenteId = 1;
             var producto = new CrearProductoDTO
             {
@@ -585,7 +580,7 @@ namespace BicTechBack.UnitTests.Services
             var mockCategoriaRepo = new Mock<ICategoriaRepository>();
             var mockMarcaRepo = new Mock<IMarcaRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<ProductoService>>();
+            var mockLogger = new Mock<IAppLogger<ProductoService>>();
             var productoExistenteId = 1;
             var producto = new CrearProductoDTO
             {
@@ -637,7 +632,7 @@ namespace BicTechBack.UnitTests.Services
             var mockCategoriaRepo = new Mock<ICategoriaRepository>();
             var mockMarcaRepo = new Mock<IMarcaRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<ProductoService>>();
+            var mockLogger = new Mock<IAppLogger<ProductoService>>();
             var productoExistenteId = 1;
             var producto = new CrearProductoDTO
             {

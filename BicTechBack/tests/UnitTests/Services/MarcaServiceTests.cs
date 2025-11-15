@@ -3,7 +3,6 @@ using BicTechBack.src.Core.DTOs;
 using BicTechBack.src.Core.Entities;
 using BicTechBack.src.Core.Interfaces;
 using BicTechBack.src.Core.Services;
-using Microsoft.Extensions.Logging;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -21,7 +20,7 @@ namespace BicTechBack.UnitTests.Services
             var mockRepo = new Mock<IMarcaRepository>();
             var mockPaisRepo = new Mock<IPaisRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<MarcaService>>();
+            var mockLogger = new Mock<IAppLogger<MarcaService>>();
 
             var dto = new CrearMarcaDTO { Nombre = "Nike", PaisId = 1 };
             var pais = new Pais { Id = 1, Nombre = "Argentina" };
@@ -49,7 +48,7 @@ namespace BicTechBack.UnitTests.Services
             var mockRepo = new Mock<IMarcaRepository>();
             var mockPaisRepo = new Mock<IPaisRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<MarcaService>>();
+            var mockLogger = new Mock<IAppLogger<MarcaService>>();
 
             var dto = new CrearMarcaDTO { Nombre = "Nike", PaisId = 1 };
 
@@ -66,7 +65,7 @@ namespace BicTechBack.UnitTests.Services
             var mockRepo = new Mock<IMarcaRepository>();
             var mockPaisRepo = new Mock<IPaisRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<MarcaService>>();
+            var mockLogger = new Mock<IAppLogger<MarcaService>>();
 
             var dto = new CrearMarcaDTO { Nombre = "Nike", PaisId = 1 };
             var pais = new Pais { Id = 1, Nombre = "Argentina" };
@@ -85,7 +84,7 @@ namespace BicTechBack.UnitTests.Services
             var mockRepo = new Mock<IMarcaRepository>();
             var mockPaisRepo = new Mock<IPaisRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<MarcaService>>();
+            var mockLogger = new Mock<IAppLogger<MarcaService>>();
 
             mockRepo.Setup(r => r.DeleteAsync(1)).ReturnsAsync(true);
 
@@ -103,7 +102,7 @@ namespace BicTechBack.UnitTests.Services
             var mockRepo = new Mock<IMarcaRepository>();
             var mockPaisRepo = new Mock<IPaisRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<MarcaService>>();
+            var mockLogger = new Mock<IAppLogger<MarcaService>>();
 
             mockRepo.Setup(r => r.DeleteAsync(1)).ReturnsAsync(false);
 
@@ -118,7 +117,7 @@ namespace BicTechBack.UnitTests.Services
             var mockRepo = new Mock<IMarcaRepository>();
             var mockPaisRepo = new Mock<IPaisRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<MarcaService>>();
+            var mockLogger = new Mock<IAppLogger<MarcaService>>();
 
             var marcas = new List<Marca>
             {
@@ -148,7 +147,7 @@ namespace BicTechBack.UnitTests.Services
             var mockRepo = new Mock<IMarcaRepository>();
             var mockPaisRepo = new Mock<IPaisRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<MarcaService>>();
+            var mockLogger = new Mock<IAppLogger<MarcaService>>();
 
             mockRepo.Setup(r => r.GetAllAsync()).ReturnsAsync(new List<Marca>());
             mockMapper.Setup(m => m.Map<IEnumerable<MarcaDTO>>(It.IsAny<IEnumerable<Marca>>()))
@@ -168,7 +167,7 @@ namespace BicTechBack.UnitTests.Services
             var mockRepo = new Mock<IMarcaRepository>();
             var mockPaisRepo = new Mock<IPaisRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<MarcaService>>();
+            var mockLogger = new Mock<IAppLogger<MarcaService>>();
 
             var marca = new Marca { Id = 1, Nombre = "Nike", PaisId = 1, Pais = new Pais { Id = 1, Nombre = "Argentina" } };
             mockRepo.Setup(r => r.GetByIdAsync(1)).ReturnsAsync(marca);
@@ -188,7 +187,7 @@ namespace BicTechBack.UnitTests.Services
             var mockRepo = new Mock<IMarcaRepository>();
             var mockPaisRepo = new Mock<IPaisRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<MarcaService>>();
+            var mockLogger = new Mock<IAppLogger<MarcaService>>();
 
             mockRepo.Setup(r => r.GetByIdAsync(1)).ReturnsAsync((Marca?)null);
 
@@ -203,7 +202,7 @@ namespace BicTechBack.UnitTests.Services
             var mockRepo = new Mock<IMarcaRepository>();
             var mockPaisRepo = new Mock<IPaisRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<MarcaService>>();
+            var mockLogger = new Mock<IAppLogger<MarcaService>>();
 
             var marcas = new List<Marca>
             {
@@ -237,7 +236,7 @@ namespace BicTechBack.UnitTests.Services
             var mockRepo = new Mock<IMarcaRepository>();
             var mockPaisRepo = new Mock<IPaisRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<MarcaService>>();
+            var mockLogger = new Mock<IAppLogger<MarcaService>>();
 
             var marcaExistente = new Marca { Id = 1, Nombre = "Nike", PaisId = 1 };
             var pais = new Pais { Id = 2, Nombre = "Brasil" };
@@ -264,7 +263,7 @@ namespace BicTechBack.UnitTests.Services
             var mockRepo = new Mock<IMarcaRepository>();
             var mockPaisRepo = new Mock<IPaisRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<MarcaService>>();
+            var mockLogger = new Mock<IAppLogger<MarcaService>>();
 
             var dto = new CrearMarcaDTO { Nombre = "Adidas", PaisId = 2 };
 
@@ -281,7 +280,7 @@ namespace BicTechBack.UnitTests.Services
             var mockRepo = new Mock<IMarcaRepository>();
             var mockPaisRepo = new Mock<IPaisRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<MarcaService>>();
+            var mockLogger = new Mock<IAppLogger<MarcaService>>();
 
             var marcaExistente = new Marca { Id = 1, Nombre = "Nike", PaisId = 1 };
             var dto = new CrearMarcaDTO { Nombre = "Adidas", PaisId = 2 };
@@ -300,7 +299,7 @@ namespace BicTechBack.UnitTests.Services
             var mockRepo = new Mock<IMarcaRepository>();
             var mockPaisRepo = new Mock<IPaisRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<MarcaService>>();
+            var mockLogger = new Mock<IAppLogger<MarcaService>>();
 
             var marcaExistente = new Marca { Id = 1, Nombre = "Nike", PaisId = 1 };
             var pais = new Pais { Id = 2, Nombre = "Brasil" };

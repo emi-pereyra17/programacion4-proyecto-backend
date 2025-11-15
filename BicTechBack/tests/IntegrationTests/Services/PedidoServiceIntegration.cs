@@ -4,6 +4,7 @@ using BicTechBack.src.Core.Entities;
 using BicTechBack.src.Core.Mappings;
 using BicTechBack.src.Core.Services;
 using BicTechBack.src.Infrastructure.Data;
+using BicTechBack.src.Infrastructure.Logging;
 using BicTechBack.src.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -39,7 +40,8 @@ namespace BicTechBack.IntegrationTests.Services
             var usuarioRepo = new UsuarioRepository(context);
             var productoRepo = new ProductoRepository(context);
             var mapper = GetMapper();
-            var logger = new LoggerFactory().CreateLogger<PedidoService>();
+            var msLogger = new LoggerFactory().CreateLogger<PedidoService>();
+            var logger = new LoggerAdapter<PedidoService>(msLogger);
             return new PedidoService(repo, usuarioRepo, productoRepo, mapper, logger);
         }
 
@@ -83,7 +85,7 @@ namespace BicTechBack.IntegrationTests.Services
             {
                 UsuarioId = usuario.Id,
                 DireccionEnvio = "Calle Falsa 123",
-                Productos = new List<CrearPedidoDetalleDTO>
+                Detalles = new List<CrearPedidoDetalleDTO>
                 {
                     new CrearPedidoDetalleDTO { ProductoId = producto.Id, Cantidad = 2, Precio = 100 }
                 }
@@ -94,8 +96,8 @@ namespace BicTechBack.IntegrationTests.Services
             Assert.NotNull(result);
             Assert.Equal(usuario.Id, result.UsuarioId);
             Assert.Equal(200, result.Total);
-            Assert.Single(result.Productos);
-            Assert.Equal(producto.Id, result.Productos[0].ProductoId);
+            Assert.Single(result.PedidosDetalles);
+            Assert.Equal(producto.Id, result.PedidosDetalles[0].ProductoId);
 
             var productoEnDb = await context.Productos.FindAsync(producto.Id);
             Assert.Equal(8, productoEnDb.Stock); // Stock descontado
@@ -132,7 +134,7 @@ namespace BicTechBack.IntegrationTests.Services
             {
                 UsuarioId = 999,
                 DireccionEnvio = "Calle Falsa 123",
-                Productos = new List<CrearPedidoDetalleDTO>
+                Detalles = new List<CrearPedidoDetalleDTO>
                 {
                     new CrearPedidoDetalleDTO { ProductoId = producto.Id, Cantidad = 2, Precio = 100 }
                 }
@@ -153,7 +155,7 @@ namespace BicTechBack.IntegrationTests.Services
             {
                 UsuarioId = usuario.Id,
                 DireccionEnvio = "Calle Falsa 123",
-                Productos = new List<CrearPedidoDetalleDTO>()
+                Detalles = new List<CrearPedidoDetalleDTO>()
             };
 
             await Assert.ThrowsAsync<ArgumentException>(() => service.CreatePedidoAsync(dto));
@@ -171,7 +173,7 @@ namespace BicTechBack.IntegrationTests.Services
             {
                 UsuarioId = usuario.Id,
                 DireccionEnvio = "Calle Falsa 123",
-                Productos = new List<CrearPedidoDetalleDTO>
+                Detalles = new List<CrearPedidoDetalleDTO>
                 {
                     new CrearPedidoDetalleDTO { ProductoId = 999, Cantidad = 2, Precio = 100 }
                 }
@@ -192,7 +194,7 @@ namespace BicTechBack.IntegrationTests.Services
             {
                 UsuarioId = usuario.Id,
                 DireccionEnvio = "Calle Falsa 123",
-                Productos = new List<CrearPedidoDetalleDTO>
+                Detalles = new List<CrearPedidoDetalleDTO>
                 {
                     new CrearPedidoDetalleDTO { ProductoId = producto.Id, Cantidad = 2, Precio = 100 }
                 }
@@ -213,7 +215,7 @@ namespace BicTechBack.IntegrationTests.Services
             {
                 UsuarioId = usuario.Id,
                 DireccionEnvio = "Calle Falsa 123",
-                Productos = new List<CrearPedidoDetalleDTO>
+                Detalles = new List<CrearPedidoDetalleDTO>
                 {
                     new CrearPedidoDetalleDTO { ProductoId = producto.Id, Cantidad = 2, Precio = 100 }
                 }
@@ -230,7 +232,7 @@ namespace BicTechBack.IntegrationTests.Services
             var result = await service.AgregarProductoAlPedidoAsync(dto);
 
             Assert.NotNull(result);
-            Assert.Equal(3, result.Productos[0].Cantidad);
+            Assert.Equal(3, result.PedidosDetalles[0].Cantidad);
             Assert.Equal(300, result.Total);
         }
 
@@ -265,7 +267,7 @@ namespace BicTechBack.IntegrationTests.Services
             {
                 UsuarioId = usuario.Id,
                 DireccionEnvio = "Calle Falsa 123",
-                Productos = new List<CrearPedidoDetalleDTO>
+                Detalles = new List<CrearPedidoDetalleDTO>
                 {
                     new CrearPedidoDetalleDTO { ProductoId = producto.Id, Cantidad = 2, Precio = 100 }
                 }
@@ -298,7 +300,7 @@ namespace BicTechBack.IntegrationTests.Services
             {
                 UsuarioId = usuario.Id,
                 DireccionEnvio = "Calle Falsa 123",
-                Productos = new List<CrearPedidoDetalleDTO>
+                Detalles = new List<CrearPedidoDetalleDTO>
                 {
                     new CrearPedidoDetalleDTO { ProductoId = producto.Id, Cantidad = 2, Precio = 100 }
                 }
@@ -334,7 +336,7 @@ namespace BicTechBack.IntegrationTests.Services
             {
                 UsuarioId = usuario.Id,
                 DireccionEnvio = "Calle Falsa 123",
-                Productos = new List<CrearPedidoDetalleDTO>
+                Detalles = new List<CrearPedidoDetalleDTO>
                 {
                     new CrearPedidoDetalleDTO { ProductoId = producto.Id, Cantidad = 2, Precio = 100 }
                 }
@@ -367,7 +369,7 @@ namespace BicTechBack.IntegrationTests.Services
             {
                 UsuarioId = usuario.Id,
                 DireccionEnvio = "Calle Falsa 123",
-                Productos = new List<CrearPedidoDetalleDTO>
+                Detalles = new List<CrearPedidoDetalleDTO>
                 {
                     new CrearPedidoDetalleDTO { ProductoId = producto.Id, Cantidad = 2, Precio = 100 }
                 }
@@ -377,7 +379,7 @@ namespace BicTechBack.IntegrationTests.Services
             {
                 UsuarioId = usuario.Id,
                 DireccionEnvio = "Nueva Direccion",
-                Productos = new List<CrearPedidoDetalleDTO>
+                Detalles = new List<CrearPedidoDetalleDTO>
                 {
                     new CrearPedidoDetalleDTO { ProductoId = producto.Id, Cantidad = 1, Precio = 100 }
                 }
@@ -387,7 +389,7 @@ namespace BicTechBack.IntegrationTests.Services
 
             Assert.NotNull(result);
             Assert.Equal("Nueva Direccion", result.DireccionEnvio);
-            Assert.Single(result.Productos);
+            Assert.Single(result.PedidosDetalles);
             Assert.Equal(100, result.Total);
         }
 
@@ -403,7 +405,7 @@ namespace BicTechBack.IntegrationTests.Services
             {
                 UsuarioId = usuario.Id,
                 DireccionEnvio = "Nueva Direccion",
-                Productos = new List<CrearPedidoDetalleDTO>
+                Detalles = new List<CrearPedidoDetalleDTO>
                 {
                     new CrearPedidoDetalleDTO { ProductoId = producto.Id, Cantidad = 1, Precio = 100 }
                 }
@@ -424,7 +426,7 @@ namespace BicTechBack.IntegrationTests.Services
             {
                 UsuarioId = usuario.Id,
                 DireccionEnvio = "Calle Falsa 123",
-                Productos = new List<CrearPedidoDetalleDTO>
+                Detalles = new List<CrearPedidoDetalleDTO>
                 {
                     new CrearPedidoDetalleDTO { ProductoId = producto.Id, Cantidad = 2, Precio = 100 }
                 }
@@ -434,7 +436,7 @@ namespace BicTechBack.IntegrationTests.Services
             {
                 UsuarioId = 999,
                 DireccionEnvio = "Nueva Direccion",
-                Productos = new List<CrearPedidoDetalleDTO>
+                Detalles = new List<CrearPedidoDetalleDTO>
                 {
                     new CrearPedidoDetalleDTO { ProductoId = producto.Id, Cantidad = 1, Precio = 100 }
                 }
@@ -455,7 +457,7 @@ namespace BicTechBack.IntegrationTests.Services
             {
                 UsuarioId = usuario.Id,
                 DireccionEnvio = "Calle Falsa 123",
-                Productos = new List<CrearPedidoDetalleDTO>
+                Detalles = new List<CrearPedidoDetalleDTO>
                 {
                     new CrearPedidoDetalleDTO { ProductoId = producto.Id, Cantidad = 2, Precio = 100 }
                 }
@@ -465,7 +467,7 @@ namespace BicTechBack.IntegrationTests.Services
             {
                 UsuarioId = usuario.Id,
                 DireccionEnvio = "Nueva Direccion",
-                Productos = new List<CrearPedidoDetalleDTO>()
+                Detalles = new List<CrearPedidoDetalleDTO>()
             };
 
             await Assert.ThrowsAsync<ArgumentException>(() => service.UpdatePedidoAsync(pedido.Id, dto));
@@ -483,7 +485,7 @@ namespace BicTechBack.IntegrationTests.Services
             {
                 UsuarioId = usuario.Id,
                 DireccionEnvio = "Calle Falsa 123",
-                Productos = new List<CrearPedidoDetalleDTO>
+                Detalles = new List<CrearPedidoDetalleDTO>
                 {
                     new CrearPedidoDetalleDTO { ProductoId = producto.Id, Cantidad = 2, Precio = 100 }
                 }
@@ -521,7 +523,7 @@ namespace BicTechBack.IntegrationTests.Services
             {
                 UsuarioId = usuario.Id,
                 DireccionEnvio = "Calle Falsa 123",
-                Productos = new List<CrearPedidoDetalleDTO>
+                Detalles = new List<CrearPedidoDetalleDTO>
                 {
                     new CrearPedidoDetalleDTO { ProductoId = producto.Id, Cantidad = 2, Precio = 100 }
                 }
@@ -531,7 +533,7 @@ namespace BicTechBack.IntegrationTests.Services
             {
                 UsuarioId = usuario.Id,
                 DireccionEnvio = "Otra Direccion",
-                Productos = new List<CrearPedidoDetalleDTO>
+                Detalles = new List<CrearPedidoDetalleDTO>
                 {
                     new CrearPedidoDetalleDTO { ProductoId = producto.Id, Cantidad = 1, Precio = 100 }
                 }

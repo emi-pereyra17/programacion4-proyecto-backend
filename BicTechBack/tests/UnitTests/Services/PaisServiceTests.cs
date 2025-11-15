@@ -3,7 +3,6 @@ using BicTechBack.src.Core.DTOs;
 using BicTechBack.src.Core.Entities;
 using BicTechBack.src.Core.Interfaces;
 using BicTechBack.src.Core.Services;
-using Microsoft.Extensions.Logging;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -20,7 +19,7 @@ namespace BicTechBack.UnitTests.Services
         {
             var mockRepo = new Mock<IPaisRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<PaisService>>();
+            var mockLogger = new Mock<IAppLogger<PaisService>>();
 
             var dto = new CrearPaisDTO { Nombre = "Argentina" };
             var pais = new Pais { Id = 1, Nombre = "Argentina" };
@@ -44,7 +43,7 @@ namespace BicTechBack.UnitTests.Services
         {
             var mockRepo = new Mock<IPaisRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<PaisService>>();
+            var mockLogger = new Mock<IAppLogger<PaisService>>();
 
             var dto = new CrearPaisDTO { Nombre = "Argentina" };
             mockRepo.Setup(r => r.GetAllAsync()).ReturnsAsync(new List<Pais> { new Pais { Id = 1, Nombre = "Argentina" } });
@@ -59,7 +58,7 @@ namespace BicTechBack.UnitTests.Services
         {
             var mockRepo = new Mock<IPaisRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<PaisService>>();
+            var mockLogger = new Mock<IAppLogger<PaisService>>();
 
             mockRepo.Setup(r => r.DeleteAsync(1)).ReturnsAsync(true);
 
@@ -76,7 +75,7 @@ namespace BicTechBack.UnitTests.Services
         {
             var mockRepo = new Mock<IPaisRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<PaisService>>();
+            var mockLogger = new Mock<IAppLogger<PaisService>>();
 
             mockRepo.Setup(r => r.DeleteAsync(1)).ReturnsAsync(false);
 
@@ -90,7 +89,7 @@ namespace BicTechBack.UnitTests.Services
         {
             var mockRepo = new Mock<IPaisRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<PaisService>>();
+            var mockLogger = new Mock<IAppLogger<PaisService>>();
 
             var paises = new List<Pais>
             {
@@ -119,7 +118,7 @@ namespace BicTechBack.UnitTests.Services
         {
             var mockRepo = new Mock<IPaisRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<PaisService>>();
+            var mockLogger = new Mock<IAppLogger<PaisService>>();
 
             mockRepo.Setup(r => r.GetAllAsync()).ReturnsAsync(new List<Pais>());
             mockMapper.Setup(m => m.Map<IEnumerable<PaisDTO>>(It.IsAny<IEnumerable<Pais>>()))
@@ -138,7 +137,7 @@ namespace BicTechBack.UnitTests.Services
         {
             var mockRepo = new Mock<IPaisRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<PaisService>>();
+            var mockLogger = new Mock<IAppLogger<PaisService>>();
 
             var pais = new Pais { Id = 1, Nombre = "Argentina" };
             mockRepo.Setup(r => r.GetByIdAsync(1)).ReturnsAsync(pais);
@@ -157,7 +156,7 @@ namespace BicTechBack.UnitTests.Services
         {
             var mockRepo = new Mock<IPaisRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<PaisService>>();
+            var mockLogger = new Mock<IAppLogger<PaisService>>();
 
             mockRepo.Setup(r => r.GetByIdAsync(1)).ReturnsAsync((Pais?)null);
 
@@ -171,7 +170,7 @@ namespace BicTechBack.UnitTests.Services
         {
             var mockRepo = new Mock<IPaisRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<PaisService>>();
+            var mockLogger = new Mock<IAppLogger<PaisService>>();
 
             var paises = new List<Pais>
             {
@@ -204,7 +203,7 @@ namespace BicTechBack.UnitTests.Services
         {
             var mockRepo = new Mock<IPaisRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<PaisService>>();
+            var mockLogger = new Mock<IAppLogger<PaisService>>();
 
             var paisExistente = new Pais { Id = 1, Nombre = "Argentina" };
             var dto = new CrearPaisDTO { Nombre = "Uruguay" };
@@ -227,7 +226,7 @@ namespace BicTechBack.UnitTests.Services
         {
             var mockRepo = new Mock<IPaisRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<PaisService>>();
+            var mockLogger = new Mock<IAppLogger<PaisService>>();
 
             var dto = new CrearPaisDTO { Nombre = "Uruguay" };
 
@@ -244,7 +243,7 @@ namespace BicTechBack.UnitTests.Services
         {
             var mockRepo = new Mock<IPaisRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger<PaisService>>();
+            var mockLogger = new Mock<IAppLogger<PaisService>>();
 
             var paisExistente = new Pais { Id = 1, Nombre = "Argentina" };
             var dto = new CrearPaisDTO { Nombre = "Brasil" };

@@ -5,7 +5,9 @@ using BicTechBack.src.Core.Interfaces;
 using BicTechBack.src.Core.Mappings;
 using BicTechBack.src.Core.Services;
 using BicTechBack.src.Infrastructure.Data;
+using BicTechBack.src.Infrastructure.Logging;
 using BicTechBack.src.Infrastructure.Repositories;
+using BicTechBack.src.Infrastructure.Security;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -36,8 +38,9 @@ namespace BicTechBack.IntegrationTests.Services
         {
             var repo = new UsuarioRepository(context);
             var mapper = GetMapper();
-            var logger = new LoggerFactory().CreateLogger<UsuarioService>();
-            var passwordHasher = new PasswordHasher<Usuario>(); // ✅ agregado
+            var msLogger = new LoggerFactory().CreateLogger<UsuarioService>();
+            var logger = new LoggerAdapter<UsuarioService>(msLogger);
+            var passwordHasher = new PasswordHasherService(); 
             return new UsuarioService(repo, mapper, logger, passwordHasher);
         }
 

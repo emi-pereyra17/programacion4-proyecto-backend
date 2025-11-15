@@ -1,0 +1,30 @@
+@media (max-width: 767.98px) {
+  .main-layout {
+    margin-left: 0; 
+  }
+}
+
+.productos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 2rem;
+  padding: 2rem;
+  justify-items: center;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+}
+
+
+@media (max-width: 991.98px) {
+  .productos-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+
+@media (max-width: 575.98px) {
+  .productos-grid {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+}

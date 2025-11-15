@@ -105,11 +105,11 @@ builder.Services.AddCors(options =>
 // Base de datos
 // ==========================================
 
-builder.Services.AddDbContext<AppDbContext>(options =>
-     options.UseSqlite(builder.Configuration.GetConnectionString("SQLiteConnection")));
-
 //builder.Services.AddDbContext<AppDbContext>(options =>
-    //options.UseSqlServer(builder.Configuration.GetConnectionString("SQLServerConnection")));
+     //options.UseSqlite(builder.Configuration.GetConnectionString("SQLiteConnection")));
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SQLServerConnection")));
 
 
 // AutoMapper

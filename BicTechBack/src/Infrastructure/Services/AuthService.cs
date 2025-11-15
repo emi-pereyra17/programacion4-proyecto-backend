@@ -157,7 +157,7 @@ namespace BicTechBack.src.Core.Services
 
         private string GenerateJwtToken(Usuario usuario)
         {
-            // Leer variables JWT desde entorno primero
+        
             var jwtKey = Environment.GetEnvironmentVariable("JWT_KEY") 
                          ?? _configuration["Jwt:Key"];
             var jwtIssuer = Environment.GetEnvironmentVariable("JWT_ISSUER") 

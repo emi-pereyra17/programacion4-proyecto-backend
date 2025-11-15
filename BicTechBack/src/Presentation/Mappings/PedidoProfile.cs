@@ -17,7 +17,8 @@ namespace BicTechBack.src.Core.Mappings
                 .ForMember(dest => dest.Total, opt => opt.MapFrom(src => src.Total))
                 .ForMember(dest => dest.Estado, opt => opt.MapFrom(src => src.Estado.ToString()))
                 .ForMember(dest => dest.DireccionEnvio, opt => opt.MapFrom(src => src.DireccionEnvio))
-                .ForMember(dest => dest.Detalles, opt => opt.MapFrom(src => src.PedidosDetalles));
+                .ForMember(dest => dest.Usuario, opt => opt.MapFrom(src => src.Usuario))
+                .ForMember(dest => dest.PedidosDetalles, opt => opt.MapFrom(src => src.PedidosDetalles));
         }
     }
 }

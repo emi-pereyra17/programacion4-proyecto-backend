@@ -21,6 +21,11 @@
         public int ProductoId { get; set; }
 
         /// <summary>
+        /// Información del producto incluido en el pedido.
+        /// </summary>
+        public ProductoDTO Producto { get; set; }
+
+        /// <summary>
         /// Nombre del producto incluido en el pedido.
         /// </summary>
         public string NombreProducto { get; set; }

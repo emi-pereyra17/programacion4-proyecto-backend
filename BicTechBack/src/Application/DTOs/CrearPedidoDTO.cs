@@ -22,6 +22,11 @@ namespace BicTechBack.src.Core.DTOs
         public string DireccionEnvio { get; set; }
 
         /// <summary>
+        /// Estado del pedido.    
+        /// </summary>
+        public int Estado { get; set; }
+
+        /// <summary>
         /// Lista de productos que forman parte del pedido.
         /// </summary>
         [Required(ErrorMessage = "Debe agregar al menos un detalle al pedido.")]

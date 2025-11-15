@@ -16,6 +16,11 @@
         public int UsuarioId { get; set; }
 
         /// <summary>
+        /// Información del usuario que realizó el pedido.
+        /// </summary>
+        public UsuarioDTO Usuario { get; set; }
+
+        /// <summary>
         /// Fecha y hora en que se realizó el pedido.
         /// </summary>
         public DateTime FechaPedido { get; set; }
@@ -38,6 +43,6 @@
         /// <summary>
         /// Lista de detalles incluidos en el pedido.
         /// </summary>
-        public List<PedidoDetalleDTO> Detalles { get; set; }
+        public List<PedidoDetalleDTO> PedidosDetalles { get; set; }
     }
 }

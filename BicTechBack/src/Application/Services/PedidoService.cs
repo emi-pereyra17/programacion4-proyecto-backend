@@ -208,6 +208,7 @@ namespace BicTechBack.src.Core.Services
             // Recalcular todo el pedido
             pedidoExistente.UsuarioId = dto.UsuarioId;
             pedidoExistente.DireccionEnvio = dto.DireccionEnvio;
+            pedidoExistente.Estado = (EstadoPedido)dto.Estado;
             pedidoExistente.PedidosDetalles.Clear();
 
             decimal total = 0;
